@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HomeService } from './home.service';
 import { HomeComponent } from './home.component';
+import { SharedModule } from '../shared/shared.module';
 import { MenuModule } from '../menu/menu.module';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { MenuModule } from '../menu/menu.module';
     exports: [HomeComponent],
     imports: [
         CommonModule,
+        SharedModule,
         MenuModule
     ],
     providers: [
