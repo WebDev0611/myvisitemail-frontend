@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { HomeService } from './home.service';
-import { HomeComponent } from './home.component';
+import { ErrorService } from './error.service';
+import { ErrorComponent } from './error.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-    declarations: [HomeComponent],
-    exports: [HomeComponent],
+    declarations: [ErrorComponent],
+    exports: [ErrorComponent],
     imports: [
         CommonModule,
         SharedModule
     ],
     providers: [
-        HomeService
+        ErrorService
     ]
 })
-export class HomeModule {}
+export class ErrorModule {}

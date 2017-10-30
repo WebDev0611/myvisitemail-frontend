@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app.routing';
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { MenuModule } from './menu/menu.module';
+import { ErrorModule } from './error/error.module';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { MenuModule } from './menu/menu.module';
         AppRoutingModule,
         LoginModule,
         HomeModule,
-        MenuModule
+        MenuModule,
+        ErrorModule
     ],
     providers: [],
     bootstrap: [AppComponent]
