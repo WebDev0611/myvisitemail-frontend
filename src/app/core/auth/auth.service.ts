@@ -6,7 +6,7 @@ import { User } from './auth.models';
 export class AuthService {
     private isAuth: boolean;
     constructor() {
-        this.isAuth = false;
+        this.isAuth = true;
     }
 
     isAuthenticated() {
