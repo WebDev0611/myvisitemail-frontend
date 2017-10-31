@@ -6,10 +6,10 @@ import { User } from './auth.models';
 export class AuthService {
     private isAuth: boolean;
     constructor() {
-        this.isAuth = true;
+        this.isAuth = false;
     }
 
-    isAuthenticated() {
+    isAuthenticated(): boolean {
         return this.isAuth;
     }
 }
