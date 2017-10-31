@@ -11,14 +11,17 @@ import { AppError } from '../shared/models/common.models';
 })
 export class ErrorComponent implements OnInit {
     error: AppError;
-
-    private sub: any;
     constructor(private componentService: ErrorService, private route: ActivatedRoute) {
         this.error = new AppError();
     }
 
     ngOnInit() {
-        debugger
         this.error = this.componentService.error;
-      }
+    }
+
+    search(searchText: string) {
+        if (searchText) {
+            console.log(searchText);
+        }
+    }
 }

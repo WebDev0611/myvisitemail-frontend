@@ -8,12 +8,13 @@ export class HomeService {
 
     getData() {
         const promise = new Promise<any>((resolve, reject) => {
-            const error = new AppError();
-            error.status = 404;
-            error.title = 'Page not Found';
-            error.describtion = 'Oops, Something went missing...';
+            // const error = new AppError();
+            // error.status = 404;
+            // error.title = 'Page not Found';
+            // error.description = 'Oops, Something went missing...';
 
-            reject(error);
+            // reject(error);
+            resolve({});
         });
 
         return promise;

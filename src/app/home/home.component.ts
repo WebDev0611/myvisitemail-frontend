@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
 
             })
             .catch(error => {
-                debugger
                 this.errorService.showError(error);
             });
     }
