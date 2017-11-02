@@ -13,12 +13,12 @@ export class User {
         this.isAdmin = false;
     }
 
-    get name(): string{
-        return `${this.firstName || '' } ${this.lastName || ''}`.trim();
+    get name(): string {
+        return `${this.firstName || ''} ${this.lastName || ''}`.trim();
     }
 
-    get userRole(): string{
+    get userRole(): string {
         return !this.isAuth ? 'Guest' :
-                this.isAdmin ? 'Administrator' : 'User';
+            this.isAdmin ? 'Administrator' : 'User';
     }
 }

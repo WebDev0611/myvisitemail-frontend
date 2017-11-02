@@ -16,7 +16,6 @@ export class UserService {
 
     setUser(user?: User) {
         if (!user) {
-            debugger
             const fromCookie = this.getCookie('user');
 
             user = fromCookie ? <User>JSON.parse(fromCookie) : new User();
