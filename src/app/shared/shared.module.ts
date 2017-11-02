@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        DialogComponent
+    ],
     imports: [CommonModule],
-    exports: [],
-    providers: []
+    exports: [
+    ],
+    providers: [
+    ]
 })
 export class SharedModule { }

@@ -1,3 +1,10 @@
-<div class="all-wrapper menu-side with-side-panel">
-    <router-outlet class="layout-w"></router-outlet>
+<div class="all-wrapper menu-side with-side-panel" *ngIf="isAuth">
+    <div class="layout-w">
+        <app-menu></app-menu>
+        <router-outlet></router-outlet>
+    </div>
+    <div class="display-type"></div>
+</div>
+<div class="all-wrapper menu-side with-side-panel" *ngIf="!isAuth">
+    <router-outlet></router-outlet>
 </div>

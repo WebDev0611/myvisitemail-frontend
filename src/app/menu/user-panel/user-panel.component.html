@@ -4,10 +4,10 @@
     </div>
     <div class="logged-user-info-w">
       <div class="logged-user-name">
-        Sunna
+        {{ user.name }}
       </div>
       <div class="logged-user-role">
-        Administrator
+        {{ user.userRole }}
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
   </div>
   <ul>
     <li>
-      <a><i class="os-icon os-icon-user-male-circle2"></i><span>Profile Details</span></a>
+      <a (click)="profileDetail()"><i class="os-icon os-icon-user-male-circle2"></i><span>Profile Details</span></a>
     </li>
     <li>
       <a (click)="logOut()"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
