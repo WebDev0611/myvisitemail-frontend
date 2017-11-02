@@ -34,7 +34,6 @@ export class LoginComponent {
 
     private handleSuccessfulLogin(user: User) {
         // todo: handle properly
-        debugger
         this.errorMessage = '';
         this.userService.setUser(user);
         this.router.navigate(['/']);

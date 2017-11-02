@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserPanelService } from './user-panel.service';
 import { User } from '../../shared/models/user.models';
 import { UserService } from '../../core/services/user-service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-menu-user-panel',
@@ -10,7 +11,8 @@ import { UserService } from '../../core/services/user-service';
 })
 export class UserPanelComponent implements OnInit {
     user: User;
-    constructor(private componentService: UserPanelService, private userService: UserService) {
+    constructor(private componentService: UserPanelService, private userService: UserService,
+        private router: Router) {
         this.user = new User();
     }
 
@@ -23,7 +25,8 @@ export class UserPanelComponent implements OnInit {
     }
 
     logOut() {
-
+        this.userService.setUser(new User());
+        this.router.navigateByUrl('/login');
     }
 
     private getUser(): void {
