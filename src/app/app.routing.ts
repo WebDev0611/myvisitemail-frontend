@@ -8,7 +8,7 @@ import { AddCustomerComponent } from './customers/add-customer/add-customer.comp
 import { ManageCustomersComponent } from './customers/manage-customers/manage-customers.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'error', component: ErrorComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
