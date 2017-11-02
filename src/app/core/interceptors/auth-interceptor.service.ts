@@ -18,7 +18,6 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor() {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        debugger
         const authReq: HttpRequest<any> = req.clone();
 
         return next.handle(authReq);

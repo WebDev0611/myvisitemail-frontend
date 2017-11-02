@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserPanelService } from './user-panel.service';
 import { User } from '../../shared/models/user.models';
+import { UserService } from '../../core/services/user-service';
 
 @Component({
     selector: 'app-menu-user-panel',
@@ -9,7 +10,7 @@ import { User } from '../../shared/models/user.models';
 })
 export class UserPanelComponent implements OnInit {
     user: User;
-    constructor(private componentService: UserPanelService) {
+    constructor(private componentService: UserPanelService, private userService: UserService) {
         this.user = new User();
     }
 
@@ -26,12 +27,6 @@ export class UserPanelComponent implements OnInit {
     }
 
     private getUser(): void {
-        this.componentService.getUser()
-            .then(user => {
-                this.user = user;
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        this.user = this.userService.getUser();
     }
 }

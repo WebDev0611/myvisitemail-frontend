@@ -6,11 +6,11 @@ import { User } from '../../shared/models/user.models';
 export class UserPanelService {
     constructor(private http: HttpClient) {}
 
-    getUser(): Promise<any> {
-        const promise = new Promise<any>((resolve, reject) => {
-            resolve(new User());
-        });
+    // getUser(): Promise<any> {
+    //     const promise = new Promise<any>((resolve, reject) => {
+    //         resolve(new User());
+    //     });
 
-        return promise;
-    }
+    //     return promise;
+    // }
 }

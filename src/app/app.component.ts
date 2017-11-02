@@ -1,6 +1,7 @@
 import { Component, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from './core/auth/auth.service';
+import { UserService } from './core/services/user-service';
+
 
 @Component({
     selector: 'app-root',
@@ -9,10 +10,23 @@ import { AuthService } from './core/auth/auth.service';
 })
 export class AppComponent {
     isAuth: boolean;
-    constructor(private authService: AuthService, private renderer: Renderer2) {
-        this.isAuth = this.authService.isAuthenticated();
-        if (!this.isAuth) {
-            this.renderer.addClass(document.body, 'auth-wrapper');
-        }
+    constructor(private userService: UserService, private renderer: Renderer2) {
+        this.isAuth = false;
+        this.subscribe();
+    }
+
+    private subscribe() {
+        this.userService.isAuth.subscribe(isAuth => {
+            isAuth ? this.addClass('auth-wrapper') : this.removeClass('auth-wrapper');
+            this.isAuth = isAuth;
+        });
+    }
+
+    private addClass(cls: string): void {
+        this.renderer.addClass(document.body, cls);
+    }
+
+    private removeClass(cls: string): void {
+        this.renderer.removeClass(document.body, cls);
     }
 }

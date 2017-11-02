@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { UserPanelService } from './user-panel/user-panel.service';
 import { User } from '../shared/models/user.models';
+import { UserService } from '../core/services/user-service';
 
 @Component({
     selector: 'app-menu',
@@ -11,7 +11,7 @@ export class MenuComponent implements OnInit {
     user: User;
     title: string;
 
-    constructor(private el: ElementRef, private userPanelService: UserPanelService) {
+    constructor(private el: ElementRef, private userService: UserService) {
         this.title = 'HOME';
         this.user = new User();
     }
@@ -32,12 +32,6 @@ export class MenuComponent implements OnInit {
         parentElement.removeChild(nativeElement);
     }
     private getUser() {
-        this.userPanelService.getUser()
-        .then(user => {
-            this.user = user;
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        this.user = this.userService.getUser();
     }
 }
