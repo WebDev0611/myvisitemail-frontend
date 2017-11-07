@@ -8,17 +8,9 @@ export class User {
 
     isAuth: boolean;
     isAdmin: boolean;
+
     constructor() {
         this.isAuth = false;
         this.isAdmin = false;
-    }
-
-    get name(): string {
-        return `${this.firstName || ''} ${this.lastName || ''}`.trim();
-    }
-
-    get userRole(): string {
-        return !this.isAuth ? 'Guest' :
-            this.isAdmin ? 'Administrator' : 'User';
     }
 }

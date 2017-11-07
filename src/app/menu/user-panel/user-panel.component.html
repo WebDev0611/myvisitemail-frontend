@@ -4,10 +4,10 @@
     </div>
     <div class="logged-user-info-w">
       <div class="logged-user-name">
-        {{ user.name }}
+        {{ (user.firstName || '') }} {{ (user.lastName || '') }}
       </div>
       <div class="logged-user-role">
-        {{ user.userRole }}
+        {{ !user.isAuth ? 'Guest' : user.isAdmin ? 'Administrator' : 'User' }}
       </div>
     </div>
   </div>

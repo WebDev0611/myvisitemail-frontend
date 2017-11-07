@@ -33,10 +33,12 @@ export class LoginComponent {
     }
 
     private handleSuccessfulLogin(user: User) {
-        // todo: handle properly
         this.errorMessage = '';
         this.userService.setUser(user);
-        this.router.navigate(['/']);
+
+        this.router.navigateByUrl('/home'); // todo: replace with loader
+        // todo: find out why reload is necessery for router to be working with routerLinks
+        document.location.href = '/home';
     }
 
     private handleUnsuccessfulLogin() {
