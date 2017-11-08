@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { User } from '../shared/models/user.models';
 import { UserService } from '../core/services/user-service';
 import { element } from 'protractor';
+import { isUser } from '../shared/shared.utilities';
 
 
 @Component({
@@ -24,16 +25,21 @@ export class LoginComponent {
     login() {
         this.componentService.login(this.credentials)
             .then((result: boolean | User) => {
-                if (result && result instanceof User) {
+                if (result && isUser(result)) {
                     this.handleSuccessfulLogin(result);
                 } else {
                     this.handleUnsuccessfulLogin();
                 }
+            })
+            .catch(error => {
+                console.error(error);
             });
     }
 
     private handleSuccessfulLogin(user: User) {
         this.errorMessage = '';
+        user.isAuth = true;
+
         this.userService.setUser(user);
 
         this.router.navigateByUrl('/home'); // todo: replace with loader
