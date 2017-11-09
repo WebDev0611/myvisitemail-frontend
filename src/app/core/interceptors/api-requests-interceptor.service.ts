@@ -18,7 +18,7 @@ export class ApiRequestsInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // replaces custom url prefixes with proper paths
+        // adds baseUrl in case of relative paths
         if (req.url.indexOf('http') < 0) {
             req = req.clone({ url: `${environment.baseUrl}${req.url}` });
         }

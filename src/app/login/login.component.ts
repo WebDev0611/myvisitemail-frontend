@@ -32,7 +32,7 @@ export class LoginComponent {
                 }
             })
             .catch(error => {
-                console.error(error);
+                this.handleUnsuccessfulLogin(error.error);
             });
     }
 
@@ -47,8 +47,8 @@ export class LoginComponent {
         document.location.href = '/home';
     }
 
-    private handleUnsuccessfulLogin() {
+    private handleUnsuccessfulLogin(errorMsg?: string) {
         // todo: handle properly
-        this.errorMessage = 'Login failed';
+        this.errorMessage = errorMsg || 'Login failed';
     }
 }
