@@ -4,7 +4,7 @@ import { LoginService } from './login.service';
 import { User } from '../shared/models/user.models';
 import { UserService } from '../core/services/user-service';
 import { element } from 'protractor';
-import { isUser } from '../shared/shared.utilities';
+import { isUser, getErrorMessage } from '../shared/shared.utilities';
 
 
 @Component({
@@ -32,7 +32,8 @@ export class LoginComponent {
                 }
             })
             .catch(error => {
-                this.handleUnsuccessfulLogin(error.error);
+                debugger
+                this.handleUnsuccessfulLogin(getErrorMessage(error));
             });
     }
 
@@ -41,7 +42,6 @@ export class LoginComponent {
         user.isAuth = true;
 
         this.userService.setUser(user);
-
         this.router.navigateByUrl('/home'); // todo: replace with loader
         // todo: find out why reload is necessery for router to be working with routerLinks
         document.location.href = '/home';

@@ -19,9 +19,14 @@ export class UserService {
             const fromCookie = this.getCookie('user');
 
             user = fromCookie ? <User>JSON.parse(fromCookie) : new User();
+            user.avatar = this.getFromLocalStorage('avatar');
         }
+
         this.isAuth.next(user.isAuth);
         this.user = user;
+        this.deleteCookie('user');
+        this.saveToLocalStorage('avatar', this.user.password);
+        delete this.user.password;
         this.setCookie('user', this.user, 1);
     }
 
@@ -33,7 +38,8 @@ export class UserService {
         const d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         const expires = 'expires=' + d.toUTCString();
-        document.cookie = cname + '=' + JSON.stringify(cvalue) + ';' + expires + ';path=/';
+        const cookie = cname + '=' + JSON.stringify(cvalue) + ';' + expires + ';path=/';
+        document.cookie = cookie;
     }
 
     private getCookie(cname) {
@@ -50,6 +56,33 @@ export class UserService {
             }
         }
         return '';
+    }
+
+    private deleteCookie(cname) {
+        this.setCookie(cname, '', 0);
+    }
+
+    private saveToLocalStorage(key, value) {
+        if (typeof value === 'string') {
+            localStorage.setItem(key, value);
+        } else {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+
+
+    }
+    private getFromLocalStorage(key) {
+        const itemStr = localStorage.getItem(key);
+        if (itemStr) {
+            try {
+                return JSON.parse(itemStr);
+            } catch (error) {
+                return itemStr;
+            }
+        }
+    }
+    private deleteFromLocalStorage(key) {
+        localStorage.removeItem(key);
     }
 
 }

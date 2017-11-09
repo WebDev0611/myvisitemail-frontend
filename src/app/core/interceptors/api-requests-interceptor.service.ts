@@ -28,6 +28,9 @@ export class ApiRequestsInterceptor implements HttpInterceptor {
         if (!req.headers.has('Accept')) {
             req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
         }
+        if (!req.headers.has('origin')) {
+            req = req.clone({ headers: req.headers.set('origin', environment.origin) });
+        }
 
         return next.handle(req);
     }

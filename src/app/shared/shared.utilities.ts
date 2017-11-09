@@ -35,3 +35,19 @@ export function convertToFileObject(input: HTMLInputElement, type: FileType, mim
     });
 
 }
+
+export function getErrorMessage(error: any): string {
+    if (error) {
+        if (error.error) {
+            if (error.error.message) {
+                return error.error.message;
+            }
+            return error.error;
+        }
+        if (error.message) {
+            return error.message;
+        }
+        return error;
+    }
+    return 'Unknown error';
+}

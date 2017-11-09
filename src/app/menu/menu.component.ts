@@ -33,5 +33,7 @@ export class MenuComponent implements OnInit {
     }
     private getUser() {
         this.user = this.userService.getUser();
+        debugger
+        this.user.avatar = this.user.avatar || 'img/avatar1.jpg';
     }
 }
