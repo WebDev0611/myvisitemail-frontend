@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { User } from '../shared/models/user.models';
 import { UserService } from '../core/services/user-service';
 import { element } from 'protractor';
+import { isUser, getErrorMessage } from '../shared/shared.utilities';
 
 
 @Component({
@@ -24,25 +25,30 @@ export class LoginComponent {
     login() {
         this.componentService.login(this.credentials)
             .then((result: boolean | User) => {
-                if (result && result instanceof User) {
+                if (result && isUser(result)) {
                     this.handleSuccessfulLogin(result);
                 } else {
                     this.handleUnsuccessfulLogin();
                 }
+            })
+            .catch(error => {
+                debugger
+                this.handleUnsuccessfulLogin(getErrorMessage(error));
             });
     }
 
     private handleSuccessfulLogin(user: User) {
         this.errorMessage = '';
-        this.userService.setUser(user);
+        user.isAuth = true;
 
+        this.userService.setUser(user);
         this.router.navigateByUrl('/home'); // todo: replace with loader
         // todo: find out why reload is necessery for router to be working with routerLinks
         document.location.href = '/home';
     }
 
-    private handleUnsuccessfulLogin() {
+    private handleUnsuccessfulLogin(errorMsg?: string) {
         // todo: handle properly
-        this.errorMessage = 'Login failed';
+        this.errorMessage = errorMsg || 'Login failed';
     }
 }

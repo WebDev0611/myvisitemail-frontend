@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../shared/models/user.models';
 
@@ -8,18 +8,22 @@ export class LoginService {
 
     }
 
-    login(credentials: User) {
-        const promise = new Promise<boolean | User>((resolve, reject) => {
-            if (credentials.userName === 'admin' && credentials.password === 'admin') {
-                credentials.isAuth = true;
-                credentials.isAdmin = true;
-                credentials.firstName = 'Sunna';
-                return resolve(credentials);
-            }
-            return resolve(false);
+    login(credentials: User): Promise<User> {
+        const promise = new Promise<User>((resolve, reject) => {
+            this.http
+                .post('login', {
+                    eMail: credentials.userName,
+                    password: credentials.password
+                })
+                .toPromise()
+                .then(response => {
+                    resolve(<User>response);
+                })
+                .catch(error => {
+                    reject(error);
+                });
         });
 
         return promise;
-
     }
 }

@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,9 +15,8 @@ import { CustomersModule } from './customers/customers.module';
         AppComponent
     ],
     imports: [
-        BrowserModule,
-        HttpClientModule,
         CoreModule,
+        BrowserModule,
         AppRoutingModule,
         LoginModule,
         HomeModule,
