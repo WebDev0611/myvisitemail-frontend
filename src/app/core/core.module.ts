@@ -8,6 +8,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { GlobalErrorHandler } from './handlers/global-error-handler';
 import { UserService } from './services/user-service';
 import { ApiRequestsInterceptor } from './interceptors/api-requests-interceptor.service';
+import { FileService } from './services/file-service';
 
 @NgModule({
     declarations: [],
@@ -20,7 +21,8 @@ import { ApiRequestsInterceptor } from './interceptors/api-requests-interceptor.
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ApiRequestsInterceptor, multi: true},
         {provide: ErrorHandler, useClass: GlobalErrorHandler},
-        UserService
+        UserService,
+        FileService
     ]
 })
 export class CoreModule { }

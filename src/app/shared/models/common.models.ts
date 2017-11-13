@@ -13,9 +13,12 @@ export enum FileType {
 }
 
 export class FileObject {
+    _id: string;
     constructor(
         public file: any,
         public fileType: FileType = FileType.Other,
         public contentType: string = 'application/json'
-    ) {}
+    ) {
+        this._id = null;
+    }
 }
