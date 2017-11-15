@@ -25,6 +25,7 @@ export function convertToFileObject(input: HTMLInputElement, type: FileType, mim
         reader.onload = (readerResult) => {
             const parsedFile = readerResult.target['result'];
             const toUpload = {
+                _id: null,
                 file: parsedFile,
                 contentType: mimeType || file.type,
                 fileType: type
@@ -33,7 +34,6 @@ export function convertToFileObject(input: HTMLInputElement, type: FileType, mim
         };
         reader.readAsDataURL(file);
     });
-
 }
 
 export function getErrorMessage(error: any): string {

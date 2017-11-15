@@ -18,7 +18,12 @@ export class UserService {
         if (!user) {
             const fromCookie = this.getCookie('user');
 
-            user = fromCookie ? <User>JSON.parse(fromCookie) : new User();
+            try {
+                user = fromCookie ? <User>JSON.parse(fromCookie) : new User();
+            } catch (error) {
+                user = new User();
+            }
+
             user.avatar = this.getFromLocalStorage('avatar');
         }
 
@@ -27,7 +32,11 @@ export class UserService {
         this.deleteCookie('user');
         this.saveToLocalStorage('avatar', this.user.password);
         delete this.user.password;
-        this.setCookie('user', this.user, 1);
+
+        const forCookie = Object.assign({}, this.user);
+        delete forCookie.avatar;
+
+        this.setCookie('user', forCookie, 1);
     }
 
     getUser(): User {

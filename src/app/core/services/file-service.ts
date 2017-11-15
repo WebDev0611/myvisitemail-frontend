@@ -19,14 +19,15 @@ export class FileService {
 
     sendFile(file: FileObject): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post('file', {
-                file: file.file,
-                contentType: file.contentType,
-                fileType: file.fileType
-            })
-            .toPromise()
-            .then(result => resolve(result))
-            .catch(error => reject(error));
+            const formData = new FormData();
+            formData.append('file', file.file);
+            formData.append('contentType', file.contentType);
+            formData.append('fileType', file.fileType.toString());
+
+            this.http.post('file', formData)
+                .toPromise()
+                .then(result => resolve(result))
+                .catch(error => reject(error));
         });
     }
 
