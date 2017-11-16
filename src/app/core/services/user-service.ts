@@ -40,6 +40,10 @@ export class UserService {
     }
 
     getUser(): User {
+        if (!this.user.avatar || this.user.avatar === 'undefined') {
+            this.user.avatar = this.getFromLocalStorage('avatar');
+        }
+
         return this.user;
     }
 
@@ -72,12 +76,13 @@ export class UserService {
     }
 
     private saveToLocalStorage(key, value) {
-        if (typeof value === 'string') {
-            localStorage.setItem(key, value);
-        } else {
-            localStorage.setItem(key, JSON.stringify(value));
+        if (value && value !== 'undefined') {
+            if (typeof value === 'string') {
+                localStorage.setItem(key, value);
+            } else {
+                localStorage.setItem(key, JSON.stringify(value));
+            }
         }
-
 
     }
     private getFromLocalStorage(key) {

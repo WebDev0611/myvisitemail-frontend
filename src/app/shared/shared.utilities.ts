@@ -26,6 +26,7 @@ export function convertToFileObject(input: HTMLInputElement, type: FileType, mim
             const parsedFile = readerResult.target['result'];
             const toUpload = {
                 _id: null,
+                id: '',
                 file: parsedFile,
                 contentType: mimeType || file.type,
                 fileType: type

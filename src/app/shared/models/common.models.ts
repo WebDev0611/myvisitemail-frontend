@@ -13,6 +13,7 @@ export enum FileType {
 }
 
 export class FileObject {
+    id: string;
     _id: string;
     constructor(
         public file: any,

@@ -33,11 +33,13 @@ export class FileService {
 
     updateFile(file: FileObject): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put('file', {
-                file: file.file,
-                contentType: file.contentType,
-                fileType: file.fileType
-            })
+            const formData = new FormData();
+            formData.append('id', file.id);
+            formData.append('file', file.file);
+            formData.append('contentType', file.contentType);
+            formData.append('fileType', file.fileType.toString());
+
+            this.http.put('file', formData)
             .toPromise()
             .then(result => resolve(result))
             .catch(error => reject(error));
