@@ -23,3 +23,7 @@ export class FileObject {
         this._id = null;
     }
 }
+
+export class Page {
+    constructor(public pageNo: number) { }
+}
