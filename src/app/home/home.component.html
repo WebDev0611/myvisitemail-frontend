@@ -36,7 +36,7 @@
                     </div>
                     <div class="content">
                         <div class="text">E-mails Sent</div>
-                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">243</div>
+                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">{{ total.emailsSent }}</div>
                     </div>
                 </div>
             </div>
@@ -69,35 +69,35 @@
                             <li>
                                 TODAY
                                 <span class="pull-right">
-                                    <b>1.200</b>
+                                    <b>{{ statistics[0].emailsSent }}</b>
                                     <small>USERS</small>
                                 </span>
                             </li>
                             <li>
                                 YESTERDAY
                                 <span class="pull-right">
-                                    <b>3.872</b>
+                                    <b>{{ statistics[1].emailsSent }}</b>
                                     <small>USERS</small>
                                 </span>
                             </li>
                             <li>
                                 LAST WEEK
                                 <span class="pull-right">
-                                    <b>5.582</b>
+                                    <b>{{ statistics[2].emailsSent }}</b>
                                     <small>USERS</small>
                                 </span>
                             </li>
                             <li>
                                 LAST MONTH
                                 <span class="pull-right">
-                                    <b>22.582</b>
+                                    <b>{{ statistics[3].emailsSent }}</b>
                                     <small>USERS</small>
                                 </span>
                             </li>
                             <li>
                                 LAST YEAR
                                 <span class="pull-right">
-                                    <b>321.582</b>
+                                    <b>{{ statistics[4].emailsSent }}</b>
                                     <small>USERS</small>
                                 </span>
                             </li>
@@ -118,37 +118,37 @@
                             <li>
                                 TODAY
                                 <span class="pull-right">
-                                    <b>72%</b>
+                                    <b>{{ statistics[0].ctr * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 YESTERDAY
                                 <span class="pull-right">
-                                    <b>69%</b>
+                                    <b>{{ statistics[1].ctr * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 LAST WEEK
                                 <span class="pull-right">
-                                    <b>74,7%</b>
+                                    <b>{{ statistics[2].ctr * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 LAST MONTH
                                 <span class="pull-right">
-                                    <b>69,6%</b>
+                                    <b>{{ statistics[3].ctr * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 LAST YEAR
                                 <span class="pull-right">
-                                    <b>55,5%</b>
+                                    <b>{{ statistics[4].ctr * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 ALL
                                 <span class="pull-right">
-                                    <b>79,5%</b>
+                                    <b>{{ total.ctr * 100 }}%</b>
                                 </span>
                             </li>
                         </ul>
@@ -166,37 +166,37 @@
                             <li>
                                 TODAY
                                 <span class="pull-right">
-                                    <b>1,2%</b>
+                                    <b>{{ statistics[0].bounceRate * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 YESTERDAY
                                 <span class="pull-right">
-                                    <b>4,5%</b>
+                                    <b>{{ statistics[1].bounceRate * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 LAST WEEK
                                 <span class="pull-right">
-                                    <b>4,5%</b>
+                                    <b>{{ statistics[2].bounceRate * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 LAST MONTH
                                 <span class="pull-right">
-                                    <b>5,1%</b>
+                                    <b>{{ statistics[3].bounceRate * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 LAST YEAR
                                 <span class="pull-right">
-                                    <b>6,5%</b>
+                                    <b>{{ statistics[4].bounceRate * 100 }}%</b>
                                 </span>
                             </li>
                             <li>
                                 ALL
                                 <span class="pull-right">
-                                    <b>7,7%</b>
+                                    <b>{{ total.bounceRate * 100 }}%</b>
                                 </span>
                             </li>
                         </ul>

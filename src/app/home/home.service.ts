@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppError } from '../shared/models/common.models';
+import {User} from "../shared/models/user.models";
 
 @Injectable()
 export class HomeService {
@@ -8,14 +9,11 @@ export class HomeService {
 
     getData() {
         const promise = new Promise<any>((resolve, reject) => {
-            // const error = new AppError();
-            // error.status = 404;
-            // error.title = 'Page not Found';
-            // error.description = 'Oops, Something went missing...';
-
-            // reject(error);
-            resolve({});
-        });
+            return this.http.get('mailchimp/report').toPromise()
+                .then(response => resolve(<Array <Object>>response))
+                .catch(error => reject(error));
+            // resolve({});
+    });
 
         return promise;
     }
