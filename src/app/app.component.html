@@ -1,10 +1,8 @@
-<div class="all-wrapper menu-side with-side-panel" *ngIf="isAuth">
-    <div class="layout-w">
-        <app-menu></app-menu>
+<div [ngClass]="wrapperClassName">
+    <div [ngClass]="containerClassName">
+        <app-menu class="desktop-menu menu-side-w menu-activated-on-click" *ngIf="isAuth"></app-menu>
+        <app-menu-mobile class="menu-mobile menu-activated-on-click color-scheme-dark" *ngIf="isAuth"></app-menu-mobile>
         <router-outlet></router-outlet>
     </div>
-    <div class="display-type"></div>
-</div>
-<div class="all-wrapper menu-side with-side-panel" *ngIf="!isAuth">
-    <router-outlet></router-outlet>
+    <div class="display-type" *ngIf="isAuth"></div>
 </div>

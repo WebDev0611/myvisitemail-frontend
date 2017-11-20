@@ -27,7 +27,6 @@ export class UserService {
             user.avatar = this.getFromLocalStorage('avatar');
         }
 
-        this.isAuth.next(user.isAuth);
         this.user = user;
         this.deleteCookie('user');
         this.saveToLocalStorage('avatar', this.user.password);
@@ -37,6 +36,7 @@ export class UserService {
         delete forCookie.avatar;
 
         this.setCookie('user', forCookie, 1);
+        this.isAuth.next(user.isAuth);
     }
 
     getUser(): User {
@@ -45,6 +45,10 @@ export class UserService {
         }
 
         return this.user;
+    }
+
+    lockUser() {
+        this.isAuth.next(false);
     }
 
     private setCookie(cname, cvalue, exdays) {

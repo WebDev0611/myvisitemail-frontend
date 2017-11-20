@@ -3,10 +3,10 @@ import { User } from '../shared/models/user.models';
 import { UserService } from '../core/services/user-service';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html'
+    selector: 'app-menu-mobile',
+    templateUrl: './menu-mobile.component.html'
 })
-export class MenuComponent implements OnInit {
+export class MenuMobileComponent implements OnInit {
     isAuth: boolean;
     user: User;
 
