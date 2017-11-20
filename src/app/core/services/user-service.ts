@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { User } from '../../shared/models/user.models';
@@ -18,7 +18,12 @@ export class UserService {
         if (!user) {
             const fromCookie = this.getCookie('user');
 
-            user = fromCookie ? <User>JSON.parse(fromCookie) : new User();
+            try {
+                user = fromCookie ? <User>JSON.parse(fromCookie) : new User();
+            } catch (error) {
+                user = new User();
+            }
+
             user.avatar = this.getFromLocalStorage('avatar');
         }
 
@@ -27,10 +32,18 @@ export class UserService {
         this.deleteCookie('user');
         this.saveToLocalStorage('avatar', this.user.password);
         delete this.user.password;
-        this.setCookie('user', this.user, 1);
+
+        const forCookie = Object.assign({}, this.user);
+        delete forCookie.avatar;
+
+        this.setCookie('user', forCookie, 1);
     }
 
     getUser(): User {
+        if (!this.user.avatar || this.user.avatar === 'undefined') {
+            this.user.avatar = this.getFromLocalStorage('avatar');
+        }
+
         return this.user;
     }
 
@@ -63,12 +76,13 @@ export class UserService {
     }
 
     private saveToLocalStorage(key, value) {
-        if (typeof value === 'string') {
-            localStorage.setItem(key, value);
-        } else {
-            localStorage.setItem(key, JSON.stringify(value));
+        if (value && value !== 'undefined') {
+            if (typeof value === 'string') {
+                localStorage.setItem(key, value);
+            } else {
+                localStorage.setItem(key, JSON.stringify(value));
+            }
         }
-
 
     }
     private getFromLocalStorage(key) {

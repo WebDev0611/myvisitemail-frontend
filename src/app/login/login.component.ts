@@ -32,7 +32,6 @@ export class LoginComponent {
                 }
             })
             .catch(error => {
-                debugger
                 this.handleUnsuccessfulLogin(getErrorMessage(error));
             });
     }

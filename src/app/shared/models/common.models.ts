@@ -13,9 +13,17 @@ export enum FileType {
 }
 
 export class FileObject {
+    id: string;
+    _id: string;
     constructor(
         public file: any,
         public fileType: FileType = FileType.Other,
         public contentType: string = 'application/json'
-    ) {}
+    ) {
+        this._id = null;
+    }
+}
+
+export class Page {
+    constructor(public pageNo: number) { }
 }

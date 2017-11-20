@@ -6,10 +6,11 @@ import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
 import { AddCustomerComponent } from './customers/add-customer/add-customer.component';
 import { ManageCustomersComponent } from './customers/manage-customers/manage-customers.component';
+import { LoginGuard } from './core/guards/login-guard.service';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'error', component: ErrorComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'add-customer', component: AddCustomerComponent, canActivate: [AuthGuard] },

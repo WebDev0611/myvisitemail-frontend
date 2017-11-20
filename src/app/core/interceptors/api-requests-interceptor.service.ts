@@ -23,7 +23,9 @@ export class ApiRequestsInterceptor implements HttpInterceptor {
             req = req.clone({ url: `${environment.baseUrl}${req.url}` });
         }
         if (!req.headers.has('Content-Type')) {
-            req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+            if (req.body && req.body instanceof FormData === false) {
+                req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+            }
         }
         if (!req.headers.has('Accept')) {
             req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
