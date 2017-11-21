@@ -6,10 +6,15 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
-    private user: User;
 
+    isLocked: boolean;
     isAuth: BehaviorSubject<boolean>;
+
+    private user: User;
+    private lockedFromUrl: string;
+
     constructor(private http: HttpClient) {
+        this.isLocked = false;
         this.isAuth = new BehaviorSubject(false);
         this.setUser();
     }
@@ -47,8 +52,22 @@ export class UserService {
         return this.user;
     }
 
-    lockUser() {
+    lockUser(lockedFromUrl: string) {
+        this.lockedFromUrl = lockedFromUrl;
+        this.user.password = '';
+        this.user.isAuth = false;
+
+        this.isLocked = true;
         this.isAuth.next(false);
+    }
+
+    unlockUser(user: User): string {
+        this.user.isAuth = true;
+
+        this.isLocked = false;
+        this.isAuth.next(true);
+
+        return this.lockedFromUrl;
     }
 
     private setCookie(cname, cvalue, exdays) {

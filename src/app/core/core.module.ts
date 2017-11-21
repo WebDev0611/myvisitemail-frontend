@@ -10,6 +10,7 @@ import { UserService } from './services/user-service';
 import { ApiRequestsInterceptor } from './interceptors/api-requests-interceptor.service';
 import { FileService } from './services/file-service';
 import { LoginGuard } from './guards/login-guard.service';
+import { LockGuard } from './guards/lock-guard.service';
 
 @NgModule({
     declarations: [],
@@ -18,6 +19,7 @@ import { LoginGuard } from './guards/login-guard.service';
         HttpClientModule
     ],
     providers: [
+        LockGuard,
         AuthGuard,
         LoginGuard,
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

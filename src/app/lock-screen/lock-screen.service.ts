@@ -1,7 +1,9 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserService } from '../core/services/user-service';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LoginService } from '../login/login.service';
+import { User } from '../shared/models/user.models';
 
 @Injectable()
 export class LockScreenService {
@@ -9,11 +11,9 @@ export class LockScreenService {
     listener: any;
     lockAfter: number; // ms
 
-    isLocked: BehaviorSubject<boolean>;
-    constructor(private userService: UserService, private router: Router) {
+    constructor(private userService: UserService, private loginService: LoginService, private router: Router) {
         this.listener = this.resetTimer.bind(this);
         this.lockAfter = 5000;
-        this.isLocked = new BehaviorSubject<boolean>(false);
     }
 
     init() {
@@ -54,19 +54,26 @@ export class LockScreenService {
     }
 
     lockScreen() {
-        if (this.userService.getUser().isAuth && this.isLocked.getValue() === false) {
-            this.userService.lockUser();
-            this.isLocked.next(true);
+        if (this.userService.getUser().isAuth && !this.userService.isLocked) {
+            this.userService.lockUser(this.router.url);
+
             clearTimeout(this.timer);
             this.router.navigateByUrl('lock');
         }
     }
 
-    unlockScreen() {
-        if (this.userService.getUser().isAuth && this.isLocked.getValue() === true) {
-            this.isLocked.next(false);
-            this.setTimer();
-            this.router.navigateByUrl('home');
+    unlockScreen(user: User): Promise<User> {
+        if (this.userService.isLocked) {
+            return this.loginService.login(user);
         }
+    }
+
+    navigateToLogin() {
+        this.router.navigateByUrl('login');
+    }
+
+    navigateToPrevious(prevUrl: string) {
+        this.setTimer();
+        this.router.navigate([prevUrl]);
     }
 }

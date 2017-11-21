@@ -15,18 +15,22 @@
                 {{ (user.firstName || '') }} {{ (user.lastName || '') }}
         </div>
         <div class="logged-user-role">
-                {{ !user.isAuth ? 'Guest' : user.isAdmin ? 'Administrator' : 'User' }}
+               Locked {{ user.isAdmin ? '(Administrator)' : '(User)' }}
         </div>
     </div>
-    <form action="">
+    <form (ngSubmit)="unlockUser(password.value)">
         <div class="form-group">
-            <label for="">Enter your password to access admin</label>
-            <input class="form-control" placeholder="Enter your password" type="password">
+            <label for="">Enter your password to access your account</label>
+            <input class="form-control" placeholder="Enter your password" type="password"
+            #password required />
             <div class="pre-icon os-icon os-icon-fingerprint"></div>
         </div>
+        <div class="form-group" *ngIf="errorMessage">
+                <label class="form-control alert-danger text-center">{{ errorMessage }}</label>
+            </div>
         <div class="buttons-w">
-            <button class="btn btn-primary">Log me in</button>
-            <a class="btn btn-link" href="/auth/login.html">Login as different user</a>
+            <input type="submit" class="btn btn-primary" value="Log me in" />
+            <a class="btn btn-link" (click)="relogUser()">Login as different user</a>
         </div>
     </form>
 </div>

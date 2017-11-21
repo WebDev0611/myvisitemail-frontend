@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LockScreenService } from './lock-screen.service';
-import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../core/services/user-service';
 import { User } from '../shared/models/user.models';
 
@@ -12,14 +11,34 @@ import { User } from '../shared/models/user.models';
 })
 export class LockScreenComponent implements OnInit {
     isLocked: boolean;
-    subscribtion: Subscription;
+    errorMessage: string;
     user: User;
 
     constructor(private componentService: LockScreenService, private userService: UserService) {
         this.isLocked = true;
+        this.errorMessage = '';
     }
 
     ngOnInit() {
         this.user = this.userService.getUser();
+    }
+
+    unlockUser(password: string) {
+        this.user.password = password;
+
+        this.componentService.unlockScreen(this.user)
+            .then(user => {
+                const prevUrl = this.userService.unlockUser(user);
+                this.componentService.navigateToPrevious(prevUrl);
+            })
+            .catch(error => {
+                this.errorMessage = error.error;
+            });
+
+    }
+
+    relogUser() {
+        this.userService.setUser(new User());
+        this.componentService.navigateToLogin();
     }
 }
