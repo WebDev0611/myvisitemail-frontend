@@ -13,38 +13,44 @@ export class ResortSettingsService {
         });
     }
 
-    send(action: string, mail: IEmailMessage): Promise<any> {
+    saveTemplate(action: string, mail: IEmailMessage): Promise<any> {
         switch (action) {
             case 'booked':
-                return this.sendBooked(mail);
+                return this.saveBookedTemplate(mail);
             case 'check-in':
-                return this.sendCheckIn(mail);
+                return this.saveCheckInTemplate(mail);
             case 'check-out':
-                return this.sendCheckOut(mail);
+                return this.saveCheckOutTemplate(mail);
             case 'cancellation':
-                return this.sendCancellation(mail);
+                return this.saveCancellationTemplate(mail);
         }
     }
 
-    sendBooked(mail: IEmailMessage): Promise<any> {
+    saveBookedTemplate(mail: IEmailMessage): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             resolve();
         });
     }
 
-    sendCheckIn(mail: IEmailMessage): Promise<any> {
+    saveCheckInTemplate(mail: IEmailMessage): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             resolve();
         });
     }
 
-    sendCheckOut(mail: IEmailMessage): Promise<any> {
+    saveCheckOutTemplate(mail: IEmailMessage): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             resolve();
         });
     }
 
-    sendCancellation(mail: IEmailMessage): Promise<any> {
+    saveCancellationTemplate(mail: IEmailMessage): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            resolve();
+        });
+    }
+
+    sendTestEmail(mail: IEmailMessage): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             resolve();
         });

@@ -14,9 +14,12 @@ export class EmailFormComponent implements OnInit, OnDestroy {
     actionName: string;
     email: EmailMessage;
 
+    resultMsg: string;
+
     private sub: Subscription;
     constructor(private componentService: ResortSettingsService, private route: ActivatedRoute, private router: Router) {
         this.email = new EmailMessage();
+        this.resultMsg = '';
     }
 
     ngOnInit() {
@@ -30,10 +33,22 @@ export class EmailFormComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    send() {
-        this.componentService.send(this.actionName, this.email)
+    save() {
+        this.resultMsg = '';
+        this.componentService.saveTemplate(this.actionName, this.email)
             .then(result => {
                 this.router.navigateByUrl(`/resort-settings/${ this.resortId }`);
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
+
+    sendTest() {
+        this.resultMsg = '';
+        this.componentService.sendTestEmail(this.email)
+            .then(result => {
+                this.resultMsg = 'Test email has been sent';
             })
             .catch(error => {
                 throw error;

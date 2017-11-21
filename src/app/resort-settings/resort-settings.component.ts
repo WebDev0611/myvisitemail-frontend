@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class ResortSettingsComponent implements OnInit, OnDestroy {
     resortId: string;
     private sub: Subscription;
+
     constructor(private componentService: ResortSettingsService, private route: ActivatedRoute) {
 
     }
