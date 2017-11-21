@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { User } from '../shared/models/user.models';
 import { UserService } from '../core/services/user-service';
-import { element } from 'protractor';
 import { isUser, getErrorMessage } from '../shared/shared.utilities';
+import { LockScreenService } from '../lock-screen/lock-screen.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class LoginComponent {
     errorMessage: string;
 
     constructor(private componentService: LoginService, private userService: UserService,
-        private router: Router) {
+        private router: Router, private lockScreen: LockScreenService) {
         this.credentials = new User();
         this.errorMessage = '';
     }
@@ -41,9 +41,9 @@ export class LoginComponent {
         user.isAuth = true;
 
         this.userService.setUser(user);
-        this.router.navigateByUrl('/home'); // todo: replace with loader
-        // todo: find out why reload is necessery for router to be working with routerLinks
-        document.location.href = '/home';
+        this.lockScreen.init();
+
+        this.router.navigateByUrl('/home');
     }
 
     private handleUnsuccessfulLogin(errorMsg?: string) {

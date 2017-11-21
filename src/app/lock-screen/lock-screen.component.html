@@ -1,0 +1,36 @@
+<div class="auth-box-w wider centered">
+    <div class="logo-w">
+        <a href="index.html">
+            <img alt="" src="img/logo-big.png">
+        </a>
+    </div>
+    <h5 class="auth-header">
+        Welcome Back
+    </h5>
+    <div class="logged-user-w">
+        <div class="avatar-w">
+            <img alt="" [src]="user.avatar">
+        </div>
+        <div class="logged-user-name">
+                {{ (user.firstName || '') }} {{ (user.lastName || '') }}
+        </div>
+        <div class="logged-user-role">
+               Locked {{ user.isAdmin ? '(Administrator)' : '(User)' }}
+        </div>
+    </div>
+    <form (ngSubmit)="unlockUser(password.value)">
+        <div class="form-group">
+            <label for="">Enter your password to access your account</label>
+            <input class="form-control" placeholder="Enter your password" type="password"
+            #password required />
+            <div class="pre-icon os-icon os-icon-fingerprint"></div>
+        </div>
+        <div class="form-group" *ngIf="errorMessage">
+                <label class="form-control alert-danger text-center">{{ errorMessage }}</label>
+            </div>
+        <div class="buttons-w">
+            <input type="submit" class="btn btn-primary" value="Log me in" />
+            <a class="btn btn-link" (click)="relogUser()">Login as different user</a>
+        </div>
+    </form>
+</div>

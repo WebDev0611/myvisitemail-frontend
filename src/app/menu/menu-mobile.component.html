@@ -1,0 +1,31 @@
+<div class="mm-logo-buttons-w">
+    <a class="mm-logo" routerLink="home">
+        <img src="img/logo.png">
+        <span>Ferðavefir</span>
+    </a>
+    <div class="mm-buttons">
+        <div class="content-panel-open">
+            <div class="os-icon os-icon-grid-circles"></div>
+        </div>
+        <div class="mobile-menu-trigger">
+            <div class="os-icon os-icon-hamburger-menu-1"></div>
+        </div>
+    </div>
+</div>
+<div class="menu-and-user">
+    <div class="logged-user-w">
+        <div class="avatar-w">
+            <img alt="" [src]="user.avatar">
+        </div>
+        <div class="logged-user-info-w">
+            <div class="logged-user-name">
+                {{ (user.firstName || '') }} {{ (user.lastName || '') }}
+            </div>
+            <div class="logged-user-role">
+                {{ !user.isAuth ? 'Guest' : user.isAdmin ? 'Administrator' : 'User' }}
+            </div>
+        </div>
+    </div>
+
+    <app-menu-navigation></app-menu-navigation>
+</div>

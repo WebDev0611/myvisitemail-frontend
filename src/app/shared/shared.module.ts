@@ -6,7 +6,9 @@ import { DialogComponent } from './dialog/dialog.component';
     declarations: [
         DialogComponent
     ],
-    imports: [CommonModule],
+    imports: [
+        CommonModule
+    ],
     exports: [
     ],
     providers: [

@@ -1,10 +1,9 @@
 export class User {
-    userName: string;
+    eMail: string;
     password: string;
 
     firstName: string;
     lastName: string;
-    eMail: string;
 
     isAuth: boolean;
     isAdmin: boolean;

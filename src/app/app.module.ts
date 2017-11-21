@@ -9,6 +9,8 @@ import { HomeModule } from './home/home.module';
 import { MenuModule } from './menu/menu.module';
 import { ErrorModule } from './error/error.module';
 import { CustomersModule } from './customers/customers.module';
+import { SharedModule } from './shared/shared.module';
+import { LockScreenModule } from './lock-screen/lock-screen.module';
 
 @NgModule({
     declarations: [
@@ -16,9 +18,11 @@ import { CustomersModule } from './customers/customers.module';
     ],
     imports: [
         CoreModule,
+        SharedModule,
         BrowserModule,
         AppRoutingModule,
         LoginModule,
+        LockScreenModule,
         HomeModule,
         MenuModule,
         ErrorModule,

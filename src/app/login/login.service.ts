@@ -12,7 +12,7 @@ export class LoginService {
         const promise = new Promise<User>((resolve, reject) => {
             this.http
                 .post('login', {
-                    eMail: credentials.userName,
+                    eMail: credentials.eMail,
                     password: credentials.password
                 })
                 .toPromise()
