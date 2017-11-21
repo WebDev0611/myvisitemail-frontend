@@ -1,0 +1,36 @@
+<div class="content-w">
+    <div class="content-i">
+        <div class="content-box">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="element-wrapper">
+                        <div class="element-box">
+                            <form id="formValidate" novalidate="true" #emailForm="ngForm" (ngSubmit)="send()">
+
+                                <fieldset class="form-group">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="20" [(ngModel)]="email.message" name="message"></textarea>
+                                    </div>
+                                </fieldset>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="">E-mail</label>
+                                        <input class="form-control" style="margin-bottom: 10px;" data-error="Please insert correct E-mail"
+                                            [(ngModel)]="email.address" placeholder="Test E-mail" name="address">
+                                        <button class="mr-2 mb-2 btn btn-outline-primary" type="submit">Send</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="form-buttons-w">
+                            <button class="btn btn-primary" type="button"> Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

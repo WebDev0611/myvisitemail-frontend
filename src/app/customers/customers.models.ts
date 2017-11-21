@@ -24,6 +24,8 @@ export interface IDetailCustomer {
     age: number;
     startDate: string;
     invoice: string; // maybe number?
+
+    resortId: string; // verify this
 }
 
 export class Customer implements ICustomer {
@@ -57,4 +59,5 @@ export class DetailCustomer implements IDetailCustomer {
     age: number;
     startDate: string;
     invoice: string; // maybe number?
+    resortId: string;
 }
