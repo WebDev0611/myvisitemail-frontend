@@ -56,8 +56,6 @@ export class AppComponent {
         const key = isUserAllowed ? 'auth' : 'notAuth';
         this.wrapperClassName = this.wrapperClasses[key];
         this.containerClassName = this.containerClasses[key];
-
-        console.log('auth', isUserAllowed);
     }
 
     private addClass(cls: string): void {

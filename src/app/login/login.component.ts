@@ -43,9 +43,7 @@ export class LoginComponent {
         this.userService.setUser(user);
         this.lockScreen.init();
 
-        this.router.navigateByUrl('/home'); // todo: replace with loader
-        // todo: find out why reload is necessery for router to be working with routerLinks
-        // document.location.href = '/home';
+        this.router.navigateByUrl('/home');
     }
 
     private handleUnsuccessfulLogin(errorMsg?: string) {

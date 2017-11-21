@@ -18,38 +18,7 @@ export class LockScreenService {
 
     init() {
         if (!this.timer) {
-            this.addListeners();
-            this.setTimer();
-        }
-    }
-
-    addListeners() {
-        window.addEventListener('load', this.listener);
-        window.addEventListener('mousemove', this.listener);
-        window.addEventListener('click', this.listener);
-        window.addEventListener('scroll', this.listener);
-        window.addEventListener('keypress', this.listener);
-    }
-
-    removeListeners() {
-        window.removeEventListener('load', this.listener);
-        window.removeEventListener('mousemove', this.listener);
-        window.removeEventListener('click', this.listener);
-        window.removeEventListener('scroll', this.listener);
-        window.removeEventListener('keypress', this.listener);
-    }
-
-    setTimer() {
-        this.timer = setTimeout(() => {
-            this.lockScreen();
-        }, this.lockAfter);
-    }
-
-    resetTimer() {
-        if (this.timer) {
-            clearTimeout(this.timer);
-            this.timer = null;
-            this.setTimer();
+            this.initialize();
         }
     }
 
@@ -57,7 +26,7 @@ export class LockScreenService {
         if (this.userService.getUser().isAuth && !this.userService.isLocked) {
             this.userService.lockUser(this.router.url);
 
-            clearTimeout(this.timer);
+            this.dispose();
             this.router.navigateByUrl('lock');
         }
     }
@@ -73,7 +42,41 @@ export class LockScreenService {
     }
 
     navigateToPrevious(prevUrl: string) {
-        this.setTimer();
+        this.initialize();
         this.router.navigate([prevUrl]);
+    }
+
+    private initialize() {
+        window.addEventListener('load', this.listener);
+        window.addEventListener('mousemove', this.listener);
+        window.addEventListener('click', this.listener);
+        window.addEventListener('scroll', this.listener);
+        window.addEventListener('keypress', this.listener);
+
+        this.setTimer();
+    }
+
+    private dispose() {
+        clearTimeout(this.timer);
+
+        window.removeEventListener('load', this.listener);
+        window.removeEventListener('mousemove', this.listener);
+        window.removeEventListener('click', this.listener);
+        window.removeEventListener('scroll', this.listener);
+        window.removeEventListener('keypress', this.listener);
+    }
+
+    private setTimer() {
+        this.timer = setTimeout(() => {
+            this.lockScreen();
+        }, this.lockAfter);
+    }
+
+    private resetTimer() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+            this.setTimer();
+        }
     }
 }
