@@ -4,13 +4,15 @@ import { NgModule } from '@angular/core';
 import { ManageCustomersComponent } from './manage-customers.component';
 import { CustomersService } from '../customers.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [ManageCustomersComponent],
     exports: [ManageCustomersComponent],
     imports: [
         FormsModule,
-        CommonModule
+        CommonModule,
+        RouterModule
     ],
     providers: [
         CustomersService

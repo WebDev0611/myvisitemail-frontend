@@ -11,6 +11,7 @@ import { ErrorModule } from './error/error.module';
 import { CustomersModule } from './customers/customers.module';
 import { SharedModule } from './shared/shared.module';
 import { LockScreenModule } from './lock-screen/lock-screen.module';
+import { ResortSettingsModule } from './resort-settings/resort-settings.module';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { LockScreenModule } from './lock-screen/lock-screen.module';
         HomeModule,
         MenuModule,
         ErrorModule,
-        CustomersModule
+        CustomersModule,
+        ResortSettingsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
