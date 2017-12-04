@@ -17,7 +17,6 @@ export class LoginService {
                 })
                 .toPromise()
                 .then(response => {
-                    debugger
                     resolve(<User>response);
                 })
                 .catch(error => {

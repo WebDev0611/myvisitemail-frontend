@@ -21,7 +21,7 @@ export class UserPanelComponent implements OnInit {
     }
 
     profileDetail() {
-
+        this.router.navigateByUrl('/profile');
     }
 
     logOut() {
