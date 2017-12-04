@@ -6,15 +6,15 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { AuthGuard } from './guards/auth-guard.service';
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { GlobalErrorHandler } from './handlers/global-error-handler';
-import { UserService } from './services/user-service';
 import { ApiRequestsInterceptor } from './interceptors/api-requests-interceptor.service';
-import { FileService } from './services/file-service';
 import { LoginGuard } from './guards/login-guard.service';
 import { LockGuard } from './guards/lock-guard.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [],
     imports: [
+        SharedModule,
         CommonModule,
         HttpClientModule
     ],
@@ -24,9 +24,7 @@ import { LockGuard } from './guards/lock-guard.service';
         LoginGuard,
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ApiRequestsInterceptor, multi: true},
-        {provide: ErrorHandler, useClass: GlobalErrorHandler},
-        UserService,
-        FileService
+        {provide: ErrorHandler, useClass: GlobalErrorHandler}
     ]
 })
 export class CoreModule { }

@@ -1,7 +1,7 @@
 import { Component, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from './core/services/user-service';
 import { LockScreenService } from './lock-screen/lock-screen.service';
+import { UserService } from './shared/services/user-service';
 
 
 @Component({

@@ -1,13 +1,13 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { UserService } from '../core/services/user-service';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../login/login.service';
 import { User } from '../shared/models/user.models';
+import { UserService } from '../shared/services/user-service';
 
 @Injectable()
 export class LockScreenService {
-    timer: NodeJS.Timer;
+    timer: any; // NodeJS.Timer;
     listener: any;
     lockAfter: number; // ms
 

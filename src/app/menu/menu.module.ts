@@ -6,6 +6,7 @@ import { MenuNavigationModule } from './navigation/navigation.module';
 import { MenuUserPanelModule } from './user-panel/user-panel.module';
 import { RouterModule } from '@angular/router';
 import { MenuMobileComponent } from './menu-mobile.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { MenuMobileComponent } from './menu-mobile.component';
         MenuMobileComponent
     ],
     imports: [
+        SharedModule,
         CommonModule,
         RouterModule,
         MenuUserPanelModule,

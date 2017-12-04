@@ -8,7 +8,7 @@ export class User {
     isAuth: boolean;
     isAdmin: boolean;
 
-    avatar: any;
+    avatarId: string;
 
     constructor() {
         this.isAuth = false;

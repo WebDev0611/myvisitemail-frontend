@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { element } from 'protractor';
 
 @Component({
     selector: 'app-menu-navigation',
