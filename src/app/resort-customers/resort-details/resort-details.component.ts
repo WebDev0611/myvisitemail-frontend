@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ResortSettingsService } from './resort-settings.service';
+import { ResortDetailsService } from './resort-details.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-    selector: 'app-resort-settings',
-    templateUrl: './resort-settings.component.html'
+    selector: 'app-resort-details',
+    templateUrl: './resort-details.component.html'
 })
-export class ResortSettingsComponent implements OnInit, OnDestroy {
+export class ResortDetailsComponent implements OnInit, OnDestroy {
     resortId: string;
     private sub: Subscription;
 
-    constructor(private componentService: ResortSettingsService, private route: ActivatedRoute) {
+    constructor(private componentService: ResortDetailsService, private route: ActivatedRoute) {
 
     }
 

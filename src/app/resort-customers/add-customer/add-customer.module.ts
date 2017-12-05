@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AddCustomerComponent } from './add-customer.component';
-import { CustomersService } from '../customers.service';
+import { CustomersService } from '../resort-customers.service';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

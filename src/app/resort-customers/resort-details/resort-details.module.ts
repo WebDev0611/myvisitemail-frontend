@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
-import { ResortSettingsComponent } from './resort-settings.component';
-import { ResortSettingsService } from './resort-settings.service';
+import { SharedModule } from '../../shared/shared.module';
+import { ResortDetailsComponent } from './resort-details.component';
+import { ResortDetailsService } from './resort-details.service';
 import { EmailFormModule } from './email-form/email-form.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [ResortSettingsComponent],
-    exports: [ResortSettingsComponent],
+    declarations: [ResortDetailsComponent],
+    exports: [ResortDetailsComponent],
     imports: [
         RouterModule,
         CommonModule,
@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
         EmailFormModule
     ],
     providers: [
-        ResortSettingsService
+        ResortDetailsService
     ]
 })
-export class ResortSettingsModule {}
+export class ResortDetailsModule {}

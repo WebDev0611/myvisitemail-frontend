@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppError } from '../shared/models/common.models';
 import { IEmailMessage } from './email-form/email-form.models';
 
 @Injectable()
-export class ResortSettingsService {
+export class ResortDetailsService {
     constructor(private http: HttpClient) { }
 
     getResort(resortId: string): Promise<any> {

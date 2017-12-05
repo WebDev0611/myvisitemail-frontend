@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomersService } from '../customers.service';
-import { IDetailCustomer } from '../customers.models';
+import { CustomersService } from '../resort-customers.service';
 import { Page } from '../../shared/models/common.models';
 import { ErrorService } from '../../error/error.service';
+import { IDetailCustomer } from '../resort-customers.models';
 
 @Component({
     selector: 'app-manage-customers',

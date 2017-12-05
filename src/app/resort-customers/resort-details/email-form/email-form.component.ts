@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { ResortSettingsService } from '../resort-settings.service';
 import { Subscription } from 'rxjs/Subscription';
+
 import { IEmailMessage, EmailMessage } from './email-form.models';
-import { ErrorService } from '../../error/error.service';
+import { ResortDetailsService } from '../resort-details.service';
+import { ErrorService } from '../../../error/error.service';
+
 
 @Component({
     selector: 'app-email-form',
@@ -18,7 +19,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
     resultMsg: string;
 
     private sub: Subscription;
-    constructor(private componentService: ResortSettingsService, private route: ActivatedRoute, private router: Router,
+    constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private router: Router,
         private errorService: ErrorService) {
         this.email = new EmailMessage();
         this.resultMsg = '';

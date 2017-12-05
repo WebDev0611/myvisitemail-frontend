@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICustomer, Customer, IDetailCustomer } from './customers.models';
+import { ICustomer, Customer, IDetailCustomer } from './resort-customers.models';
 
 @Injectable()
 export class CustomersService {
