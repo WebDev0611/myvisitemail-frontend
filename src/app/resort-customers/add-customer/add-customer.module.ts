@@ -1,19 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AddCustomerComponent } from './add-customer.component';
-import { CustomersService } from '../resort-customers.service';
-import { FormsModule } from '@angular/forms';
+import { AddCustomersService } from './add-customer.service';
+import { ManageCustomersService } from '../manage-customers/manage-customers.service';
+import { ResortDetailsService } from '../resort-details/resort-details.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     declarations: [AddCustomerComponent],
     exports: [AddCustomerComponent],
     imports: [
-        FormsModule,
-        CommonModule
+        SharedModule
     ],
     providers: [
-        CustomersService
+        AddCustomersService,
+        ManageCustomersService,
+        ResortDetailsService
     ]
 })
 export class AddCustomerModule {}

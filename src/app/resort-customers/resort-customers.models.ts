@@ -75,3 +75,13 @@ export interface IResortCustomer extends ICustomer {
     lastSent: string;
     invoice: string;
 }
+export interface IResortCustomerDetails extends IResortCustomer {
+    id: string;
+
+    name: string;
+    position: string;
+    email: string;
+    rooms: number;
+    lastSent: string;
+    invoice: string;
+}

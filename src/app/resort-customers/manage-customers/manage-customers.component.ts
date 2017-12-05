@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomersService } from '../resort-customers.service';
+
 import { Page } from '../../shared/models/common.models';
 import { ErrorService } from '../../error/error.service';
 import { IResortCustomer } from '../resort-customers.models';
+import { ManageCustomersService } from './manage-customers.service';
 
 @Component({
     selector: 'app-manage-customers',
@@ -12,13 +13,16 @@ import { IResortCustomer } from '../resort-customers.models';
 export class ManageCustomersComponent implements OnInit {
     activePage: number;
     maxPerPage: number;
+    totalCount: number;
 
     pages: Page[];
     customers: IResortCustomer[];
-    constructor(private componentService: CustomersService, private errorService: ErrorService) {
+    constructor(private componentService: ManageCustomersService, private errorService: ErrorService) {
         this.customers = [];
         this.activePage = 1;
         this.maxPerPage = 10;
+        this.totalCount = 0;
+
         this.pages = [];
     }
 
@@ -30,6 +34,7 @@ export class ManageCustomersComponent implements OnInit {
         this.componentService.getResortCustomers()
             .then(customers => {
                 this.customers = customers;
+                this.totalCount = customers.length;
                 if (customers.length > this.maxPerPage) {
                     debugger
                 }

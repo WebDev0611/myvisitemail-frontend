@@ -22,11 +22,11 @@ const routes: Routes = [
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'add-customer', component: AddCustomerComponent, canActivate: [AuthGuard] },
     { path: 'manage-customers', component: ManageCustomersComponent, canActivate: [AuthGuard] },
-    { path: 'resort-settings/:resortId', component: ResortDetailsComponent, canActivate: [AuthGuard] },
-    { path: 'resort-settings/booked/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] },
-    { path: 'resort-settings/check-in/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] },
-    { path: 'resort-settings/check-out/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] },
-    { path: 'resort-settings/cancellation/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] }
+    { path: 'resort-details/:resortId', component: ResortDetailsComponent, canActivate: [AuthGuard] },
+    { path: 'resort-details/booked/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] },
+    { path: 'resort-details/check-in/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] },
+    { path: 'resort-details/check-out/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] },
+    { path: 'resort-details/cancellation/:resortId', component: EmailFormComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

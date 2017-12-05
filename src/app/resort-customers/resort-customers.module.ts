@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AddCustomerModule } from './add-customer/add-customer.module';
@@ -13,7 +12,6 @@ import { ResortDetailsModule } from './resort-details/resort-details.module';
     exports: [
     ],
     imports: [
-        CommonModule,
         AddCustomerModule,
         ManageCustomerModule,
         ResortDetailsModule
