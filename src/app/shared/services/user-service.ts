@@ -6,7 +6,6 @@ import { User } from '../models/user.models';
 
 @Injectable()
 export class UserService {
-
     isLocked: boolean;
     isAuth: BehaviorSubject<boolean>;
 
@@ -34,7 +33,7 @@ export class UserService {
 
         if (!user.avatarId) {
             // in case of no avatar we are using default one
-            user.avatarId = 'assets/img/avatar1.jpg';
+            user.avatarId = 'assets/img/default_avatar.jpg';
         }
 
         delete user.password;

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomersService } from '../customers.service';
-import { IDetailCustomer } from '../customers.models';
+
 import { Page } from '../../shared/models/common.models';
+import { ErrorService } from '../../error/error.service';
+import { IResortCustomer } from '../resort-customers.models';
+import { ManageCustomersService } from './manage-customers.service';
 
 @Component({
     selector: 'app-manage-customers',
@@ -10,11 +12,18 @@ import { Page } from '../../shared/models/common.models';
 })
 export class ManageCustomersComponent implements OnInit {
     activePage: number;
+    maxPerPage: number;
+    totalCount: number;
+
     pages: Page[];
-    customers: IDetailCustomer[];
-    constructor(private componentService: CustomersService) {
+    customers: IResortCustomer[];
+    private allCustomers: IResortCustomer[];
+    constructor(private componentService: ManageCustomersService, private errorService: ErrorService) {
         this.customers = [];
         this.activePage = 1;
+        this.maxPerPage = 10;
+        this.totalCount = 0;
+
         this.pages = [];
     }
 
@@ -23,22 +32,28 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     getCustomers(): void {
-        this.componentService.getDetailCustomers()
+        this.componentService.getResortCustomers()
             .then(customers => {
+                this.allCustomers = customers;
+                this.totalCount = customers.length;
+
                 this.customers = customers;
-                for (let i = 1; i < 8; i++) {
-                    this.pages.push(new Page(i));
+
+                if (customers.length > this.maxPerPage) {
+                    this.calculatePages();
                 }
             })
             .catch(error => {
-                throw error;
+                this.errorService.handleError(error);
             });
     }
 
     changeAggregation(entriesNo: string) {
-        const count = parseInt(entriesNo, 10);
+        this.maxPerPage = parseInt(entriesNo, 10);
 
-        console.log('Change entries count:', count);
+        this.calculatePages();
+
+        console.log('Change entries count:', this.maxPerPage);
     }
 
     openPage(pageNo: string) {
@@ -54,5 +69,9 @@ export class ManageCustomersComponent implements OnInit {
         if (this.activePage > 1) {
             this.activePage--;
         }
+    }
+
+    private calculatePages(){
+
     }
 }

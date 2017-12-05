@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
             .then(result => {
             })
             .catch(error => {
-                this.errorService.showError(error);
+                this.errorService.handleError(error);
             });
     }
 

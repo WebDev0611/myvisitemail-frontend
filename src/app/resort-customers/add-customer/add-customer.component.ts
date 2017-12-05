@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomersService } from '../customers.service';
-import { ICustomer, Customer } from '../customers.models';
+
+import { ICustomer } from '../resort-customers.models';
+import { ErrorService } from '../../error/error.service';
+import { AddCustomersService } from './add-customer.service';
 
 @Component({
     selector: 'app-add-customer',
@@ -11,9 +13,8 @@ export class AddCustomerComponent implements OnInit {
     areas: string[];
     customer: ICustomer;
 
-    constructor(private componentService: CustomersService) {
+    constructor(private componentService: AddCustomersService, private errorService: ErrorService) {
         this.areas = [];
-        this.customer = new Customer();
     }
 
     ngOnInit() {
@@ -27,7 +28,7 @@ export class AddCustomerComponent implements OnInit {
                 this.areas.unshift('Select area');
             })
             .catch(error => {
-                throw error;
+                this.errorService.handleError(error);
             });
     }
 
@@ -36,19 +37,14 @@ export class AddCustomerComponent implements OnInit {
             this.componentService.addCustomer(this.customer)
                 .then(result => {
                     console.log('Customer added!');
-                    this.customer = new Customer();
                 })
                 .catch(error => {
-                    console.error(error);
+                    this.errorService.handleError(error);
                 });
         }
     }
 
     isValid(): boolean {
-        // custom extra validation
-        if (this.customer.company.area === 'Select area') {
-            return false;
-        }
         return true;
     }
 }

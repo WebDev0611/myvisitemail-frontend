@@ -8,7 +8,8 @@ export class ErrorService {
     error: AppError;
     constructor(private router: Router) { }
 
-    showError(error: any | AppError) {
+    handleError(error: any | AppError) {
+        debugger
         this.prepareError(error);
 
         this.logError();

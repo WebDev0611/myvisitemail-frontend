@@ -8,10 +8,9 @@ import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { MenuModule } from './menu/menu.module';
 import { ErrorModule } from './error/error.module';
-import { CustomersModule } from './customers/customers.module';
+import { ResortCustomersModule } from './resort-customers/resort-customers.module';
 import { SharedModule } from './shared/shared.module';
 import { LockScreenModule } from './lock-screen/lock-screen.module';
-import { ResortSettingsModule } from './resort-settings/resort-settings.module';
 import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
@@ -27,8 +26,7 @@ import { ProfileModule } from './profile/profile.module';
         MenuModule,
         ErrorModule,
         ProfileModule,
-        CustomersModule,
-        ResortSettingsModule,
+        ResortCustomersModule,
 
         CoreModule
     ],

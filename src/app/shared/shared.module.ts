@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
 import { FileService } from './services/file-service';
 import { UserService } from './services/user-service';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { UserService } from './services/user-service';
         DialogComponent
     ],
     imports: [
+        FormsModule,
         CommonModule
     ],
     exports: [

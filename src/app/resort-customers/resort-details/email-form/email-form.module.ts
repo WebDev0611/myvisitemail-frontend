@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { EmailFormComponent } from './email-form.component';
-import { ResortSettingsService } from '../resort-settings.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+
+import { EmailFormComponent } from './email-form.component';
+import { ResortDetailsService } from '../resort-details.service';
 
 @NgModule({
     declarations: [EmailFormComponent],
@@ -14,7 +15,7 @@ import { FormsModule } from '@angular/forms';
         CommonModule
     ],
     providers: [
-        ResortSettingsService
+        ResortDetailsService
     ]
 })
 export class EmailFormModule {}
