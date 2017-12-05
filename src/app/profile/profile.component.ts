@@ -10,6 +10,13 @@ import { ErrorService } from '../error/error.service';
 export class ProfileComponent implements OnInit {
 
     constructor(private componentService: ProfileService, private errorService: ErrorService) {
+        this.componentService
+            .getData()
+            .then(result => {
+            })
+            .catch(error => {
+                this.errorService.showError(error);
+            });
     }
 
     ngOnInit() {

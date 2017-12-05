@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core';
 
 import { AuthGuard } from './guards/auth-guard.service';
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
@@ -22,9 +22,16 @@ import { SharedModule } from '../shared/shared.module';
         LockGuard,
         AuthGuard,
         LoginGuard,
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: ApiRequestsInterceptor, multi: true},
-        {provide: ErrorHandler, useClass: GlobalErrorHandler}
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ApiRequestsInterceptor, multi: true },
+        { provide: ErrorHandler, useClass: GlobalErrorHandler }
     ]
 })
-export class CoreModule { }
+export class CoreModule {
+    constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+        if (parentModule) {
+            throw new Error(
+                'CoreModule is already loaded. Import it in the AppModule only');
+        }
+    }
+}
