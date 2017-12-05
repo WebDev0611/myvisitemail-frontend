@@ -17,6 +17,7 @@ export class ManageCustomersComponent implements OnInit {
 
     pages: Page[];
     customers: IResortCustomer[];
+    private allCustomers: IResortCustomer[];
     constructor(private componentService: ManageCustomersService, private errorService: ErrorService) {
         this.customers = [];
         this.activePage = 1;
@@ -33,10 +34,13 @@ export class ManageCustomersComponent implements OnInit {
     getCustomers(): void {
         this.componentService.getResortCustomers()
             .then(customers => {
-                this.customers = customers;
+                this.allCustomers = customers;
                 this.totalCount = customers.length;
+
+                this.customers = customers;
+
                 if (customers.length > this.maxPerPage) {
-                    debugger
+
                 }
             })
             .catch(error => {

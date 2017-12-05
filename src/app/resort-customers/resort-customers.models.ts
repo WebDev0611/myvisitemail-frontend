@@ -84,4 +84,32 @@ export interface IResortCustomerDetails extends IResortCustomer {
     rooms: number;
     lastSent: string;
     invoice: string;
+
+    phone: string;
+    emailsSent: number;
+    emailsOpened: number;
+    bounceRate: number;
+    cancellations: number;
+    lastWeek: number;
+
+    profileBkg: string;
+}
+export class ResortCustomerDetails implements IResortCustomerDetails {
+    id: string;
+
+    name: string;
+    position: string;
+    email: string;
+    rooms: number;
+    lastSent: string;
+    invoice: string;
+
+    phone: string;
+    emailsSent: number;
+    emailsOpened: number;
+    bounceRate: number;
+    cancellations: number;
+    lastWeek: number;
+
+    profileBkg: string;
 }

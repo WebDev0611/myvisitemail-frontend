@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AddCustomerComponent } from './add-customer.component';
 import { AddCustomersService } from './add-customer.service';
@@ -10,6 +12,8 @@ import { SharedModule } from '../../shared/shared.module';
     declarations: [AddCustomerComponent],
     exports: [AddCustomerComponent],
     imports: [
+        FormsModule,
+        CommonModule,
         SharedModule
     ],
     providers: [

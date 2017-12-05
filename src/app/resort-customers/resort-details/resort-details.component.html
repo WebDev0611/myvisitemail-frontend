@@ -3,7 +3,7 @@
         <div class="content-box">
             <div class="element-wrapper">
                 <div class="user-profile">
-                    <div class="up-head-w" style="background-image:url(img/profile_bg1.jpg)">
+                    <div class="up-head-w" [ngStyle]="{'background-image': 'url(' + resort.profileBkg + ')'}">
                         <div class="up-main-info">
                             <h1 class="up-header">
                                 Lónkot Bucolic Resort
@@ -21,9 +21,9 @@
                             User Information
                         </h5>
                         <div>
-                            <h6>Name : Lónkot Bucolic Resort</h6>
-                            <h6>Email : lonkot@lonkot.is</h6>
-                            <h6>Phone : +354 588 5522</h6>
+                            <h6>Name : {{ resort.name }}</h6>
+                            <h6>Email : {{ resort.email }}</h6>
+                            <h6>Phone : {{ resort.phone }}</h6>
                         </div>
                         <div style="padding:20px 20px">This is just a dummy line. There has to be something related to below checkboxes. Please tick below.This
                             is just a dummy line.This is just a dummy line.This is just a dummy line.</div>
@@ -76,7 +76,7 @@
                                     <div class="col-sm-6 b-r b-b">
                                         <div class="el-tablo centered padded">
                                             <div class="value">
-                                                3.814
+                                                {{ resort.emailsSent }}
                                             </div>
                                             <div class="label">
                                                 E-mails Sent
@@ -86,7 +86,7 @@
                                     <div class="col-sm-6 b-b b-r">
                                         <div class="el-tablo centered padded">
                                             <div class="value">
-                                                2.123
+                                                {{ resort.emailsOpened }}
                                             </div>
                                             <div class="label">
                                                 Opened E-mails
@@ -98,7 +98,7 @@
                                     <div class="col-sm-6 b-r">
                                         <div class="el-tablo centered padded">
                                             <div class="value">
-                                                12%
+                                                {{ resort.bounceRate | percent }}
                                             </div>
                                             <div class="label">
                                                 Bounce Rate
@@ -108,7 +108,7 @@
                                     <div class="col-sm-6 b-r">
                                         <div class="el-tablo centered padded">
                                             <div class="value">
-                                                12
+                                                {{ resort.cancellations }}
                                             </div>
                                             <div class="label">
                                                 Cancellations
@@ -167,7 +167,7 @@
                                             Last Week
                                         </div>
                                         <div class="value">
-                                            223
+                                            {{ resort.lastWeek }}
                                         </div>
                                     </div>
                                     <div class="el-chart-w">
