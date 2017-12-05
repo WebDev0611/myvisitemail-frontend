@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit {
                 this.filterReports(data);
             })
             .catch(error => {
-                this.errorService.showError(error);
+                this.errorService.handleError(error);
             });
     }
 

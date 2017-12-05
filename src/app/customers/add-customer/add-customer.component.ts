@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../customers.service';
 import { ICustomer, Customer } from '../customers.models';
+import { ErrorService } from '../../error/error.service';
 
 @Component({
     selector: 'app-add-customer',
@@ -11,7 +12,7 @@ export class AddCustomerComponent implements OnInit {
     areas: string[];
     customer: ICustomer;
 
-    constructor(private componentService: CustomersService) {
+    constructor(private componentService: CustomersService, private errorService: ErrorService) {
         this.areas = [];
         this.customer = new Customer();
     }
@@ -27,7 +28,7 @@ export class AddCustomerComponent implements OnInit {
                 this.areas.unshift('Select area');
             })
             .catch(error => {
-                throw error;
+                this.errorService.handleError(error);
             });
     }
 
@@ -39,7 +40,7 @@ export class AddCustomerComponent implements OnInit {
                     this.customer = new Customer();
                 })
                 .catch(error => {
-                    console.error(error);
+                    this.errorService.handleError(error);
                 });
         }
     }

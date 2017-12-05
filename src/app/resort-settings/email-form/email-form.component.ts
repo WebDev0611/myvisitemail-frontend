@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ResortSettingsService } from '../resort-settings.service';
 import { Subscription } from 'rxjs/Subscription';
 import { IEmailMessage, EmailMessage } from './email-form.models';
+import { ErrorService } from '../../error/error.service';
 
 @Component({
     selector: 'app-email-form',
@@ -17,7 +18,8 @@ export class EmailFormComponent implements OnInit, OnDestroy {
     resultMsg: string;
 
     private sub: Subscription;
-    constructor(private componentService: ResortSettingsService, private route: ActivatedRoute, private router: Router) {
+    constructor(private componentService: ResortSettingsService, private route: ActivatedRoute, private router: Router,
+        private errorService: ErrorService) {
         this.email = new EmailMessage();
         this.resultMsg = '';
     }
@@ -40,7 +42,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
                 this.router.navigateByUrl(`/resort-settings/${ this.resortId }`);
             })
             .catch(error => {
-                throw error;
+                this.errorService.handleError(error);
             });
     }
 
@@ -51,7 +53,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
                 this.resultMsg = 'Test email has been sent';
             })
             .catch(error => {
-                throw error;
+                this.errorService.handleError(error);
             });
     }
 }

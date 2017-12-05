@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../customers.service';
 import { IDetailCustomer } from '../customers.models';
 import { Page } from '../../shared/models/common.models';
+import { ErrorService } from '../../error/error.service';
 
 @Component({
     selector: 'app-manage-customers',
@@ -12,7 +13,7 @@ export class ManageCustomersComponent implements OnInit {
     activePage: number;
     pages: Page[];
     customers: IDetailCustomer[];
-    constructor(private componentService: CustomersService) {
+    constructor(private componentService: CustomersService, private errorService: ErrorService) {
         this.customers = [];
         this.activePage = 1;
         this.pages = [];
@@ -31,7 +32,7 @@ export class ManageCustomersComponent implements OnInit {
                 }
             })
             .catch(error => {
-                throw error;
+                this.errorService.handleError(error);
             });
     }
 
