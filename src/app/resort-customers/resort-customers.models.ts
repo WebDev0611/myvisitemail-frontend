@@ -1,3 +1,55 @@
+export interface ICustomer {
+    id: string;
+}
+export interface IResortCustomer extends ICustomer {
+    id: string;
+
+    name: string;
+    position: string;
+    email: string;
+    rooms: number;
+    lastSent: string;
+    invoice: string;
+}
+export interface IResortCustomerDetails extends IResortCustomer {
+    id: string;
+
+    name: string;
+    position: string;
+    email: string;
+    rooms: number;
+    lastSent: string;
+    invoice: string;
+
+    phone: string;
+    emailsSent: number;
+    emailsOpened: number;
+    bounceRate: number;
+    cancellations: number;
+    lastWeek: number;
+
+    profileBkg: string;
+}
+export class ResortCustomerDetails implements IResortCustomerDetails {
+    id: string;
+
+    name: string;
+    position: string;
+    email: string;
+    rooms: number;
+    lastSent: string;
+    invoice: string;
+
+    phone: string;
+    emailsSent: number;
+    emailsOpened: number;
+    bounceRate: number;
+    cancellations: number;
+    lastWeek: number;
+
+    profileBkg: string;
+}
+
 // export interface ICustomer {
 //     company: ICompany;
 //     person: IContactInfo;
@@ -61,55 +113,3 @@
 //     invoice: string; // maybe number?
 //     resortId: string;
 // }
-
-export interface ICustomer {
-    id: string;
-}
-export interface IResortCustomer extends ICustomer {
-    id: string;
-
-    name: string;
-    position: string;
-    email: string;
-    rooms: number;
-    lastSent: string;
-    invoice: string;
-}
-export interface IResortCustomerDetails extends IResortCustomer {
-    id: string;
-
-    name: string;
-    position: string;
-    email: string;
-    rooms: number;
-    lastSent: string;
-    invoice: string;
-
-    phone: string;
-    emailsSent: number;
-    emailsOpened: number;
-    bounceRate: number;
-    cancellations: number;
-    lastWeek: number;
-
-    profileBkg: string;
-}
-export class ResortCustomerDetails implements IResortCustomerDetails {
-    id: string;
-
-    name: string;
-    position: string;
-    email: string;
-    rooms: number;
-    lastSent: string;
-    invoice: string;
-
-    phone: string;
-    emailsSent: number;
-    emailsOpened: number;
-    bounceRate: number;
-    cancellations: number;
-    lastWeek: number;
-
-    profileBkg: string;
-}

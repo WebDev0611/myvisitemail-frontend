@@ -6,7 +6,6 @@ import { User } from '../models/user.models';
 
 @Injectable()
 export class UserService {
-
     isLocked: boolean;
     isAuth: BehaviorSubject<boolean>;
 

@@ -40,7 +40,7 @@ export class ManageCustomersComponent implements OnInit {
                 this.customers = customers;
 
                 if (customers.length > this.maxPerPage) {
-
+                    this.calculatePages();
                 }
             })
             .catch(error => {
@@ -49,11 +49,11 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     changeAggregation(entriesNo: string) {
-        const count = parseInt(entriesNo, 10);
-        this.maxPerPage = count;
-        debugger
+        this.maxPerPage = parseInt(entriesNo, 10);
 
-        console.log('Change entries count:', count);
+        this.calculatePages();
+
+        console.log('Change entries count:', this.maxPerPage);
     }
 
     openPage(pageNo: string) {
@@ -69,5 +69,9 @@ export class ManageCustomersComponent implements OnInit {
         if (this.activePage > 1) {
             this.activePage--;
         }
+    }
+
+    private calculatePages(){
+
     }
 }
