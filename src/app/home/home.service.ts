@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppError } from '../shared/models/common.models';
-import {User} from "../shared/models/user.models";
+
 
 @Injectable()
 export class HomeService {

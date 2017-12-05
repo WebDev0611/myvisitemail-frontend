@@ -19,8 +19,6 @@ import { ProfileModule } from './profile/profile.module';
         AppComponent
     ],
     imports: [
-        CoreModule,
-        SharedModule,
         BrowserModule,
         AppRoutingModule,
         LoginModule,
@@ -30,7 +28,9 @@ import { ProfileModule } from './profile/profile.module';
         ErrorModule,
         ProfileModule,
         CustomersModule,
-        ResortSettingsModule
+        ResortSettingsModule,
+
+        CoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]

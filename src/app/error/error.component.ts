@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ErrorService } from './error.service';
 import { AppError } from '../shared/models/common.models';
 
@@ -11,7 +10,7 @@ import { AppError } from '../shared/models/common.models';
 })
 export class ErrorComponent implements OnInit {
     error: AppError;
-    constructor(private componentService: ErrorService, private route: ActivatedRoute) {
+    constructor(private componentService: ErrorService) {
         this.error = new AppError();
     }
 
@@ -21,7 +20,7 @@ export class ErrorComponent implements OnInit {
 
     search(searchText: string) {
         if (searchText) {
-            console.log(searchText);
+            this.componentService.search(searchText);
         }
     }
 }
