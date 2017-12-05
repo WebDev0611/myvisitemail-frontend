@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { User } from '../shared/models/user.models';
-import { UserService } from '../core/services/user-service';
+import { UserService } from '../shared/services/user-service';
 
 @Component({
     selector: 'app-menu-mobile',

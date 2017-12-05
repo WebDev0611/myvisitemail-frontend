@@ -12,14 +12,13 @@ import { CustomersModule } from './customers/customers.module';
 import { SharedModule } from './shared/shared.module';
 import { LockScreenModule } from './lock-screen/lock-screen.module';
 import { ResortSettingsModule } from './resort-settings/resort-settings.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
-        CoreModule,
-        SharedModule,
         BrowserModule,
         AppRoutingModule,
         LoginModule,
@@ -27,8 +26,11 @@ import { ResortSettingsModule } from './resort-settings/resort-settings.module';
         HomeModule,
         MenuModule,
         ErrorModule,
+        ProfileModule,
         CustomersModule,
-        ResortSettingsModule
+        ResortSettingsModule,
+
+        CoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]

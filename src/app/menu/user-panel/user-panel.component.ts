@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserPanelService } from './user-panel.service';
 import { User } from '../../shared/models/user.models';
-import { UserService } from '../../core/services/user-service';
 import { Router } from '@angular/router';
+import { UserService } from '../../shared/services/user-service';
 
 @Component({
     selector: 'app-menu-user-panel',
@@ -21,7 +21,7 @@ export class UserPanelComponent implements OnInit {
     }
 
     profileDetail() {
-
+        this.router.navigateByUrl('/profile');
     }
 
     logOut() {

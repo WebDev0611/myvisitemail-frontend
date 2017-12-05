@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { UserPanelComponent } from './user-panel.component';
 import { UserPanelService } from './user-panel.service';
-import { CoreModule } from '../../core/core.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     declarations: [UserPanelComponent],
     exports: [UserPanelComponent],
     imports: [
-        CoreModule,
+        SharedModule,
         CommonModule
     ],
     providers: [

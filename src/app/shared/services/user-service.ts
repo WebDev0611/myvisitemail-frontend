@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { User } from '../../shared/models/user.models';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { User } from '../models/user.models';
 
 @Injectable()
 export class UserService {
@@ -29,24 +29,29 @@ export class UserService {
                 user = new User();
             }
 
-            user.avatar = this.getFromLocalStorage('avatar');
+            user.avatarId = this.getFromLocalStorage('avatar');
         }
 
+        if (!user.avatarId) {
+            // in case of no avatar we are using default one
+            user.avatarId = 'assets/img/avatar1.jpg';
+        }
+
+        delete user.password;
         this.user = user;
         this.deleteCookie('user');
-        this.saveToLocalStorage('avatar', this.user.password);
-        delete this.user.password;
+        this.saveToLocalStorage('avatar', this.user.avatarId);
 
         const forCookie = Object.assign({}, this.user);
-        delete forCookie.avatar;
+        delete forCookie.avatarId;
 
         this.setCookie('user', forCookie, 1);
         this.isAuth.next(user.isAuth);
     }
 
     getUser(): User {
-        if (!this.user.avatar || this.user.avatar === 'undefined') {
-            this.user.avatar = this.getFromLocalStorage('avatar');
+        if (!this.user.avatarId || this.user.avatarId === 'undefined') {
+            this.user.avatarId = this.getFromLocalStorage('avatar');
         }
 
         return this.user;

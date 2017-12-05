@@ -11,6 +11,7 @@ import { LockScreenComponent } from './lock-screen/lock-screen.component';
 import { LockGuard } from './core/guards/lock-guard.service';
 import { ResortSettingsComponent } from './resort-settings/resort-settings.component';
 import { EmailFormComponent } from './resort-settings/email-form/email-form.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'error', component: ErrorComponent },
     { path: 'lock', component: LockScreenComponent, canActivate: [LockGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'add-customer', component: AddCustomerComponent, canActivate: [AuthGuard] },
     { path: 'manage-customers', component: ManageCustomersComponent, canActivate: [AuthGuard] },
     { path: 'resort-settings/:resortId', component: ResortSettingsComponent, canActivate: [AuthGuard] },

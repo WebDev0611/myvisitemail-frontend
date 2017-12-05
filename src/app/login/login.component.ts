@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { User } from '../shared/models/user.models';
-import { UserService } from '../core/services/user-service';
 import { isUser, getErrorMessage } from '../shared/shared.utilities';
 import { LockScreenService } from '../lock-screen/lock-screen.service';
+import { UserService } from '../shared/services/user-service';
 
 
 @Component({

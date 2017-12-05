@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FileObject } from '../../shared/models/common.models';
+import { FileObject } from '../models/common.models';
 
 
 @Injectable()
