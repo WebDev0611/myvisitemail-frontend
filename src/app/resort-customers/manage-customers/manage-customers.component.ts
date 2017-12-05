@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../resort-customers.service';
 import { Page } from '../../shared/models/common.models';
 import { ErrorService } from '../../error/error.service';
-import { IDetailCustomer } from '../resort-customers.models';
+import { IResortCustomer } from '../resort-customers.models';
 
 @Component({
     selector: 'app-manage-customers',
@@ -11,11 +11,14 @@ import { IDetailCustomer } from '../resort-customers.models';
 })
 export class ManageCustomersComponent implements OnInit {
     activePage: number;
+    maxPerPage: number;
+
     pages: Page[];
-    customers: IDetailCustomer[];
+    customers: IResortCustomer[];
     constructor(private componentService: CustomersService, private errorService: ErrorService) {
         this.customers = [];
         this.activePage = 1;
+        this.maxPerPage = 10;
         this.pages = [];
     }
 
@@ -24,11 +27,11 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     getCustomers(): void {
-        this.componentService.getDetailCustomers()
+        this.componentService.getResortCustomers()
             .then(customers => {
                 this.customers = customers;
-                for (let i = 1; i < 8; i++) {
-                    this.pages.push(new Page(i));
+                if (customers.length > this.maxPerPage) {
+                    debugger
                 }
             })
             .catch(error => {
@@ -38,6 +41,8 @@ export class ManageCustomersComponent implements OnInit {
 
     changeAggregation(entriesNo: string) {
         const count = parseInt(entriesNo, 10);
+        this.maxPerPage = count;
+        debugger
 
         console.log('Change entries count:', count);
     }

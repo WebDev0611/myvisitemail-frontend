@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICustomer, Customer, IDetailCustomer } from './resort-customers.models';
+import { ICustomer, IResortCustomer } from './resort-customers.models';
 
 @Injectable()
 export class CustomersService {
@@ -24,15 +24,15 @@ export class CustomersService {
         });
     }
 
-    getDetailCustomers(): Promise<IDetailCustomer[]> {
-        return new Promise<IDetailCustomer[]>((resolve, reject) => {
+    getResortCustomers(): Promise<IResortCustomer[]> {
+        return new Promise<IResortCustomer[]>((resolve, reject) => {
            resolve(this.mockCustomers());
         });
     }
 
     getCustomer(): Promise<ICustomer> {
         return new Promise<ICustomer>((resolve, reject) => {
-           resolve(new Customer());
+           resolve({ id: '1'});
         });
     }
 
@@ -54,97 +54,79 @@ export class CustomersService {
         ]
     }
 
-    private mockCustomers(): IDetailCustomer[] {
-        const customers: IDetailCustomer[] = [
+    private mockCustomers(): IResortCustomer[] {
+        const customers: IResortCustomer[] = [
             {
-                name: 'Airi Satou',
-                position: 'Accountant',
-                office: 'Tokyo',
-                age: 33,
-                startDate: '2008/11/28',
-                invoice: '$162,700',
-                resortId: '1'
+                id: '1',
+                name: 'Gistihús Gumma',
+                position: 'Guesthouse',
+                email: 'gummi69@simnet.is',
+                rooms: 4,
+                lastSent: '2017/01/12',
+                invoice: '$860'
             },
             {
-                name: 'Angelica Ramos',
-                position: 'Chief Executive Officer (CEO)',
-                office: 'London',
-                age: 47,
-                startDate: '2009/10/09',
-                invoice: '$1,200,000',
-                resortId: '1'
+                id: '2',
+                name: 'Hótel Harpa',
+                position: 'Hotel',
+                email: 'sigrune@harpa.is',
+                rooms: 342,
+                lastSent: '2017/01/25',
+                invoice: '$112,000'
             },
             {
-                name: 'Ashton Cox',
-                position: 'Junior Technical Author',
-                office: 'San Francisco',
-                age: 66,
-                startDate: '2009/01/12',
-                invoice: '$86,000',
-                resortId: '1'
+                id: '3',
+                name: 'Hótel Hellnir',
+                position: 'Hotel',
+                email: 'hellnir@hellnir.is',
+                rooms: 61,
+                lastSent: '2017/04/25',
+                invoice: '$320'
             },
             {
-                name: 'Bradley Greer',
-                position: 'Software Engineer',
-                office: 'London',
-                age: 41,
-                startDate: '2012/10/13',
-                invoice: '$132,000',
-                resortId: '1'
+                id: '4',
+                name: 'Hótel Rangá',
+                position: 'Guesthouse',
+                email: 'gydasol@ranga.is',
+                rooms: 63,
+                lastSent: '2017/07/25',
+                invoice: '$1700'
             },
             {
-                name: 'Brenden Wagner',
-                position: 'Software Engineer',
-                office: 'San Francisco',
-                age: 28,
-                startDate: '2011/06/07',
-                invoice: '$206,850',
-                resortId: '1'
+                id: '5',
+                name: 'Hótel Venus',
+                position: 'Guesthouse',
+                email: 'elli@hotmale.com',
+                rooms: 12,
+                lastSent: '2017/03/29',
+                invoice: '$4330'
             },
             {
-                name: 'Brielle Williamson',
-                position: 'Integration Specialist',
-                office: 'New York',
-                age: 61,
-                startDate: '2012/12/02',
-                invoice: '$372,000',
-                resortId: '1'
+                id: '6',
+                name: 'Lónkot Bucolic Resort',
+                position: 'Guesthouse',
+                email: 'lonkot@lonkot.is',
+                rooms: 7,
+                lastSent: '2007/11/28',
+                invoice: '$162'
             },
             {
-                name: 'Bruno Nash',
-                position: 'Software Engineer',
-                office: 'London',
-                age: 38,
-                startDate: '2011/05/03',
-                invoice: '$163,500',
-                resortId: '1'
+                id: '7',
+                name: 'Snorralaug',
+                position: 'Hotel',
+                email: 'snorri@betel.com',
+                rooms: 12,
+                lastSent: '2017/12/22',
+                invoice: '$8690'
             },
             {
-                name: 'Caesar Vance',
-                position: 'Pre-Sales Support',
-                office: 'New York',
-                age: 21,
-                startDate: '2011/12/12',
-                invoice: '$106,450',
-                resortId: '1'
-            },
-            {
-                name: 'Cara Stevens',
-                position: 'Sales Assistant',
-                office: 'New York',
-                age: 46,
-                startDate: '2011/12/06',
-                invoice: '$145,600',
-                resortId: '1'
-            },
-            {
-                name: 'Cedric Kelly',
-                position: 'Senior Javascript Developer',
-                office: 'Edinburgh',
-                age: 22,
-                startDate: '2012/03/29',
-                invoice: '$433,060',
-                resortId: '1'
+                id: '8',
+                name: 'Snæfell Hotel',
+                position: 'Hotel',
+                email: 'snaefell@snaefell.is',
+                rooms: 51,
+                lastSent: '2017/11/13',
+                invoice: '$183,000'
             }
         ];
 
