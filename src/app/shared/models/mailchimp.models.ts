@@ -23,7 +23,13 @@ export interface IMailchimpReportData {
 }
 
 export interface IMailchimpBounces { hard_bounces: number; soft_bounces: number; syntax_errors: number; }
-export interface IMailchimpClicks { clicks_total: number; unique_clicks: number; unique_subscriber_clicks: number; click_rate: number; last_click: Date; }
+export interface IMailchimpClicks {
+    clicks_total: number;
+    unique_clicks: number;
+    unique_subscriber_clicks: number;
+    click_rate: number;
+    last_click: Date;
+}
 export interface IMailchimpDeliveryStatus { enabled: boolean; }
 export interface IMailchimpEcommerce { total_orders: number; total_spent: number; total_revenue: number; }
 export interface IMailchimpFacebookLikes { recipient_likes: number; unique_likes: number; facebook_likes: number; }
