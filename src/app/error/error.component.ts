@@ -17,10 +17,4 @@ export class ErrorComponent implements OnInit {
     ngOnInit() {
         this.error = this.componentService.error;
     }
-
-    search(searchText: string) {
-        if (searchText) {
-            this.componentService.search(searchText);
-        }
-    }
 }

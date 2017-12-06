@@ -17,10 +17,6 @@ export class ErrorService {
         this.router.navigateByUrl('error');
     }
 
-    search(searchInput: string) {
-        console.log('Error search: ', searchInput);
-    }
-
     logError() {
         console.log('error', this.error);
     }
