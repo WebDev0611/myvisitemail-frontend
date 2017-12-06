@@ -147,16 +147,20 @@
                                 </ul>
                                 <ul class="nav nav-pills smaller hidden-sm-down">
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#">Today</a>
+                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(1)"
+                                        [class.active]="chartTimespan === 1">Today</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#">7 Days</a>
+                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(7)"
+                                        [class.active]="chartTimespan === 7">7 Days</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#">14 Days</a>
+                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(14)"
+                                        [class.active]="chartTimespan === 14">14 Days</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#">Last Month</a>
+                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(0)"
+                                        [class.active]="chartTimespan === 0">Last Month</a>
                                     </li>
                                 </ul>
                             </div>

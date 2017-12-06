@@ -14,39 +14,57 @@ import { ErrorService } from '../../error/error.service';
     templateUrl: './resort-details.component.html'
 })
 export class ResortDetailsComponent implements OnInit, OnDestroy {
+    chartTimespan: number;
+    resortId: string;
     resort: ResortCustomerDetails;
     private sub: Subscription;
 
     constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private errorService: ErrorService) {
+        this.chartTimespan = 7;
         this.resort = new ResortCustomerDetails();
     }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            const resortId = params['resortId'];
+            this.resortId = params['resortId'];
 
-            this.componentService.getResort(resortId)
+            this.componentService.getResort(this.resortId)
                 .then(this.handleSuccess.bind(this))
                 .catch(error => this.errorService.handleError(error));
+
         });
+
     }
 
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
 
-    private handleSuccess(result: IResortCustomerDetails) {
-        if (!result.profileBkg) {
-            // in case of no profile background we are using default one
-            result.profileBkg = 'assets/img/default_profileBkg.jpg';
-        }
+    changeChartTimespan(timespan: number) {
+        this.chartTimespan = timespan;
 
-        this.resort = result;
-        this.prepareLitleLineChart();
-        this.prepareLineChart();
-        // this.prepareChart('liteLineChart', 'line');
     }
 
+    private handleSuccess(result: IResortCustomerDetails) {
+        if (result) {
+            if (!result.profileBkg) {
+                // in case of no profile background we are using default one
+                result.profileBkg = 'assets/img/default_profileBkg.jpg';
+            }
+            this.resort = result;
+
+            this.getMailStatistics();
+        }
+    }
+
+    private getMailStatistics() {
+        this.componentService.getMailchimpStatistics('18bcdfb6db') // (this.resort.id)
+            .then(result => {
+                this.prepareLitleLineChart();
+                this.prepareLineChart();
+            })
+            .catch(error => this.errorService.handleError(error));
+    }
     private prepareLitleLineChart() {
         const liteLineChart = document.querySelector('#liteLineChart');
 
@@ -143,11 +161,5 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
                 }
             }
         });
-    }
-
-    private prepareChart(name: string, options: Chart.ChartConfiguration) {
-        debugger
-        const ctx = (document.getElementById(name) as any).getContext('2d');
-        const myChart = new Chart(ctx, options);
     }
 }
