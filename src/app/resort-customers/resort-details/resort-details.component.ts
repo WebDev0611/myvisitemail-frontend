@@ -27,7 +27,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
             this.componentService.getResort(resortId)
                 .then(this.handleSuccess.bind(this))
-                .catch(this.errorService.handleError);
+                .catch(error => this.errorService.handleError(error));
         });
     }
 
