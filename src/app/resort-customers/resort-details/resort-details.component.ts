@@ -42,6 +42,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
     changeChartTimespan(timespan: number) {
         this.chartTimespan = timespan;
+        this.prepareLineChart();
 
     }
 
@@ -115,12 +116,33 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
+    private getDaysOfMonth() {
+        const today = new Date();
+        return new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    }
+
     private prepareLineChart() {
         const lineChart = document.querySelector('#lineChart');
 
+        const randLineData = [];
+        const randLabels = [];
+        const points: number = this.chartTimespan === 0 ? this.getDaysOfMonth() :
+                               this.chartTimespan === 1 ? 24 :
+                               this.chartTimespan;
+
+        for (let i = 1; i <= points; i++) {
+            randLineData.push(Math.floor(Math.random() * 100));
+            let label = i.toString();
+            if (this.chartTimespan === 1) {
+                label += 'h';
+            }
+            randLabels.push(label);
+        }
+
+
         // line chart data
         const lineData = {
-            labels: ['1', '5', '10', '15', '20', '25', '30', '35'],
+            labels: randLabels, // ['1', '5', '10', '15', '20', '25', '30', '35'],
             datasets: [{
                 label: 'Visitors Graph',
                 fill: false,
@@ -140,7 +162,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
                 pointHoverBorderWidth: 3,
                 pointRadius: 6,
                 pointHitRadius: 10,
-                data: [27, 20, 44, 24, 29, 22, 43, 52],
+                data: randLineData, // [27, 20, 44, 24, 29, 22, 43, 52],
                 spanGaps: false
             }]
         };
