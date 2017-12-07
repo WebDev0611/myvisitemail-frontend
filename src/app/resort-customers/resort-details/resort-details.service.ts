@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IEmailMessage } from './email-form/email-form.models';
 import { IResortCustomerDetails } from '../resort-customers.models';
+import { IMailchimpReportData } from '../../shared/models/mailchimp.models';
 
 @Injectable()
 export class ResortDetailsService {
@@ -11,6 +12,14 @@ export class ResortDetailsService {
         return new Promise<IResortCustomerDetails>((resolve, reject) => {
             return this.http.get('resort-customer/detail/' + resortId).toPromise()
                 .then(response => resolve(<IResortCustomerDetails>response))
+                .catch(error => reject(error));
+        });
+    }
+
+    getMailchimpStatistics(campaignId: string): Promise<IMailchimpReportData> {
+        return new Promise<IMailchimpReportData>((resolve, reject) => {
+            return this.http.get('mailchimp/report/' + campaignId).toPromise() // todo: change to proper endpoint
+                .then(response => resolve(<IMailchimpReportData>response))
                 .catch(error => reject(error));
         });
     }

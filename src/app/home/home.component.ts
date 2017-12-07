@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { ErrorService } from '../error/error.service';
+import { IMailchimpReportData } from '../shared/models/mailchimp.models';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
                 ctr: 0,
                 numberOf: 0,
                 bounceRate: 0,
-            }
+            };
         }
     }
 
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
         const toDate = new Date();
         thisDay.setMinutes(1);
         thisDay.setHours(0);
-        toDate.setMinutes(59)
+        toDate.setMinutes(59);
         toDate.setHours(23);
         return [
             thisDay.getTime(),
@@ -64,10 +65,10 @@ export class HomeComponent implements OnInit {
             new Date().setDate(thisDay.getDate() - 30),
             new Date().setDate(thisDay.getDate() - 365),
             toDate.getTime()
-        ]
+        ];
     }
 
-    private filterReports(dataSet: Array<Object>) {
+    private filterReports(dataSet: IMailchimpReportData[]) {
         this.clearReports();
         const conditions = this.getConditionArray();
 
