@@ -8,8 +8,8 @@ export interface IResortCustomer extends ICustomer {
     position: string;
     email: string;
     rooms: number;
-    lastSent: string;
-    invoice: string;
+    lastSent: Date;
+    invoice: number;
 }
 export interface IResortCustomerDetails extends IResortCustomer {
     id: string;
@@ -18,8 +18,8 @@ export interface IResortCustomerDetails extends IResortCustomer {
     position: string;
     email: string;
     rooms: number;
-    lastSent: string;
-    invoice: string;
+    lastSent: Date;
+    invoice: number;
 
     phone: string;
     emailsSent: number;
@@ -37,8 +37,8 @@ export class ResortCustomerDetails implements IResortCustomerDetails {
     position: string;
     email: string;
     rooms: number;
-    lastSent: string;
-    invoice: string;
+    lastSent: Date;
+    invoice: number;
 
     phone: string;
     emailsSent: number;
@@ -50,7 +50,8 @@ export class ResortCustomerDetails implements IResortCustomerDetails {
     profileBkg: string;
 }
 
-export class Customer {
+export class ResortCustomer implements IResortCustomer {
+    id: string;
     private _customerName: string;
     private _position: string;
     private _emailAddres: string;
@@ -69,7 +70,7 @@ export class Customer {
         this._mailingReports = mailingReports;
     }
 
-    public set customerName(value: string) {
+    public set name(value: string) {
         this._customerName = value;
     }
 
@@ -77,7 +78,7 @@ export class Customer {
         this._position = value;
     }
 
-    public set emailAddres(value: string) {
+    public set email(value: string) {
         this._emailAddres = value;
     }
 
@@ -93,7 +94,7 @@ export class Customer {
         this._invoice = value;
     }
 
-    public get customerName(): string {
+    public get name(): string {
         return this._customerName;
     }
 
@@ -121,67 +122,3 @@ export class Customer {
         return this._mailingReports;
     }
 }
-
-// export interface ICustomer {
-//     company: ICompany;
-//     person: IContactInfo;
-// }
-
-// export interface ICompany {
-//     name: string;
-//     email: string;
-//     phone: string;
-//     address: string;
-//     area: string; // should it be here?
-// }
-
-// export interface IContactInfo {
-//     name: string;
-//     email: string;
-//     phone: string;
-// }
-
-// export interface IDetailCustomer {
-//     name: string;
-//     position: string;
-//     office: string;
-//     age: number;
-//     startDate: string;
-//     invoice: string; // maybe number?
-
-//     resortId: string; // verify this
-// }
-
-// export class Customer implements ICustomer {
-//     company: ICompany;
-//     person: IContactInfo;
-
-//     constructor() {
-//         this.company = new Company();
-//         this.person = new ContactInfo();
-//     }
-// }
-
-// export class Company implements ICompany {
-//     name: string;
-//     email: string;
-//     phone: string;
-//     address: string;
-//     area: string;
-// }
-
-// export class ContactInfo implements IContactInfo {
-//     name: string;
-//     email: string;
-//     phone: string;
-// }
-
-// export class DetailCustomer implements IDetailCustomer {
-//     name: string;
-//     position: string;
-//     office: string;
-//     age: number;
-//     startDate: string;
-//     invoice: string; // maybe number?
-//     resortId: string;
-// }
