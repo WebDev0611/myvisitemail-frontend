@@ -17,7 +17,10 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     chartTimespan: number;
     resortId: string;
     resort: ResortCustomerDetails;
+
     private sub: Subscription;
+    private lineChart: Chart;
+    private littleLineChart: Chart;
 
     constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private errorService: ErrorService) {
         this.chartTimespan = 7;
@@ -67,9 +70,12 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
             .catch(error => this.errorService.handleError(error));
     }
     private prepareLitleLineChart() {
-        const liteLineChart = document.querySelector('#liteLineChart');
+        if (this.littleLineChart) {
+            this.littleLineChart.destroy();
+        }
+        const littleLineChart = document.querySelector('#liteLineChart');
 
-        const liteLineGradient = (liteLineChart as any).getContext('2d').createLinearGradient(0, 0, 0, 200);
+        const liteLineGradient = (littleLineChart as any).getContext('2d').createLinearGradient(0, 0, 0, 200);
         liteLineGradient.addColorStop(0, 'rgba(30,22,170,0.08)');
         liteLineGradient.addColorStop(1, 'rgba(30,22,170,0)');
 
@@ -101,7 +107,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
         };
 
         // line chart init
-        const myLiteLineChart = new Chart(liteLineChart as HTMLCanvasElement, {
+        this.littleLineChart = new Chart(littleLineChart as HTMLCanvasElement, {
             type: 'line',
             data: liteLineData,
             options: {
@@ -116,19 +122,26 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
+    private upadateLittleLineChart() {
+
+    }
+
     private getDaysOfMonth() {
         const today = new Date();
         return new Date(today.getFullYear(), today.getMonth(), 0).getDate();
     }
 
     private prepareLineChart() {
+        if (this.lineChart) {
+            this.lineChart.destroy();
+        }
         const lineChart = document.querySelector('#lineChart');
 
         const randLineData = [];
         const randLabels = [];
         const points: number = this.chartTimespan === 0 ? this.getDaysOfMonth() :
-                               this.chartTimespan === 1 ? 24 :
-                               this.chartTimespan;
+            this.chartTimespan === 1 ? 24 :
+                this.chartTimespan;
 
         for (let i = 1; i <= points; i++) {
             randLineData.push(Math.floor(Math.random() * 100));
@@ -168,7 +181,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
         };
 
         // line chart init
-        const myLineChart = new Chart(lineChart as HTMLCanvasElement, {
+        this.lineChart = new Chart(lineChart as HTMLCanvasElement, {
             type: 'line',
             data: lineData,
             options: {
@@ -183,5 +196,23 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
                 }
             }
         });
+    }
+
+    private upadateLineChart() {
+        const randLineData = [];
+        const randLabels = [];
+        const points: number = this.chartTimespan === 0 ? this.getDaysOfMonth() :
+            this.chartTimespan === 1 ? 24 :
+                this.chartTimespan;
+
+        for (let i = 1; i <= points; i++) {
+            randLineData.push(Math.floor(Math.random() * 100));
+            let label = i.toString();
+            if (this.chartTimespan === 1) {
+                label += 'h';
+            }
+            randLabels.push(label);
+        }
+
     }
 }
