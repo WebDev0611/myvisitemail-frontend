@@ -11,7 +11,7 @@ export class LoginService {
     login(credentials: User): Promise<User> {
         const promise = new Promise<User>((resolve, reject) => {
             this.http
-                .post('login', {
+                .post('user/login', {
                     eMail: credentials.eMail,
                     password: credentials.password
                 })
