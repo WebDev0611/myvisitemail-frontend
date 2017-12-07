@@ -42,6 +42,7 @@ export class ManageCustomersComponent implements OnInit {
                 if (customers.length > this.maxPerPage) {
                     this.calculatePages();
                 }
+                console.log(this.allCustomers);
             })
             .catch(error => {
                 this.errorService.handleError(error);
