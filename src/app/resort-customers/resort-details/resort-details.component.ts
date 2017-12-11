@@ -57,7 +57,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
             }
             this.resort = result;
 
-            this.getMailStatistics();
+            // this.getMailStatistics(); // todo: enable if statistics will be available
         }
     }
 
