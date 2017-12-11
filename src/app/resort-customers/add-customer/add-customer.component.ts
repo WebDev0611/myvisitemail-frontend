@@ -14,6 +14,7 @@ export class AddCustomerComponent implements OnInit {
     areas: string[];
     types: string[];
     customer: IResortCustomer;
+    errorMessage: string;
 
     @ViewChild(ImageUploadComponent) fileUpload: ImageUploadComponent;
 
@@ -21,9 +22,12 @@ export class AddCustomerComponent implements OnInit {
         this.areas = [];
         this.types = [
             'Hotel',
-            'Guesthouse'
+            'Guesthouse',
+            'Other'
         ];
+        this.errorMessage = '';
         this.customer = new ResortCustomer('', '', '', 0, null, '');
+        this.customer.type = 'Select type';
     }
 
     ngOnInit() {
@@ -45,7 +49,7 @@ export class AddCustomerComponent implements OnInit {
         if (this.isValid()) {
             this.componentService.addCustomer(this.customer)
                 .then(result => {
-                    console.log('Customer added!');
+                    this.customer = new ResortCustomer('', '', '', 0, null, '');
                 })
                 .catch(error => {
                     this.errorService.handleError(error);
@@ -54,9 +58,19 @@ export class AddCustomerComponent implements OnInit {
     }
 
     isValid(): boolean {
+        this.errorMessage = '';
         if (this.fileUpload.fileObject) {
             this.customer.profileBkg = this.fileUpload.src;
         }
+        if (this.customer.type === 'Select type') {
+            this.errorMessage = 'Please select proper type';
+            return false;
+        }
+        if (this.customer.area === 'Select area') {
+            this.errorMessage = 'Please select proper area';
+            return false;
+        }
+
         return true;
     }
 }

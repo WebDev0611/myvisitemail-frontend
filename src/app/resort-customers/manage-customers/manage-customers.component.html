@@ -39,8 +39,8 @@
                                                     aria-sort="ascending" aria-label="Name: activate to sort column descending"
                                                     style="width: 206.6px;" #colHeader1 (click)="sortBy(colHeader1)">Name</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1" rowspan="1"
-                                                    colspan="1" aria-label="Position: activate to sort column ascending" style="width: 105.6px;"
-                                                    #colHeader2 (click)="sortBy(colHeader2)">Position</th>
+                                                    colspan="1" aria-label="Type: activate to sort column ascending" style="width: 105.6px;"
+                                                    #colHeader2 (click)="sortBy(colHeader2)">Type</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1"
                                                     rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending"
                                                     style="width: 183.6px;" #colHeader3 (click)="sortBy(colHeader3)">Email</th>
@@ -58,7 +58,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th rowspan="1" colspan="1">Name</th>
-                                                <th rowspan="1" colspan="1">Position</th>
+                                                <th rowspan="1" colspan="1">Type</th>
                                                 <th rowspan="1" colspan="1">Email</th>
                                                 <th rowspan="1" colspan="1">Rooms</th>
                                                 <th rowspan="1" colspan="1">Last Sent</th>
@@ -72,7 +72,7 @@
                                                         {{ customer.name }}
                                                     </a>
                                                 </td>
-                                                <td>{{ customer.position }}</td>
+                                                <td>{{ customer.type }}</td>
                                                 <td>{{ customer.email }}</td>
                                                 <td>{{ customer.rooms }}</td>
                                                 <td>{{ customer.lastSent | date: 'dd/MM/yyyy H:mm' }}</td>
