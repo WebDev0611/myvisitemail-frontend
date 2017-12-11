@@ -54,7 +54,6 @@ export class AddCustomerComponent implements OnInit {
     }
 
     isValid(): boolean {
-        debugger
         if (this.fileUpload.fileObject) {
             this.customer.profileBkg = this.fileUpload.src;
         }
