@@ -17,6 +17,19 @@ export class HomeComponent implements OnInit {
         bounceRate: number,
         emailsSent: number
     };
+<<<<<<< HEAD
+=======
+    south: number;
+    east: number;
+    north: number;
+    west: number;
+    reykjavik: number;
+    rejkjanes: number;
+    westfjords: number;
+    allBookings: number;
+    newBookings: number;
+
+>>>>>>> MVE-35
 
     constructor(private componentService: HomeService, private errorService: ErrorService) {
         this.title = 'HOME';
@@ -25,6 +38,7 @@ export class HomeComponent implements OnInit {
             bounceRate: 0,
             emailsSent: 0
         };
+        this.newBookings = 0;
         for (let i = 0; i < 5; i++) {
             this.statistics[i] = {
                 emailsSent: 0,
@@ -145,6 +159,68 @@ export class HomeComponent implements OnInit {
                 this.errorService.handleError(error);
             });
     }
+
+    private filterBookings(dataSet) {
+        this.clearBookings();
+        for (const index in dataSet) {
+            let data = dataSet[index];
+            let latitude = data['location']['latitude'];
+            let longitude = data['location']['longitude'];
+            const today = new Date().getTime();
+            for (const key in data['bookings']) {
+                const booking = data['bookings'][key];
+                if (booking.startDate >= today) {
+                    this.newBookings++;
+                }
+            }
+            if (latitude > 64.860415) {
+                this.north += data['bookings'].length;
+            } else {
+                this.south += data['bookings'].length;
+            }
+
+            if (longitude > -18.466512) {
+                this.east += data['bookings'].length;
+            } else {
+                this.west += data['bookings'].length;
+            }
+
+            if (data['location']['city'] === 'Reykjavik') {
+                this.reykjavik += data['bookings'].length;
+            }
+
+            if (data['location']['city'] === 'Rejkjanes') {
+                this.rejkjanes += data['bookings'].length;
+            }
+
+            if (data['location']['city'] === 'Westfjords') {
+                this.westfjords += data['bookings'].length;
+            }
+            this.allBookings += data['bookings'].length;
+        }
+    }
+
+    private clearBookings () {
+        this.newBookings = 0;
+        this.south = 0;
+        this.east = 0;
+        this.north = 0;
+        this.west = 0;
+        this.reykjavik = 0;
+        this.rejkjanes = 0;
+        this.westfjords = 0;
+        this.allBookings = 0;
+    }
+
+    getBookings() {
+        this.componentService.getBookings()
+            .then(data => {
+                this.filterBookings(data);
+            })
+            .catch(error => {
+                this.errorService.handleError(error);
+            });
+    };
 
     ngOnInit() {
         this.getReportData();
