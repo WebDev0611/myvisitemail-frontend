@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ICustomer } from '../resort-customers.models';
+import { IResortCustomer, ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
 import { AddCustomersService } from './add-customer.service';
+import { ImageUploadComponent } from '../../shared/image-upload/image-upload.component';
 
 @Component({
     selector: 'app-add-customer',
@@ -11,10 +12,18 @@ import { AddCustomersService } from './add-customer.service';
 })
 export class AddCustomerComponent implements OnInit {
     areas: string[];
-    customer: ICustomer;
+    types: string[];
+    customer: IResortCustomer;
+
+    @ViewChild(ImageUploadComponent) fileUpload: ImageUploadComponent;
 
     constructor(private componentService: AddCustomersService, private errorService: ErrorService) {
         this.areas = [];
+        this.types = [
+            'Hotel',
+            'Guesthouse'
+        ];
+        this.customer = new ResortCustomer('', '', '', 0, null, '');
     }
 
     ngOnInit() {
@@ -45,6 +54,10 @@ export class AddCustomerComponent implements OnInit {
     }
 
     isValid(): boolean {
+        debugger
+        if (this.fileUpload.fileObject) {
+            this.customer.profileBkg = this.fileUpload.src;
+        }
         return true;
     }
 }

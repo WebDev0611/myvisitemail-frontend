@@ -10,6 +10,9 @@ export interface IResortCustomer extends ICustomer {
     rooms: number;
     lastSent: Date;
     invoice: number;
+
+    area: string;
+    profileBkg: string;
 }
 export interface IResortCustomerDetails extends IResortCustomer {
     id: string;
@@ -48,10 +51,14 @@ export class ResortCustomerDetails implements IResortCustomerDetails {
     lastWeek: number;
 
     profileBkg: string;
+    area: string;
 }
 
 export class ResortCustomer implements IResortCustomer {
     id: string;
+    area: string;
+    profileBkg: string;
+
     private _customerName: string;
     private _position: string;
     private _emailAddres: string;
@@ -60,14 +67,16 @@ export class ResortCustomer implements IResortCustomer {
     private _invoice: number;
     private _mailingReports: Array<Object>;
 
-    constructor (name, position, email, rooms, mailingReports, invoice) {
+    constructor(name, position, email, rooms, mailingReports, invoice) {
         this._customerName = name;
         this._position = position;
         this._emailAddres = email;
         this._rooms = rooms;
-        this._lastSent = new Date(mailingReports[0].send_time);
         this._invoice = invoice;
         this._mailingReports = mailingReports;
+        if (mailingReports) {
+            this._lastSent = new Date(mailingReports[0].send_time);
+        }
     }
 
     public set name(value: string) {

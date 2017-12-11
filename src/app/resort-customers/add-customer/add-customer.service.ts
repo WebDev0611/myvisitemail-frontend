@@ -38,13 +38,10 @@ export class AddCustomersService {
 
     private mockAreas(): string[] {
         return [
-            'Reykjavík Area',
-            'Reykjanes',
-            'East',
             'North',
             'South',
-            'West',
-            'Westfjords'
+            'East',
+            'West'
         ];
     }
 }

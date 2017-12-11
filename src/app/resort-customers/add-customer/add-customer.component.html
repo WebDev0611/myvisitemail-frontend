@@ -25,7 +25,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="">
-                                                    <h5>Company</h5>
+                                                    <h5>Detail info</h5>
                                                 </label>
 
                                             </div>
@@ -33,7 +33,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="">
-                                                    <h5>Contact</h5>
+                                                    <h5>Profile background</h5>
                                                 </label>
                                             </div>
                                         </div>
@@ -43,60 +43,43 @@
                                             <div class="form-group">
                                                 <label for=""> Name</label>
                                                 <input type="text" class="form-control" data-error="Please input your Name" placeholder="Name" required="required"
-                                                [(ngModel)]="customer.company.name" name="companyName">
+                                                [(ngModel)]="customer.name" name="name">
+                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for=""> Email</label>
+                                                <input type="text" class="form-control" data-error="Please input your E-mail" placeholder="E-mail" required="required"
+                                                [(ngModel)]="customer.email" name="email">
                                                 <div class="help-block form-text with-errors form-control-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="">Name</label>
-                                                <input type="text" class="form-control" data-error="Please input your Name" placeholder="Name" required="required"
-                                                [(ngModel)]="customer.person.name" name="name">
-                                                <div class="help-block form-text with-errors form-control-feedback"></div>
-                                            </div>
+                                            <app-image-upload></app-image-upload>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for=""> Email</label>
-                                                <input type="text" class="form-control" data-error="Please input your E-mail" placeholder="E-mail" required="required"
-                                                [(ngModel)]="customer.company.email" name="email">
+                                                <label for=""> Position</label>
+                                                <input type="text" class="form-control" data-error="Please input your Phone" placeholder="Position" required="required"
+                                                [(ngModel)]="customer.position" name="position">
                                                 <div class="help-block form-text with-errors form-control-feedback"></div>
                                             </div>
                                             <div class="form-group">
-                                                <label for=""> Phone</label>
-                                                <input type="text" class="form-control" data-error="Please input your Phone" placeholder="Phone" required="required"
-                                                [(ngModel)]="customer.company.phone" name="phone">
+                                                <label for=""> Rooms</label>
+                                                <input class="form-control" data-error="Please put in Address" placeholder="Rooms" required="required" type="text"
+                                                [(ngModel)]="customer.rooms" name="rooms">
                                                 <div class="help-block form-text with-errors form-control-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for=""> Email</label>
-                                                <input type="text" class="form-control" data-error="Please input your Email" placeholder="Email" required="required"
-                                                [(ngModel)]="customer.person.email" name="email">
-                                                <div class="help-block form-text with-errors form-control-feedback"></div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for=""> Phone</label>
-                                                <input class="form-control" data-error="Please input your Phone" placeholder="Phone" required="required" type="text"
-                                                [(ngModel)]="customer.person.phone" name="phone">
-                                                <div class="help-block form-text with-errors form-control-feedback"></div>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group col-md-6" style="margin-left:0; padding-left:0">
-                                        <label for=""> Address</label>
-                                        <input class="form-control" data-error="Please put in Address" placeholder="Address" required="required" type="text"
-                                        [(ngModel)]="customer.company.address" name="address">
-                                        <div class="help-block form-text with-errors form-control-feedback"></div>
                                     </div>
                                 </fieldset>
 
                                 <div class="form-group">
                                     <label for=""> Area</label>
-                                    <select class="form-control" required="required" [(ngModel)]="customer.company.area" name="area"
+                                    <select class="form-control" required="required" [(ngModel)]="customer.area" name="area"
                                         placeholder="Select Area">
                                         <option *ngFor="let area of areas">
                                             {{ area }}

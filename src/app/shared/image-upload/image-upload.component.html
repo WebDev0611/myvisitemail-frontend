@@ -1,0 +1,14 @@
+<div class="dropzone">
+    <label for="drop-input" class="drop-content">
+        <div class="drop-text" *ngIf="errorMsg === ''">
+                {{ mainText }} <br/>
+            <div class="drop-tooltip">{{ tooltipText }}</div>
+        </div>
+        <div class="drop-text drop-error" *ngIf="errorMsg !== ''">
+                {{ errorMsg }} <br/>
+                <div class="drop-tooltip">(Click once again to upload new file)</div>
+        </div>
+        <img class="drop-preview" [src]="src" *ngIf="src !== ''" />
+    </label>
+    <input id="drop-input" name="drop-input" type="file" class="drop-input" (change)="onChange(fileInput)" #fileInput />
+</div>

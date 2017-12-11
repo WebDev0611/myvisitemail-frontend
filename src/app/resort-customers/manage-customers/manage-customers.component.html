@@ -4,7 +4,7 @@
             <div class="element-wrapper">
                 <div class="element-box">
                     <h5 class="form-header">
-                        Manage Users
+                        Manage Customers
                     </h5>
                     <div class="table-responsive">
                         <div id="dataTable1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -75,7 +75,7 @@
                                                 <td>{{ customer.position }}</td>
                                                 <td>{{ customer.email }}</td>
                                                 <td>{{ customer.rooms }}</td>
-                                                <td>{{ customer.lastSent }}</td>
+                                                <td>{{ customer.lastSent | date: 'dd/MM/yyyy H:mm' }}</td>
                                                 <td>{{ customer.invoice }}</td>
                                             </tr>
                                         </tbody>
