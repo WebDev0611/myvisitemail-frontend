@@ -26,8 +26,7 @@ export class AddCustomerComponent implements OnInit {
             'Other'
         ];
         this.errorMessage = '';
-        this.customer = new ResortCustomer('', '', '', 0, null, '');
-        this.customer.type = 'Select type';
+        this.createUser();
     }
 
     ngOnInit() {
@@ -49,7 +48,8 @@ export class AddCustomerComponent implements OnInit {
         if (this.isValid()) {
             this.componentService.addCustomer(this.customer)
                 .then(result => {
-                    this.customer = new ResortCustomer('', '', '', 0, null, '');
+                    this.errorMessage = '';
+                    this.createUser();
                 })
                 .catch(error => {
                     this.errorService.handleError(error);
@@ -72,5 +72,10 @@ export class AddCustomerComponent implements OnInit {
         }
 
         return true;
+    }
+
+    private createUser() {
+        this.customer = new ResortCustomer('', '', '', 0, null, '');
+        this.customer.type = 'Select type';
     }
 }
