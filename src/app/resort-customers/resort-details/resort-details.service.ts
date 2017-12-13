@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IEmailMessage } from './email-form/email-form.models';
-import { IResortCustomerDetails } from '../resort-customers.models';
+import { ResortCustomer } from '../resort-customers.models';
 import { IMailchimpReportData } from '../../shared/models/mailchimp.models';
 
 @Injectable()
@@ -9,17 +9,17 @@ export class ResortDetailsService {
     constructor(private http: HttpClient) { }
 
     getResort(resortId: string): Promise<any> {
-        return new Promise<IResortCustomerDetails>((resolve, reject) => {
+        return new Promise<ResortCustomer>((resolve, reject) => {
             return this.http.get('resort-customer/detail/' + resortId).toPromise()
-                .then(response => resolve(<IResortCustomerDetails>response))
+                .then(response => resolve(<ResortCustomer>response))
                 .catch(error => reject(error));
         });
     }
 
-    getMailchimpStatistics(campaignId: string): Promise<IMailchimpReportData> {
-        return new Promise<IMailchimpReportData>((resolve, reject) => {
-            return this.http.get('mailchimp/report/' + campaignId).toPromise() // todo: change to proper endpoint
-                .then(response => resolve(<IMailchimpReportData>response))
+    getMailchimpStatistics(customerEmail: string): Promise<Array <IMailchimpReportData>> {
+        return new Promise<Array <IMailchimpReportData>>((resolve, reject) => {
+            return this.http.get('resort-customer/reports/' + customerEmail).toPromise() // todo: change to proper endpoint
+                .then(response => resolve(<Array <IMailchimpReportData>>response))
                 .catch(error => reject(error));
         });
     }

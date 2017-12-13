@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Page } from '../../shared/models/common.models';
 import { ErrorService } from '../../error/error.service';
-import { IResortCustomer } from '../resort-customers.models';
-import { ManageCustomersService } from './manage-customers.service';
+import { ResortCustomer } from '../resort-customers.models';
+import { ManageCustomersService } from '../../shared/services/manage-customers.service';
 
 @Component({
     selector: 'app-manage-customers',
@@ -19,10 +19,10 @@ export class ManageCustomersComponent implements OnInit {
 
     sortTypes: any;
 
-    customers: IResortCustomer[];
-    private allCustomers: IResortCustomer[];
+    customers: ResortCustomer[];
+    private allCustomers: ResortCustomer[];
 
-    private tempCustomers: IResortCustomer[];
+    private tempCustomers: ResortCustomer[];
     private tempSorting: any;
     private tempSearch: string;
 
@@ -62,7 +62,7 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     search(searchInput: string) {
-        debugger
+        // debugger
         this.tempSearch = searchInput.toUpperCase();
         this.buildDataGrid();
     }
@@ -172,8 +172,9 @@ export class ManageCustomersComponent implements OnInit {
         return this.allCustomers.map(customer => this.convertToStringKey(customer));
     }
 
-    private convertToStringKey(customer: IResortCustomer): string {
-        const key = `${customer.name} ${customer.email} ${customer.type} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
+    private convertToStringKey(customer: ResortCustomer): string {
+        const key = 'test';
+        // const key = `${customer.name} ${customer.email} ${customer.position} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
         return key.toUpperCase();
     }
 

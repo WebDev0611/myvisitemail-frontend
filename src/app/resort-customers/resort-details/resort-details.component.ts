@@ -6,7 +6,7 @@ import { Chart } from 'chart.js';
 
 import { ResortDetailsService } from './resort-details.service';
 import { Subscription } from 'rxjs/Subscription';
-import { IResortCustomerDetails, ResortCustomerDetails } from '../resort-customers.models';
+import { ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { ErrorService } from '../../error/error.service';
 export class ResortDetailsComponent implements OnInit, OnDestroy {
     chartTimespan: number;
     resortId: string;
-    resort: ResortCustomerDetails;
+    resort: ResortCustomer;
 
     private sub: Subscription;
     private lineChart: Chart;
@@ -24,7 +24,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
     constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private errorService: ErrorService) {
         this.chartTimespan = 7;
-        this.resort = new ResortCustomerDetails();
+        // this.resort = new ResortCustomer();
     }
 
     ngOnInit() {
@@ -49,22 +49,27 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
     }
 
-    private handleSuccess(result: IResortCustomerDetails) {
+    private handleSuccess(result: ResortCustomer) {
         if (result) {
             this.resort = result;
-
-            // this.getMailStatistics(); // todo: enable if statistics will be available
         }
     }
 
-    private getMailStatistics() {
-        this.componentService.getMailchimpStatistics('18bcdfb6db') // (this.resort.id)
+    private compileReports
+
+    private getMailStatistics(email) {
+        this.componentService.getMailchimpStatistics(email) // (this.resort.id)
             .then(result => {
+                // now customer has a list of all the reports
+                // with the specified email sorted from earliest to latest
+                // reports are of type IMailchimpReportData
+                this.resort.reports = result;
                 this.prepareLitleLineChart();
                 this.prepareLineChart();
             })
             .catch(error => this.errorService.handleError(error));
     }
+
     private prepareLitleLineChart() {
         if (this.littleLineChart) {
             this.littleLineChart.destroy();

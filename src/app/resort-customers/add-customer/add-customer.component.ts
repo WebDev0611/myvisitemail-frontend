@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { IResortCustomer, ResortCustomer } from '../resort-customers.models';
+import { ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
 import { AddCustomersService } from './add-customer.service';
 import { ImageUploadComponent } from '../../shared/image-upload/image-upload.component';
@@ -14,20 +13,24 @@ import { isNumeric } from '../../shared/shared.utilities';
 export class AddCustomerComponent implements OnInit {
     areas: string[];
     types: string[];
-    customer: IResortCustomer;
+    @ViewChild(ImageUploadComponent) fileUpload: ImageUploadComponent;
+    customer: ResortCustomer;
     errorMessage: string;
 
-    @ViewChild(ImageUploadComponent) fileUpload: ImageUploadComponent;
-
     constructor(private componentService: AddCustomersService, private errorService: ErrorService) {
-        this.areas = [];
+        this.customer = new ResortCustomer();
+        this.areas = [
+            'South',
+            'West',
+            'North',
+            'East'
+        ];
         this.types = [
             'Hotel',
             'Guesthouse',
             'Other'
         ];
         this.errorMessage = '';
-        this.createUser();
     }
 
     ngOnInit() {
@@ -35,14 +38,14 @@ export class AddCustomerComponent implements OnInit {
     }
 
     getAreas(): void {
-        this.componentService.getAreas()
-            .then(areas => {
-                this.areas = areas;
-                this.areas.unshift('Select area');
-            })
-            .catch(error => {
-                this.errorService.handleError(error);
-            });
+        // this.componentService.getAreas()
+        //     .then(areas => {
+        //         this.areas = areas;
+        //         this.areas.unshift('Select area');
+        //     })
+        //     .catch(error => {
+        //         this.errorService.handleError(error);
+        //     });
     }
 
     addCustomer() {
@@ -79,8 +82,8 @@ export class AddCustomerComponent implements OnInit {
         return true;
     }
 
-    private createUser() {
-        this.customer = new ResortCustomer('', '', '', 0, null, '');
-        this.customer.type = 'Select type';
-    }
+    // private createUser() {
+    //     this.customer = new ResortCustomer('', '', '', 0, null, '');
+    //     this.customer.type = 'Select type';
+    // }
 }

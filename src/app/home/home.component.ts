@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { HomeService } from './home.service';
 import { ErrorService } from '../error/error.service';
 import { IMailchimpReportData } from '../shared/models/mailchimp.models';
+import { ManageCustomersService } from '../shared/services/manage-customers.service';
+import { ResortCustomer} from "../resort-customers/resort-customers.models";
 
 
 @Component({
@@ -9,7 +11,7 @@ import { IMailchimpReportData } from '../shared/models/mailchimp.models';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
     title: string;
     statistics: Array<Object> = [];
     total: {
@@ -17,8 +19,7 @@ export class HomeComponent implements OnInit {
         bounceRate: number,
         emailsSent: number
     };
-<<<<<<< HEAD
-=======
+
     south: number;
     east: number;
     north: number;
@@ -26,12 +27,13 @@ export class HomeComponent implements OnInit {
     reykjavik: number;
     rejkjanes: number;
     westfjords: number;
-    allBookings: number;
+    allCustomers: number;
     newBookings: number;
+    newCustomers: number;
+    deletedCustomers: number;
+    intervalIds: any[];
 
->>>>>>> MVE-35
-
-    constructor(private componentService: HomeService, private errorService: ErrorService) {
+    constructor(private componentService: HomeService, private errorService: ErrorService, private customerService: ManageCustomersService) {
         this.title = 'HOME';
         this.total = {
             ctr: 0,
@@ -47,6 +49,19 @@ export class HomeComponent implements OnInit {
                 bounceRate: 0,
             };
         }
+
+        this.intervalIds = [];
+
+        this.south = 0;
+        this.east = 0;
+        this.north = 0;
+        this.west = 0;
+        this.reykjavik = 0;
+        this.rejkjanes = 0;
+        this.westfjords = 0;
+        this.allCustomers = 0;
+        this.newCustomers = 0;
+        this.deletedCustomers = 0;
     }
 
     private clearReports() {
@@ -143,7 +158,7 @@ export class HomeComponent implements OnInit {
             if (this.statistics[i]['numberOf'] > 0) {
                 this.total.ctr += this.statistics[i]['ctr'] = this.statistics[i]['ctr'] / this.statistics[i]['numberOf'];
                 this.total.bounceRate += this.statistics[i]['bounceRate'] =
-                                         this.statistics[i]['bounceRate'] / this.statistics[i]['numberOf'];
+                                         this.statistics[i]['bounceRate'] / this.total.emailsSent;
             }
         }
         this.total.ctr = this.total.ctr / 5;
@@ -160,48 +175,61 @@ export class HomeComponent implements OnInit {
             });
     }
 
-    private filterBookings(dataSet) {
+    private filterBookings (dataSet) {
+        this.newBookings = 0;
+        const condition = new Date().setDate(
+            new Date().getDate() - 7
+        );
+        for (const key in dataSet) {
+            const booking = dataSet[key];
+            if (booking.creationDate >= condition) {
+                this.newBookings++;
+            }
+        }
+    }
+
+    private filterCustomers(dataSet: ResortCustomer[]) {
         this.clearBookings();
+        this.allCustomers = dataSet.length;
+        const condition = new Date().setDate(
+            new Date().getDate() - 7
+        );
         for (const index in dataSet) {
             let data = dataSet[index];
-            let latitude = data['location']['latitude'];
-            let longitude = data['location']['longitude'];
-            const today = new Date().getTime();
-            for (const key in data['bookings']) {
-                const booking = data['bookings'][key];
-                if (booking.startDate >= today) {
-                    this.newBookings++;
-                }
+            if (data.metadata && data.metadata.creationDate &&
+                condition <= data.metadata.creationDate) {
+                this.newCustomers++;
             }
-            if (latitude > 64.860415) {
-                this.north += data['bookings'].length;
-            } else {
-                this.south += data['bookings'].length;
-            }
-
-            if (longitude > -18.466512) {
-                this.east += data['bookings'].length;
-            } else {
-                this.west += data['bookings'].length;
+            switch(data.area) {
+                case 'South':
+                    this.south++;
+                    break;
+                case 'West':
+                    this.west++;
+                    break;
+                case 'North':
+                    this.north++
+                    break;
+                case 'East':
+                    this.east++;
+                    break;
             }
 
-            if (data['location']['city'] === 'Reykjavik') {
-                this.reykjavik += data['bookings'].length;
+            if (/reykjavik/i.test(data.company.address)) {
+                this.reykjavik ++;
             }
 
-            if (data['location']['city'] === 'Rejkjanes') {
-                this.rejkjanes += data['bookings'].length;
+            if (/rejkjanes/i.test(data.company.address)) {
+                this.rejkjanes++;
             }
 
-            if (data['location']['city'] === 'Westfjords') {
-                this.westfjords += data['bookings'].length;
+            if (/westfjords/i.test(data.company.address)) {
+                this.westfjords ++;
             }
-            this.allBookings += data['bookings'].length;
         }
     }
 
     private clearBookings () {
-        this.newBookings = 0;
         this.south = 0;
         this.east = 0;
         this.north = 0;
@@ -209,13 +237,29 @@ export class HomeComponent implements OnInit {
         this.reykjavik = 0;
         this.rejkjanes = 0;
         this.westfjords = 0;
-        this.allBookings = 0;
     }
 
-    getBookings() {
+    private getBookings () {
         this.componentService.getBookings()
             .then(data => {
-                this.filterBookings(data);
+                this.filterBookings(data.results);
+            })
+            .catch(err => {
+                this.errorService.handleError(err);
+            })
+    }
+
+    getResorts() {
+        this.customerService.getResortCustomers()
+            .then(data => {
+                this.filterCustomers(data);
+            })
+            .catch(error => {
+                this.errorService.handleError(error);
+            });
+        this.customerService.getDeletedCustomer()
+            .then(data => {
+                this.deletedCustomers = data.length;
             })
             .catch(error => {
                 this.errorService.handleError(error);
@@ -224,6 +268,16 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.getReportData();
-        window.setInterval(this.getReportData, 120000, this);
+        this.getResorts();
+        this.getBookings();
+        this.intervalIds[0] = window.setInterval(this.getReportData, 120000, this);
+        this.intervalIds[1] = window.setInterval(this.getResorts, 120000, this);
+        this.intervalIds[2] = window.setInterval(this.getBookings, 120000, this);
+    }
+
+    ngOnDestroy() {
+        for (let id of this.intervalIds) {
+            window.clearInterval(id);
+        }
     }
 }
