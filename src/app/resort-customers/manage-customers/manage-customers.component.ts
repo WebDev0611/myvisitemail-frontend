@@ -67,11 +67,12 @@ export class ManageCustomersComponent implements OnInit {
         this.buildDataGrid();
     }
 
-    sortBy(sortHeader: HTMLElement) {
+    sortBy(nested, sortHeader: HTMLElement) {
         let sortType = sortHeader.className;
         this.resetSorting(sortHeader);
         sortType = this.sortTypes[sortType];
-        const by = sortHeader.textContent.toLowerCase();
+        let by = [sortHeader.textContent.toLowerCase()];
+        by = nested ? nested.split('.').concat(by): by;
         this.tempSorting = { type: sortType, by: by };
 
         this.buildDataGrid();
@@ -123,18 +124,25 @@ export class ManageCustomersComponent implements OnInit {
             const by = sort.by;
 
             const sorted = this.tempCustomers.sort((a, b) => {
+                let valA = a[by[0]];
+                let valB = b[by[0]];
+                for (let i = 1; i<by.length; i++) {
+                    valA = valA[by[i]];
+                    valB = valB[by[i]];
+                }
+                console.log('sortng', a, b);
                 if (type === 'sorting_asc') {
-                    if (a[by] > b[by]) {
+                    if (valA > valB) {
                         return 1;
-                    } else if (a[by] < b[by]) {
+                    } else if (valA < valB) {
                         return -1;
                     } else {
                         return 0;
                     }
                 } else {
-                    if (a[by] > b[by]) {
+                    if (valA > valB) {
                         return -1;
-                    } else if (a[by] < b[by]) {
+                    } else if (valA < valB) {
                         return 1;
                     } else {
                         return 0;
@@ -173,8 +181,7 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     private convertToStringKey(customer: ResortCustomer): string {
-        const key = 'test';
-        // const key = `${customer.name} ${customer.email} ${customer.position} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
+        const key = `${customer.company.name} ${customer.company.email} ${customer.type} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
         return key.toUpperCase();
     }
 

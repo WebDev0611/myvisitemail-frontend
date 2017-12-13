@@ -53,7 +53,7 @@ export class AddCustomerComponent implements OnInit {
             this.componentService.addCustomer(this.customer)
                 .then(result => {
                     this.errorMessage = '';
-                    this.createUser();
+                    // this.createUser();
                 })
                 .catch(error => {
                     this.errorService.handleError(error);
@@ -63,9 +63,9 @@ export class AddCustomerComponent implements OnInit {
 
     isValid(): boolean {
         this.errorMessage = '';
-        if (this.fileUpload.fileObject) {
-            this.customer.profileBkg = this.fileUpload.src;
-        }
+        // if (this.fileUpload.fileObject) {
+        //     this.customer.profileBkg = this.fileUpload.src;
+        // }
         if (this.customer.type === 'Select type') {
             this.errorMessage = 'Please select proper type';
             return false;
