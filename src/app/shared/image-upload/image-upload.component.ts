@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FileObject, FileType } from '../models/common.models';
 import { IImageValidation, IDimensions } from './image-upload.models';
+import { getErrorMessage } from '../shared.utilities';
 
 @Component({
     selector: 'app-image-upload',
@@ -62,7 +63,7 @@ export class ImageUploadComponent implements OnInit {
                         this.fileObject = new FileObject(this.src, FileType.Image, file.type);
                     })
                     .catch(error => {
-                        this.errorMsg = error.message || error;
+                        this.errorMsg = getErrorMessage(error);
                     });
 
 

@@ -4,6 +4,7 @@ import { IResortCustomer, ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
 import { AddCustomersService } from './add-customer.service';
 import { ImageUploadComponent } from '../../shared/image-upload/image-upload.component';
+import { isNumeric } from '../../shared/shared.utilities';
 
 @Component({
     selector: 'app-add-customer',
@@ -68,6 +69,10 @@ export class AddCustomerComponent implements OnInit {
         }
         if (this.customer.area === 'Select area') {
             this.errorMessage = 'Please select proper area';
+            return false;
+        }
+        if (!isNumeric(this.customer.rooms) || this.customer.rooms < 1) {
+            this.errorMessage = 'Rooms has to be an integer number higher than 0';
             return false;
         }
 
