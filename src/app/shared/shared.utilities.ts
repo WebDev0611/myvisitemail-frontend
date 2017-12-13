@@ -10,6 +10,10 @@ export function isUser(obj: any): obj is User {
     return false;
 }
 
+export function isNumeric(obj: any): obj is number {
+    return !isNaN(parseFloat(obj)) && isFinite(obj);
+}
+
 export function convertToFileObject(input: HTMLInputElement, type: FileType, mimeType?: string): Promise<FileObject> {
     return new Promise<FileObject>((resolve, reject) => {
         const reader: FileReader = new FileReader();
@@ -40,14 +44,15 @@ export function convertToFileObject(input: HTMLInputElement, type: FileType, mim
 export function getErrorMessage(error: any): string {
     if (error) {
         if (error.error) {
-            if (error.error.message) {
-                return error.error.message;
+            if (error.error.message || error.error.description || error.error.statusText) {
+                return error.error.message || error.error.description || error.error.statusText;
             }
             return error.error;
         }
-        if (error.message) {
-            return error.message;
+        if (error.message || error.description || error.statusText) {
+            return error.message || error.description || error.statusText;
         }
+
         return error;
     }
     return 'Unknown error';

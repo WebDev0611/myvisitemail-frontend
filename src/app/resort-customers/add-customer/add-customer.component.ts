@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ICustomer } from '../resort-customers.models';
+import { IResortCustomer, ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
 import { AddCustomersService } from './add-customer.service';
+import { ImageUploadComponent } from '../../shared/image-upload/image-upload.component';
+import { isNumeric } from '../../shared/shared.utilities';
 
 @Component({
     selector: 'app-add-customer',
@@ -11,10 +13,21 @@ import { AddCustomersService } from './add-customer.service';
 })
 export class AddCustomerComponent implements OnInit {
     areas: string[];
-    customer: ICustomer;
+    types: string[];
+    customer: IResortCustomer;
+    errorMessage: string;
+
+    @ViewChild(ImageUploadComponent) fileUpload: ImageUploadComponent;
 
     constructor(private componentService: AddCustomersService, private errorService: ErrorService) {
         this.areas = [];
+        this.types = [
+            'Hotel',
+            'Guesthouse',
+            'Other'
+        ];
+        this.errorMessage = '';
+        this.createUser();
     }
 
     ngOnInit() {
@@ -36,7 +49,8 @@ export class AddCustomerComponent implements OnInit {
         if (this.isValid()) {
             this.componentService.addCustomer(this.customer)
                 .then(result => {
-                    console.log('Customer added!');
+                    this.errorMessage = '';
+                    this.createUser();
                 })
                 .catch(error => {
                     this.errorService.handleError(error);
@@ -45,6 +59,28 @@ export class AddCustomerComponent implements OnInit {
     }
 
     isValid(): boolean {
+        this.errorMessage = '';
+        if (this.fileUpload.fileObject) {
+            this.customer.profileBkg = this.fileUpload.src;
+        }
+        if (this.customer.type === 'Select type') {
+            this.errorMessage = 'Please select proper type';
+            return false;
+        }
+        if (this.customer.area === 'Select area') {
+            this.errorMessage = 'Please select proper area';
+            return false;
+        }
+        if (!isNumeric(this.customer.rooms) || this.customer.rooms < 1) {
+            this.errorMessage = 'Rooms has to be an integer number higher than 0';
+            return false;
+        }
+
         return true;
+    }
+
+    private createUser() {
+        this.customer = new ResortCustomer('', '', '', 0, null, '');
+        this.customer.type = 'Select type';
     }
 }

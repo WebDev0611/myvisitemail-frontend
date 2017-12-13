@@ -51,13 +51,9 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
     private handleSuccess(result: IResortCustomerDetails) {
         if (result) {
-            if (!result.profileBkg) {
-                // in case of no profile background we are using default one
-                result.profileBkg = 'assets/img/default_profileBkg.jpg';
-            }
             this.resort = result;
 
-            this.getMailStatistics();
+            // this.getMailStatistics(); // todo: enable if statistics will be available
         }
     }
 

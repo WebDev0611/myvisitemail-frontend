@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ManageCustomersComponent } from './manage-customers.component';
 import { RouterModule } from '@angular/router';
@@ -16,7 +16,8 @@ import { ManageCustomersService } from './manage-customers.service';
         RouterModule
     ],
     providers: [
-        ManageCustomersService
+        ManageCustomersService,
+        DatePipe
     ]
 })
 export class ManageCustomerModule {}

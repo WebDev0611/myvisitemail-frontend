@@ -173,7 +173,7 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     private convertToStringKey(customer: IResortCustomer): string {
-        const key = `${customer.name} ${customer.email} ${customer.position} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
+        const key = `${customer.name} ${customer.email} ${customer.type} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
         return key.toUpperCase();
     }
 

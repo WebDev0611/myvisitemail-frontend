@@ -5,17 +5,20 @@ export interface IResortCustomer extends ICustomer {
     id: string;
 
     name: string;
-    position: string;
+    type: string;
     email: string;
     rooms: number;
     lastSent: Date;
     invoice: number;
+
+    area: string;
+    profileBkg: string;
 }
 export interface IResortCustomerDetails extends IResortCustomer {
     id: string;
 
     name: string;
-    position: string;
+    type: string;
     email: string;
     rooms: number;
     lastSent: Date;
@@ -34,7 +37,7 @@ export class ResortCustomerDetails implements IResortCustomerDetails {
     id: string;
 
     name: string;
-    position: string;
+    type: string;
     email: string;
     rooms: number;
     lastSent: Date;
@@ -48,34 +51,40 @@ export class ResortCustomerDetails implements IResortCustomerDetails {
     lastWeek: number;
 
     profileBkg: string;
+    area: string;
 }
 
 export class ResortCustomer implements IResortCustomer {
     id: string;
+    area: string;
+    profileBkg: string;
+
     private _customerName: string;
-    private _position: string;
+    private _type: string;
     private _emailAddres: string;
     private _rooms: number;
     private _lastSent: Date;
     private _invoice: number;
     private _mailingReports: Array<Object>;
 
-    constructor (name, position, email, rooms, mailingReports, invoice) {
+    constructor(name, type, email, rooms, mailingReports, invoice) {
         this._customerName = name;
-        this._position = position;
+        this._type = type;
         this._emailAddres = email;
         this._rooms = rooms;
-        this._lastSent = new Date(mailingReports[0].send_time);
         this._invoice = invoice;
         this._mailingReports = mailingReports;
+        if (mailingReports) {
+            this._lastSent = new Date(mailingReports[0].send_time);
+        }
     }
 
     public set name(value: string) {
         this._customerName = value;
     }
 
-    public set position(value: string) {
-        this._position = value;
+    public set type(value: string) {
+        this._type = value;
     }
 
     public set email(value: string) {
@@ -98,8 +107,8 @@ export class ResortCustomer implements IResortCustomer {
         return this._customerName;
     }
 
-    public get position(): string {
-        return this._position;
+    public get type(): string {
+        return this._type;
     }
 
     public get emailAddres(): string {

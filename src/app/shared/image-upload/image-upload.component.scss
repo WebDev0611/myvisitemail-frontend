@@ -1,0 +1,68 @@
+.dropzone {
+    box-sizing: border-box;
+    min-height: 150px;
+    background: white;
+    padding: 20px 20px;
+    border: 2px dashed #047bf8;
+    cursor: pointer;
+    position: relative;
+
+    &.drag-hover {
+        border-style: solid;
+    }
+
+    .drop-input {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .drop-content {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+
+        }
+
+        .drop-preview{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .drop-text {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 0.5rem;
+            font-family: 'Roboto Slab', serif;
+            font-weight: 500;
+            line-height: 1.1;
+            color: #334152;
+            background-color: white;
+            padding: 5px;
+
+            &.drop-error{
+                color: red;
+            }
+            .drop-tooltip{
+                margin-top: 4px;
+                color: #aaa;
+                font-weight: 300;
+                font-size: 11px;
+            }
+        }
+    }
+}
