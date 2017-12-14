@@ -55,8 +55,6 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
         }
     }
 
-    private compileReports
-
     private getMailStatistics(email) {
         this.componentService.getMailchimpStatistics(email) // (this.resort.id)
             .then(result => {

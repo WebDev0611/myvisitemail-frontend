@@ -62,7 +62,6 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     search(searchInput: string) {
-        // debugger
         this.tempSearch = searchInput.toUpperCase();
         this.buildDataGrid();
     }
@@ -72,7 +71,7 @@ export class ManageCustomersComponent implements OnInit {
         this.resetSorting(sortHeader);
         sortType = this.sortTypes[sortType];
         let by = [sortHeader.textContent.toLowerCase()];
-        by = nested ? nested.split('.').concat(by): by;
+        by = nested ? nested.split('.').concat(by) : by;
         this.tempSorting = { type: sortType, by: by };
 
         this.buildDataGrid();
@@ -126,11 +125,10 @@ export class ManageCustomersComponent implements OnInit {
             const sorted = this.tempCustomers.sort((a, b) => {
                 let valA = a[by[0]];
                 let valB = b[by[0]];
-                for (let i = 1; i<by.length; i++) {
+                for (let i = 1; i < by.length; i++) {
                     valA = valA[by[i]];
                     valB = valB[by[i]];
                 }
-                console.log('sortng', a, b);
                 if (type === 'sorting_asc') {
                     if (valA > valB) {
                         return 1;
@@ -181,7 +179,8 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     private convertToStringKey(customer: ResortCustomer): string {
-        const key = `${customer.company.name} ${customer.company.email} ${customer.type} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
+        const key = `${customer.company.name} ${customer.company.email} ${customer.type} ${customer.rooms}
+         ${customer.invoice} ${customer.lastSent}`;
         return key.toUpperCase();
     }
 
