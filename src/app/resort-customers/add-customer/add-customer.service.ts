@@ -1,32 +1,34 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICustomer } from '../resort-customers.models';
+import { ResortCustomer } from '../resort-customers.models';
 
 @Injectable()
 export class AddCustomersService {
     constructor(private http: HttpClient) {}
 
-    addCustomer(customer: ICustomer): Promise<any> {
+    addCustomer(customer: ResortCustomer): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            this.http.post('resort-customer/', customer.getPostObject()).toPromise()
+                .then(resolve)
+                .catch(reject);
+        });
+    }
+
+    editCustomer(customer: ResortCustomer): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             resolve(true);
         });
     }
 
-    editCustomer(customer: ICustomer): Promise<any> {
+    removeCustomer(customer: ResortCustomer): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             resolve(true);
         });
     }
 
-    removeCustomer(customer: ICustomer): Promise<any> {
-        return new Promise<any>((resolve, reject) => {
-            resolve(true);
-        });
-    }
-
-    getCustomer(): Promise<ICustomer> {
-        return new Promise<ICustomer>((resolve, reject) => {
-           resolve({ id: '1'});
+    getCustomer(): Promise<ResortCustomer> {
+        return new Promise<ResortCustomer>((resolve, reject) => {
+           resolve();
         });
     }
 

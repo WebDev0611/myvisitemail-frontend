@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Page } from '../../shared/models/common.models';
 import { ErrorService } from '../../error/error.service';
-import { IResortCustomer } from '../resort-customers.models';
-import { ManageCustomersService } from './manage-customers.service';
+import { ResortCustomer } from '../resort-customers.models';
+import { ManageCustomersService } from '../../shared/services/manage-customers.service';
 
 @Component({
     selector: 'app-manage-customers',
@@ -19,10 +19,10 @@ export class ManageCustomersComponent implements OnInit {
 
     sortTypes: any;
 
-    customers: IResortCustomer[];
-    private allCustomers: IResortCustomer[];
+    customers: ResortCustomer[];
+    private allCustomers: ResortCustomer[];
 
-    private tempCustomers: IResortCustomer[];
+    private tempCustomers: ResortCustomer[];
     private tempSorting: any;
     private tempSearch: string;
 
@@ -62,16 +62,17 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     search(searchInput: string) {
-        debugger
+        // debugger
         this.tempSearch = searchInput.toUpperCase();
         this.buildDataGrid();
     }
 
-    sortBy(sortHeader: HTMLElement) {
+    sortBy(nested, sortHeader: HTMLElement) {
         let sortType = sortHeader.className;
         this.resetSorting(sortHeader);
         sortType = this.sortTypes[sortType];
-        const by = sortHeader.textContent.toLowerCase();
+        let by = [sortHeader.textContent.toLowerCase()];
+        by = nested ? nested.split('.').concat(by): by;
         this.tempSorting = { type: sortType, by: by };
 
         this.buildDataGrid();
@@ -123,18 +124,25 @@ export class ManageCustomersComponent implements OnInit {
             const by = sort.by;
 
             const sorted = this.tempCustomers.sort((a, b) => {
+                let valA = a[by[0]];
+                let valB = b[by[0]];
+                for (let i = 1; i<by.length; i++) {
+                    valA = valA[by[i]];
+                    valB = valB[by[i]];
+                }
+                console.log('sortng', a, b);
                 if (type === 'sorting_asc') {
-                    if (a[by] > b[by]) {
+                    if (valA > valB) {
                         return 1;
-                    } else if (a[by] < b[by]) {
+                    } else if (valA < valB) {
                         return -1;
                     } else {
                         return 0;
                     }
                 } else {
-                    if (a[by] > b[by]) {
+                    if (valA > valB) {
                         return -1;
-                    } else if (a[by] < b[by]) {
+                    } else if (valA < valB) {
                         return 1;
                     } else {
                         return 0;
@@ -172,8 +180,8 @@ export class ManageCustomersComponent implements OnInit {
         return this.allCustomers.map(customer => this.convertToStringKey(customer));
     }
 
-    private convertToStringKey(customer: IResortCustomer): string {
-        const key = `${customer.name} ${customer.email} ${customer.type} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
+    private convertToStringKey(customer: ResortCustomer): string {
+        const key = `${customer.company.name} ${customer.company.email} ${customer.type} ${customer.rooms} ${customer.invoice} ${customer.lastSent}`;
         return key.toUpperCase();
     }
 

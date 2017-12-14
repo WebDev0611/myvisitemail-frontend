@@ -4,7 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ManageCustomersComponent } from './manage-customers.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
-import { ManageCustomersService } from './manage-customers.service';
+import { ManageCustomersService } from '../../shared/services/manage-customers.service';
 
 
 @NgModule({

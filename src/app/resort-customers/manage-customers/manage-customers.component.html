@@ -37,22 +37,22 @@
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="dataTable1" rowspan="1" colspan="1"
                                                     aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                                                    style="width: 206.6px;" #colHeader1 (click)="sortBy(colHeader1)">Name</th>
+                                                    style="width: 206.6px;" #colHeader1 (click)="sortBy('company', colHeader1)">Name</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1" rowspan="1"
                                                     colspan="1" aria-label="Type: activate to sort column ascending" style="width: 105.6px;"
-                                                    #colHeader2 (click)="sortBy(colHeader2)">Type</th>
+                                                    #colHeader2 (click)="sortBy('',colHeader2)">Type</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1"
                                                     rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending"
-                                                    style="width: 183.6px;" #colHeader3 (click)="sortBy(colHeader3)">Email</th>
+                                                    style="width: 183.6px;" #colHeader3 (click)="sortBy('company', colHeader3)">Email</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1" rowspan="1"
                                                     colspan="1" aria-label="Rooms: activate to sort column ascending" style="width: 80.6px;"
-                                                    #colHeader4 (click)="sortBy(colHeader4)">Rooms</th>
+                                                    #colHeader4 (click)="sortBy('', colHeader4)">Rooms</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1" rowspan="1"
                                                     colspan="1" aria-label="Last Sent: activate to sort column ascending" style="width: 108.6px;"
-                                                    #colHeader5 (click)="sortBy(colHeader5)">Last Sent</th>
+                                                    #colHeader5 (click)="sortBy('', colHeader5)">Last Sent</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable1"
                                                     rowspan="1" colspan="1" aria-label="Invoice: activate to sort column ascending"
-                                                    style="width: 91.6px;" #colHeader6 (click)="sortBy(colHeader6)">Invoice</th>
+                                                    style="width: 91.6px;" #colHeader6 (click)="sortBy('', colHeader6)">Invoice</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -68,12 +68,12 @@
                                         <tbody>
                                             <tr role="row" *ngFor="let customer of customers; let index=index; let odd=odd; let even=even;" [ngClass]="{ odd: odd, even: even }">
                                                 <td class="sorting_1">
-                                                    <a routerLink="/resort-details/{{customer.id}}">
-                                                        {{ customer.name }}
+                                                    <a routerLink="/resort-details/{{customer._id}}">
+                                                        {{ customer.company.name }}
                                                     </a>
                                                 </td>
                                                 <td>{{ customer.type }}</td>
-                                                <td>{{ customer.email }}</td>
+                                                <td>{{ customer.company.email }}</td>
                                                 <td>{{ customer.rooms }}</td>
                                                 <td>{{ customer.lastSent | date: 'dd/MM/yyyy H:mm' }}</td>
                                                 <td>{{ customer.invoice }}</td>

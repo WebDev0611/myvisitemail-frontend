@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { HomeService } from './home.service';
 import { ErrorService } from '../error/error.service';
 import { IMailchimpReportData } from '../shared/models/mailchimp.models';
+import { ManageCustomersService } from '../shared/services/manage-customers.service';
+import { ResortCustomer} from "../resort-customers/resort-customers.models";
 
 
 @Component({
@@ -9,7 +11,7 @@ import { IMailchimpReportData } from '../shared/models/mailchimp.models';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
     title: string;
     statistics: Array<Object> = [];
     total: {
@@ -18,13 +20,27 @@ export class HomeComponent implements OnInit {
         emailsSent: number
     };
 
-    constructor(private componentService: HomeService, private errorService: ErrorService) {
+    south: number;
+    east: number;
+    north: number;
+    west: number;
+    reykjavik: number;
+    rejkjanes: number;
+    westfjords: number;
+    allCustomers: number;
+    newBookings: number;
+    newCustomers: number;
+    deletedCustomers: number;
+    intervalIds: any[];
+
+    constructor(private componentService: HomeService, private errorService: ErrorService, private customerService: ManageCustomersService) {
         this.title = 'HOME';
         this.total = {
             ctr: 0,
             bounceRate: 0,
             emailsSent: 0
         };
+        this.newBookings = 0;
         for (let i = 0; i < 5; i++) {
             this.statistics[i] = {
                 emailsSent: 0,
@@ -33,6 +49,19 @@ export class HomeComponent implements OnInit {
                 bounceRate: 0,
             };
         }
+
+        this.intervalIds = [];
+
+        this.south = 0;
+        this.east = 0;
+        this.north = 0;
+        this.west = 0;
+        this.reykjavik = 0;
+        this.rejkjanes = 0;
+        this.westfjords = 0;
+        this.allCustomers = 0;
+        this.newCustomers = 0;
+        this.deletedCustomers = 0;
     }
 
     private clearReports() {
@@ -129,7 +158,7 @@ export class HomeComponent implements OnInit {
             if (this.statistics[i]['numberOf'] > 0) {
                 this.total.ctr += this.statistics[i]['ctr'] = this.statistics[i]['ctr'] / this.statistics[i]['numberOf'];
                 this.total.bounceRate += this.statistics[i]['bounceRate'] =
-                                         this.statistics[i]['bounceRate'] / this.statistics[i]['numberOf'];
+                                         this.statistics[i]['bounceRate'] / this.total.emailsSent;
             }
         }
         this.total.ctr = this.total.ctr / 5;
@@ -146,8 +175,109 @@ export class HomeComponent implements OnInit {
             });
     }
 
+    private filterBookings (dataSet) {
+        this.newBookings = 0;
+        const condition = new Date().setDate(
+            new Date().getDate() - 7
+        );
+        for (const key in dataSet) {
+            const booking = dataSet[key];
+            if (booking.creationDate >= condition) {
+                this.newBookings++;
+            }
+        }
+    }
+
+    private filterCustomers(dataSet: ResortCustomer[]) {
+        this.clearBookings();
+        this.allCustomers = dataSet.length;
+        const condition = new Date().setDate(
+            new Date().getDate() - 7
+        );
+        for (const index in dataSet) {
+            let data = dataSet[index];
+            if (data.metadata && data.metadata.creationDate &&
+                condition <= data.metadata.creationDate) {
+                this.newCustomers++;
+            }
+            switch(data.area) {
+                case 'South':
+                    this.south++;
+                    break;
+                case 'West':
+                    this.west++;
+                    break;
+                case 'North':
+                    this.north++
+                    break;
+                case 'East':
+                    this.east++;
+                    break;
+            }
+
+            if (/reykjavik/i.test(data.company.address)) {
+                this.reykjavik ++;
+            }
+
+            if (/rejkjanes/i.test(data.company.address)) {
+                this.rejkjanes++;
+            }
+
+            if (/westfjords/i.test(data.company.address)) {
+                this.westfjords ++;
+            }
+        }
+    }
+
+    private clearBookings () {
+        this.south = 0;
+        this.east = 0;
+        this.north = 0;
+        this.west = 0;
+        this.reykjavik = 0;
+        this.rejkjanes = 0;
+        this.westfjords = 0;
+    }
+
+    private getBookings () {
+        this.componentService.getBookings()
+            .then(data => {
+                this.filterBookings(data.results);
+            })
+            .catch(err => {
+                this.errorService.handleError(err);
+            })
+    }
+
+    getResorts() {
+        this.customerService.getResortCustomers()
+            .then(data => {
+                this.filterCustomers(data);
+            })
+            .catch(error => {
+                this.errorService.handleError(error);
+            });
+        this.customerService.getDeletedCustomer()
+            .then(data => {
+                this.deletedCustomers = data.length;
+            })
+            .catch(error => {
+                this.errorService.handleError(error);
+            });
+    };
+
     ngOnInit() {
         this.getReportData();
-        window.setInterval(this.getReportData, 120000, this);
+        this.getResorts();
+        this.getBookings();
+        this.intervalIds[0] = window.setInterval(this.getReportData, 120000, this);
+        this.intervalIds[1] = window.setInterval(this.getResorts, 120000, this);
+        this.intervalIds[2] = window.setInterval(this.getBookings, 120000, this);
+    }
+
+    ngOnDestroy() {
+        for (let id of this.intervalIds) {
+            window.clearInterval(id);
+        }
     }
 }

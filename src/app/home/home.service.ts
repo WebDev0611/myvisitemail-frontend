@@ -9,13 +9,19 @@ export class HomeService {
     constructor(private http: HttpClient) {}
 
     getData() {
-        const promise = new Promise<IMailchimpReportData[]>((resolve, reject) => {
+        return new Promise<IMailchimpReportData[]>((resolve, reject) => {
             return this.http.get('mailchimp/report').toPromise()
                 .then(response => resolve(<IMailchimpReportData[]>response))
                 .catch(error => reject(error));
             // resolve({});
-    });
+        });
+    }
 
-        return promise;
+    getBookings () {
+        return new Promise<any>((resolve, reject) => {
+            return this.http.get('bokun/bookings').toPromise()
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
     }
 }
