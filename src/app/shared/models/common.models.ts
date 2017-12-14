@@ -18,6 +18,14 @@ export enum FileType {
     Other = 4
 }
 
+export interface IFile {
+    _id: string;
+    id: string;
+    type: FileType;
+    file: any;
+    contentType: string;
+}
+
 export class FileObject {
     id: string;
     _id: string;

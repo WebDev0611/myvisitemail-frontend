@@ -19,13 +19,17 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     resortId: string;
     resort: ResortCustomer;
 
+    resortStyle: any;
+
     private sub: Subscription;
     private lineChart: Chart;
     private littleLineChart: Chart;
 
     constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private errorService: ErrorService) {
         this.chartTimespan = 7;
-        // this.resort = new ResortCustomer();
+        this.resortStyle = '';
+
+        this.resort = new ResortCustomer();
     }
 
     ngOnInit() {
@@ -51,8 +55,12 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     }
 
     private handleSuccess(result: ResortCustomer) {
-        if (result && result.company && result.company.name) {
+        if (result && result.contact && result.contact.name) {
             this.resort = result;
+            if (result.backgroundId) {
+               this.resortStyle =  { 'background-image': 'url(' + result.backgroundId + ')' };
+            }
+
         } else {
             this.errorService.handleError(new AppError(404, 'Customer Not Found',
             'Data for selected customer is corrupted or missing!'));

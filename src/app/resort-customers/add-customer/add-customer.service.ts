@@ -8,7 +8,9 @@ export class AddCustomersService {
 
     addCustomer(customer: ResortCustomer): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post('resort-customer/', customer.getPostObject()).toPromise()
+            const obj = customer.getPostObject();
+
+            this.http.post('resort-customer/', obj).toPromise()
                 .then(resolve)
                 .catch(reject);
         });
