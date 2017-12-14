@@ -2,6 +2,12 @@ export class AppError {
     status: number;
     title: string;
     description: string;
+
+    constructor(_status?: number, _title?: string, _description?: string) {
+        this.status = _status;
+        this.title = _title;
+        this.description = _description;
+    }
 }
 
 export enum FileType {

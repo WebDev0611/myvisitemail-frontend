@@ -8,6 +8,7 @@ import { ResortDetailsService } from './resort-details.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
+import { AppError } from '../../shared/models/common.models';
 
 @Component({
     selector: 'app-resort-details',
@@ -50,8 +51,11 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     }
 
     private handleSuccess(result: ResortCustomer) {
-        if (result) {
+        if (result && result.company && result.company.name) {
             this.resort = result;
+        } else {
+            this.errorService.handleError(new AppError(404, 'Customer Not Found',
+            'Data for selected customer is corrupted or missing!'));
         }
     }
 
