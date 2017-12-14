@@ -5,7 +5,6 @@ import { AddCustomersService } from './add-customer.service';
 import { ImageUploadComponent } from '../../shared/image-upload/image-upload.component';
 import { isNumeric } from '../../shared/shared.utilities';
 import { FileService } from '../../shared/services/file-service';
-import { error } from 'selenium-webdriver';
 
 @Component({
     selector: 'app-add-customer',
