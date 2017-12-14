@@ -41,7 +41,6 @@ export class AddCustomerComponent implements OnInit {
     addCustomer() {
         if (this.isValid()) {
             if (this.fileUpload.fileObject) {
-                this.customer.contact.address = 'TODO';
                 this.fileService.sendFile(this.fileUpload.fileObject)
                     .then(result => {
                         this.customer.backgroundId = result.id;
