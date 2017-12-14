@@ -69,11 +69,11 @@
                                             <tr role="row" *ngFor="let customer of customers; let index=index; let odd=odd; let even=even;" [ngClass]="{ odd: odd, even: even }">
                                                 <td class="sorting_1">
                                                     <a routerLink="/resort-details/{{customer._id}}">
-                                                        {{ customer.company.name }}
+                                                        {{ customer.contact.name }}
                                                     </a>
                                                 </td>
                                                 <td>{{ customer.type }}</td>
-                                                <td>{{ customer.company.email }}</td>
+                                                <td>{{ customer.contact.email }}</td>
                                                 <td>{{ customer.rooms }}</td>
                                                 <td>{{ customer.lastSent | date: 'dd/MM/yyyy H:mm' }}</td>
                                                 <td>{{ customer.invoice }}</td>

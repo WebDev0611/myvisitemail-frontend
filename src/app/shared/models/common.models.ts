@@ -2,6 +2,12 @@ export class AppError {
     status: number;
     title: string;
     description: string;
+
+    constructor(_status?: number, _title?: string, _description?: string) {
+        this.status = _status;
+        this.title = _title;
+        this.description = _description;
+    }
 }
 
 export enum FileType {
@@ -10,6 +16,14 @@ export enum FileType {
     Video = 2,
     Document = 3,
     Other = 4
+}
+
+export interface IFile {
+    _id: string;
+    id: string;
+    type: FileType;
+    file: any;
+    contentType: string;
 }
 
 export class FileObject {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FileObject } from '../models/common.models';
+import { FileObject, IFile } from '../models/common.models';
 
 
 @Injectable()
@@ -17,7 +17,7 @@ export class FileService {
         });
     }
 
-    sendFile(file: FileObject): Promise<any> {
+    sendFile(file: FileObject): Promise<IFile> {
         return new Promise<any>((resolve, reject) => {
             const formData = new FormData();
             formData.append('file', file.file);

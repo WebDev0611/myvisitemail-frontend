@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { ErrorService } from '../error/error.service';
 import { IMailchimpReportData } from '../shared/models/mailchimp.models';
 import { ManageCustomersService } from '../shared/services/manage-customers.service';
-import { ResortCustomer} from "../resort-customers/resort-customers.models";
+import { ResortCustomer } from "../resort-customers/resort-customers.models";
 
 
 @Component({
@@ -158,7 +158,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             if (this.statistics[i]['numberOf'] > 0) {
                 this.total.ctr += this.statistics[i]['ctr'] = this.statistics[i]['ctr'] / this.statistics[i]['numberOf'];
                 this.total.bounceRate += this.statistics[i]['bounceRate'] =
-                                         this.statistics[i]['bounceRate'] / this.total.emailsSent;
+                    this.statistics[i]['bounceRate'] / this.total.emailsSent;
             }
         }
         this.total.ctr = this.total.ctr / 5;
@@ -175,7 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             });
     }
 
-    private filterBookings (dataSet) {
+    private filterBookings(dataSet) {
         this.newBookings = 0;
         const condition = new Date().setDate(
             new Date().getDate() - 7
@@ -200,7 +200,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 condition <= data.metadata.creationDate) {
                 this.newCustomers++;
             }
-            switch(data.area) {
+            switch (data.area) {
                 case 'South':
                     this.south++;
                     break;
@@ -215,21 +215,21 @@ export class HomeComponent implements OnInit, OnDestroy {
                     break;
             }
 
-            if (/reykjavik/i.test(data.company.address)) {
-                this.reykjavik ++;
+            if (/reykjavik/i.test(data.contact.address)) {
+                this.reykjavik++;
             }
 
-            if (/rejkjanes/i.test(data.company.address)) {
+            if (/rejkjanes/i.test(data.contact.address)) {
                 this.rejkjanes++;
             }
 
-            if (/westfjords/i.test(data.company.address)) {
-                this.westfjords ++;
+            if (/westfjords/i.test(data.contact.address)) {
+                this.westfjords++;
             }
         }
     }
 
-    private clearBookings () {
+    private clearBookings() {
         this.south = 0;
         this.east = 0;
         this.north = 0;
@@ -239,7 +239,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.westfjords = 0;
     }
 
-    private getBookings () {
+    private getBookings() {
         this.componentService.getBookings()
             .then(data => {
                 this.filterBookings(data.results);

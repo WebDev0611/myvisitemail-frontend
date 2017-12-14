@@ -8,6 +8,7 @@ import { ResortDetailsService } from './resort-details.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
+import { AppError } from '../../shared/models/common.models';
 
 @Component({
     selector: 'app-resort-details',
@@ -18,13 +19,17 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     resortId: string;
     resort: ResortCustomer;
 
+    resortStyle: any;
+
     private sub: Subscription;
     private lineChart: Chart;
     private littleLineChart: Chart;
 
     constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private errorService: ErrorService) {
         this.chartTimespan = 7;
-        // this.resort = new ResortCustomer();
+        this.resortStyle = '';
+
+        this.resort = new ResortCustomer();
     }
 
     ngOnInit() {
@@ -50,12 +55,17 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     }
 
     private handleSuccess(result: ResortCustomer) {
-        if (result) {
+        if (result && result.contact && result.contact.name) {
             this.resort = result;
+            if (result.backgroundId) {
+               this.resortStyle =  { 'background-image': 'url(' + result.backgroundId + ')' };
+            }
+
+        } else {
+            this.errorService.handleError(new AppError(404, 'Customer Not Found',
+            'Data for selected customer is corrupted or missing!'));
         }
     }
-
-    private compileReports
 
     private getMailStatistics(email) {
         this.componentService.getMailchimpStatistics(email) // (this.resort.id)

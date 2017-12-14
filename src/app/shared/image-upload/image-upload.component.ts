@@ -24,15 +24,19 @@ export class ImageUploadComponent implements OnInit {
     };
 
     constructor() {
-        this.src = '';
-        this.fileObject = null;
-        this.errorMsg = '';
+        this.reset();
         this.mainText = 'Click to upload.';
         this.tooltipText = `(Max size ${Math.round(this.validation.size / (1024 * 1024))}MB
         and resolution ${ this.validation.width }*${ this.validation.height })`;
     }
 
     ngOnInit() {
+    }
+
+    reset(): void {
+        this.errorMsg = '';
+        this.src = '';
+        this.fileObject = null;
     }
 
     onChange(fileInput: HTMLInputElement) {

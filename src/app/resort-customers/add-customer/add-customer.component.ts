@@ -4,6 +4,7 @@ import { ErrorService } from '../../error/error.service';
 import { AddCustomersService } from './add-customer.service';
 import { ImageUploadComponent } from '../../shared/image-upload/image-upload.component';
 import { isNumeric } from '../../shared/shared.utilities';
+import { FileService } from '../../shared/services/file-service';
 
 @Component({
     selector: 'app-add-customer',
@@ -17,8 +18,8 @@ export class AddCustomerComponent implements OnInit {
     customer: ResortCustomer;
     errorMessage: string;
 
-    constructor(private componentService: AddCustomersService, private errorService: ErrorService) {
-        this.customer = new ResortCustomer();
+    constructor(private componentService: AddCustomersService, private errorService: ErrorService, private fileService: FileService) {
+        this.createUser();
         this.areas = [
             'South',
             'West',
@@ -34,38 +35,39 @@ export class AddCustomerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAreas();
-    }
-
-    getAreas(): void {
-        // this.componentService.getAreas()
-        //     .then(areas => {
-        //         this.areas = areas;
-        //         this.areas.unshift('Select area');
-        //     })
-        //     .catch(error => {
-        //         this.errorService.handleError(error);
-        //     });
     }
 
     addCustomer() {
         if (this.isValid()) {
-            this.componentService.addCustomer(this.customer)
-                .then(result => {
-                    this.errorMessage = '';
-                    // this.createUser();
-                })
-                .catch(error => {
-                    this.errorService.handleError(error);
-                });
+            if (this.fileUpload.fileObject) {
+                this.fileService.sendFile(this.fileUpload.fileObject)
+                    .then(result => {
+                        this.customer.backgroundId = result.id;
+                        this.saveCustomer();
+                    })
+                    .catch(error => {
+                        this.errorService.handleError(error);
+                    });
+            } else {
+                this.saveCustomer();
+            }
         }
+    }
+
+    private saveCustomer() {
+        this.componentService.addCustomer(this.customer)
+            .then(r => {
+                this.errorMessage = '';
+                this.createUser();
+                this.fileUpload.reset();
+            })
+            .catch(error => {
+                this.errorService.handleError(error);
+            });
     }
 
     isValid(): boolean {
         this.errorMessage = '';
-        // if (this.fileUpload.fileObject) {
-        //     this.customer.profileBkg = this.fileUpload.src;
-        // }
         if (this.customer.type === 'Select type') {
             this.errorMessage = 'Please select proper type';
             return false;
@@ -82,8 +84,8 @@ export class AddCustomerComponent implements OnInit {
         return true;
     }
 
-    // private createUser() {
-    //     this.customer = new ResortCustomer('', '', '', 0, null, '');
-    //     this.customer.type = 'Select type';
-    // }
+    private createUser() {
+        this.customer = new ResortCustomer();
+        this.customer.type = 'Select type';
+    }
 }
