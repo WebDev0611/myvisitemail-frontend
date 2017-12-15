@@ -8,16 +8,23 @@
                             <div class="element-box">
                                 <fieldset class="form-group">
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="20" [(ngModel)]="email.message" name="message"></textarea>
+                                        <textarea class="form-control" rows="20" [(ngModel)]="messageHTML" name="message"></textarea>
                                     </div>
                                 </fieldset>
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <label for="">E-mail</label>
-                                        <input class="form-control" style="margin-bottom: 10px;" data-error="Please insert correct E-mail" [(ngModel)]="email.address"
-                                            placeholder="Test E-mail" name="address">
-                                        <button class="mr-2 mb-2 btn btn-outline-primary" type="button" (click)="sendTest()">Send</button>
-                                        <span>{{ resultMsg }}</span>
+                                    <div class="col-sm-12 row">
+                                        <div class="col-sm-12">
+                                            <label for="">E-mail</label>
+                                            <input class="form-control" style="margin-bottom: 10px;" data-error="Please insert correct E-mail" [(ngModel)]="emails"
+                                                placeholder="Test E-mail" name="emails">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <button class="mr-2 mb-2 btn btn-outline-primary" type="button" (click)="sendTest()">Send</button>
+                                            <button class="mr-2 mb-2 btn btn-outline-primary" type="button" (click)="clearCampaigns()">Clear test campaigns</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span>{{ resultMsg }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

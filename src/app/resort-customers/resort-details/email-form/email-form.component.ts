@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-
-import { IEmailMessage, EmailMessage } from './email-form.models';
-import { ResortDetailsService } from '../resort-details.service';
-import { ErrorService } from '../../../error/error.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {ResortDetailsService} from '../resort-details.service';
+import {ErrorService} from '../../../error/error.service';
+import {ResortCustomer} from "../../resort-customers.models";
+import {IResortCustomerTemplate} from "../../../../../../rd-myvisitemail-backend/src/database/resort-customers/resort-customers.model";
 
 
 @Component({
@@ -14,21 +14,33 @@ import { ErrorService } from '../../../error/error.service';
 export class EmailFormComponent implements OnInit, OnDestroy {
     resortId: string;
     actionName: string;
-    email: EmailMessage;
+    messageHTML: string;
+    resort: ResortCustomer;
+    address: string;
+    emails: string;
 
     resultMsg: string;
 
     private sub: Subscription;
     constructor(private componentService: ResortDetailsService, private route: ActivatedRoute, private router: Router,
         private errorService: ErrorService) {
-        this.email = new EmailMessage();
         this.resultMsg = '';
+        this.messageHTML = '';
+        this.address = '';
+        this.emails = '';
     }
 
     ngOnInit() {
         this.sub = this.route.url.subscribe(url => {
             this.actionName = url[1].path;
             this.resortId = url[2].path;
+        });
+
+        this.componentService.getResort(this.resortId).then(result => {
+            this.resort = result;
+            this.messageHTML = this.resort[this.actionName].html;
+        }).catch(error => {
+            this.errorService.handleError(error);
         });
     }
 
@@ -38,7 +50,8 @@ export class EmailFormComponent implements OnInit, OnDestroy {
 
     save() {
         this.resultMsg = '';
-        this.componentService.saveTemplate(this.actionName, this.email)
+        this.resort[this.actionName].html = this.messageHTML;
+            this.componentService.updateResort(this.resort)
             .then(result => {
                 this.router.navigateByUrl(`/resort-settings/${ this.resortId }`);
             })
@@ -47,14 +60,32 @@ export class EmailFormComponent implements OnInit, OnDestroy {
             });
     }
 
-    sendTest() {
-        this.resultMsg = '';
-        this.componentService.sendTestEmail(this.email)
+    clearCampaigns() {
+        this.componentService.clearCampaigns(this.resort[this.actionName].templateId)
             .then(result => {
-                this.resultMsg = 'Test email has been sent';
+                this.resultMsg = 'Cleared test campaigns.';
             })
             .catch(error => {
                 this.errorService.handleError(error);
             });
+    }
+
+    sendTest() {
+        this.resultMsg = '';
+        let data: IResortCustomerTemplate = {
+            name: this.actionName,
+            html: this.messageHTML,
+            folderId: this.resort.templateFolderId // folder_id
+        };
+        this.componentService.sendTestEmail(this.emails.split(';'), {
+            templateId: this.resort[this.actionName].templateId,
+            data: data
+        })
+        .then(result => {
+            this.resultMsg = result.message;
+        })
+        .catch(error => {
+            this.errorService.handleError(error);
+        });
     }
 }
