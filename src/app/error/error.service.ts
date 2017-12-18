@@ -27,7 +27,11 @@ export class ErrorService {
         }
         const appError = new AppError();
         appError.status = error.status;
-        appError.description = error.message;
+        let err = error.error || error.message;
+        if (err.message) {
+            err = err.message;
+        }
+        appError.description = err || err.message;
         appError.title = error.statusText;
 
         this.error = appError;
