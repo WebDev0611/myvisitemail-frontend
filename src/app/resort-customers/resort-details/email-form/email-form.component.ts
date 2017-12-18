@@ -38,7 +38,15 @@ export class EmailFormComponent implements OnInit, OnDestroy {
 
         this.componentService.getResort(this.resortId).then(result => {
             this.resort = result;
-            this.messageHTML = this.resort[this.actionName].html;
+            if (!this.resort[this.actionName]) {
+                this.resort[this.actionName] = {}
+            } else  if (this.resort[this.actionName].html) {
+                this.messageHTML = this.resort[this.actionName].html;
+            } else {
+                this.resort[this.actionName] = {
+                    html: ''
+                }
+            }
         }).catch(error => {
             this.errorService.handleError(error);
         });
