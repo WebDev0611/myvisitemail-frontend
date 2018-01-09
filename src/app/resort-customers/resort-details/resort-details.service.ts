@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { IEmailMessage } from './email-form/email-form.models';
 import {ResortCustomer} from '../resort-customers.models';
 import { IMailchimpReportData } from '../../shared/models/mailchimp.models';
-import {IResortCustomerTemplate} from "../../../../../rd-myvisitemail-backend/src/database/resort-customers/resort-customers.model";
 
 @Injectable()
 export class ResortDetailsService {

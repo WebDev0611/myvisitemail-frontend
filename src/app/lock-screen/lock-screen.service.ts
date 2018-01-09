@@ -13,7 +13,7 @@ export class LockScreenService {
 
     constructor(private userService: UserService, private loginService: LoginService, private router: Router) {
         this.listener = this.resetTimer.bind(this);
-        this.lockAfter = 30000;
+        this.lockAfter = 1800000;
     }
 
     init() {

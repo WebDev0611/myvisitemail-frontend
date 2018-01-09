@@ -45,6 +45,12 @@ export interface ITemplateData {
     html: string;
 }
 
+export interface IDbTemplate {
+    name: string;
+    html: string;
+    folder_id: string; // folder_id
+}
+
 export class ResortCustomer implements IResortCustomer {
     _id: string;
     contact: ICustomerContact;

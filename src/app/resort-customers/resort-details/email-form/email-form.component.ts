@@ -3,8 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {ResortDetailsService} from '../resort-details.service';
 import {ErrorService} from '../../../error/error.service';
-import {ResortCustomer} from "../../resort-customers.models";
-import {IResortCustomerTemplate} from "../../../../../../rd-myvisitemail-backend/src/database/resort-customers/resort-customers.model";
+import {ResortCustomer, IDbTemplate} from "../../resort-customers.models";
 
 
 @Component({
@@ -80,10 +79,10 @@ export class EmailFormComponent implements OnInit, OnDestroy {
 
     sendTest() {
         this.resultMsg = '';
-        let data: IResortCustomerTemplate = {
+        let data: IDbTemplate = {
             name: this.actionName,
             html: this.messageHTML,
-            folderId: this.resort.templateFolderId // folder_id
+            folder_id: this.resort.templateFolderId // folder_id
         };
         this.componentService.sendTestEmail(this.emails.split(';'), {
             templateId: this.resort[this.actionName].templateId,
