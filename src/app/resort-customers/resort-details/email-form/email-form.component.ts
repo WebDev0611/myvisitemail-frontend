@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {ResortDetailsService} from '../resort-details.service';
 import {ErrorService} from '../../../error/error.service';
-import {ResortCustomer, IDbTemplate} from "../../resort-customers.models";
+import {ResortCustomer, IDbTemplate, IMessageTemplate} from "../../resort-customers.models";
 
 
 @Component({
@@ -14,6 +14,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
     resortId: string;
     actionName: string;
     messageHTML: string;
+    subject: string;
     resort: ResortCustomer;
     address: string;
     emails: string;
@@ -47,7 +48,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
                 }
             }
         }).catch(error => {
-            this.errorService.handleError(error);
+            this.errorService.handleMessage(error);
         });
     }
 
@@ -63,7 +64,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
                 this.router.navigateByUrl(`/resort-settings/${ this.resortId }`);
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
     }
 
@@ -73,16 +74,19 @@ export class EmailFormComponent implements OnInit, OnDestroy {
                 this.resultMsg = 'Cleared test campaigns.';
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
     }
 
     sendTest() {
         this.resultMsg = '';
-        let data: IDbTemplate = {
-            name: this.actionName,
-            html: this.messageHTML,
-            folder_id: this.resort.templateFolderId // folder_id
+        let data: IMessageTemplate = {
+            template: {
+                name: this.actionName,
+                html: this.messageHTML,
+                folder_id: this.resort.templateFolderId // folder_id
+            },
+            subject: this.subject
         };
         this.componentService.sendTestEmail(this.emails.split(';'), {
             templateId: this.resort[this.actionName].templateId,
@@ -92,7 +96,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
             this.resultMsg = result.message;
         })
         .catch(error => {
-            this.errorService.handleError(error);
+            this.errorService.handleMessage(error);
         });
     }
 }

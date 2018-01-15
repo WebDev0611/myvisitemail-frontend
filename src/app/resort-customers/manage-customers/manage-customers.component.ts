@@ -57,7 +57,7 @@ export class ManageCustomersComponent implements OnInit {
                 this.buildDataGrid();
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
     }
 

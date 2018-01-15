@@ -24,12 +24,16 @@ export class AddCustomerComponent implements OnInit {
             'South',
             'West',
             'North',
-            'East'
+            'East',
+            'Westfjords',
+            'Reykjavík',
+            'Reykjanes'
         ];
         this.types = [
             'Hotel',
-            'Guesthouse',
-            'Other'
+            //'Guesthouse',
+            'Apartment',
+            'Tour operator'
         ];
         this.errorMessage = '';
     }
@@ -46,7 +50,7 @@ export class AddCustomerComponent implements OnInit {
                         this.saveCustomer();
                     })
                     .catch(error => {
-                        this.errorService.handleError(error);
+                        this.errorService.handleMessage(error);
                     });
             } else {
                 this.saveCustomer();
@@ -57,12 +61,17 @@ export class AddCustomerComponent implements OnInit {
     private saveCustomer() {
         this.componentService.addCustomer(this.customer)
             .then(r => {
+                this.errorService.handleMessage({
+                    status: 200,
+                    title: 'Success',
+                    description: 'New resort customer created'
+                });
                 this.errorMessage = '';
                 this.createUser();
                 this.fileUpload.reset();
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
     }
 

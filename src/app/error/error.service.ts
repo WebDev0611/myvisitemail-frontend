@@ -1,44 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppError } from '../shared/models/common.models';
+import { AppMessage } from '../shared/models/common.models';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 
 @Injectable()
 export class ErrorService {
-    error: AppError;
+    message: AppMessage;
     constructor(private router: Router) { }
 
-    handleError(error: any | AppError) {
-        this.prepareError(error);
+    handleMessage(message: any | AppMessage) {
+        this.prepareMessage(message);
 
         this.logError();
 
-        this.router.navigateByUrl('error');
+        this.router.navigateByUrl('message');
     }
 
     logError() {
-        console.log('error', this.error);
+        console.log('message', this.message);
     }
 
-    private prepareError(error: any | AppError): void {
-        if (this.isAppError(error)) {
-            this.error = error;
+    private prepareMessage(message: any | AppMessage): void {
+        if (this.isAppMessage(message)) {
+            this.message = message;
             return;
         }
-        const appError = new AppError();
-        appError.status = error.status;
-        let err = error.error || error.message;
+        const appMessage = new AppMessage();
+        appMessage.status = message.status;
+        let err = message.error || message.message;
         if (err.message) {
             err = err.message;
         }
-        appError.description = err || err.message;
-        appError.title = error.statusText;
+        appMessage.description = err || err.message;
+        appMessage.title = message.statusText;
 
-        this.error = appError;
+        this.message = appMessage;
     }
 
-    private isAppError(error: any): error is AppError {
-        if (error instanceof AppError || error.title !== undefined) {
+    private isAppMessage(message: any): message is AppMessage {
+        if (message instanceof AppMessage || message.title !== undefined) {
             return true;
         }
         return false;

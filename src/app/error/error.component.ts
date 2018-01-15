@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorService } from './error.service';
-import { AppError } from '../shared/models/common.models';
+import { AppMessage } from '../shared/models/common.models';
 
 
 @Component({
@@ -9,12 +9,12 @@ import { AppError } from '../shared/models/common.models';
     styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit {
-    error: AppError;
+    error: AppMessage;
     constructor(private componentService: ErrorService) {
-        this.error = new AppError();
+        this.error = new AppMessage();
     }
 
     ngOnInit() {
-        this.error = this.componentService.error;
+        this.error = this.componentService.message;
     }
 }

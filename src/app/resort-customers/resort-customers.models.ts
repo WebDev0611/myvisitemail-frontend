@@ -51,6 +51,11 @@ export interface IDbTemplate {
     folder_id: string; // folder_id
 }
 
+export interface IMessageTemplate {
+    template: IDbTemplate,
+    subject: string
+}
+
 export class ResortCustomer implements IResortCustomer {
     _id: string;
     contact: ICustomerContact;

@@ -8,6 +8,12 @@
                             <div class="element-box">
                                 <fieldset class="form-group">
                                     <div class="form-group">
+                                        <label for="">Subject</label>
+                                        <input type="text" class="form-control" data-error="Please Email subject"
+                                               placeholder="Subject" required="required" [(ngModel)]="subject" name="name">
+                                        <div class="help-block form-text with-errors form-control-feedback"></div>
+                                    </div>
+                                    <div class="form-group">
                                         <textarea class="form-control" rows="20" [(ngModel)]="messageHTML" name="message"></textarea>
                                     </div>
                                 </fieldset>
