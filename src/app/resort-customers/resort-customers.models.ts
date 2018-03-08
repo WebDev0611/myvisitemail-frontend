@@ -42,6 +42,7 @@ export interface IResortCustomer {
 
 export interface ITemplateData {
     templateId: string;
+    subject: string;
     html: string;
 }
 

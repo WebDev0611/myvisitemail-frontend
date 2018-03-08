@@ -42,9 +42,11 @@ export class EmailFormComponent implements OnInit, OnDestroy {
                 this.resort[this.actionName] = {}
             } else  if (this.resort[this.actionName].html) {
                 this.messageHTML = this.resort[this.actionName].html;
+                this.subject = this.resort[this.actionName].subject || 'Newsletter subject';
             } else {
                 this.resort[this.actionName] = {
-                    html: ''
+                    html: '',
+                    subject: ''
                 }
             }
         }).catch(error => {
@@ -59,7 +61,8 @@ export class EmailFormComponent implements OnInit, OnDestroy {
     save() {
         this.resultMsg = '';
         this.resort[this.actionName].html = this.messageHTML;
-            this.componentService.updateResort(this.resort)
+        this.resort[this.actionName].subject = this.subject;
+        this.componentService.updateResort(this.resort)
             .then(result => {
                 this.router.navigateByUrl(`/resort-settings/${ this.resortId }`);
             })
