@@ -171,7 +171,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.filterReports(data);
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
     }
 
@@ -213,18 +213,15 @@ export class HomeComponent implements OnInit, OnDestroy {
                 case 'East':
                     this.east++;
                     break;
-            }
-
-            if (/reykjavik/i.test(data.contact.address)) {
-                this.reykjavik++;
-            }
-
-            if (/rejkjanes/i.test(data.contact.address)) {
-                this.rejkjanes++;
-            }
-
-            if (/westfjords/i.test(data.contact.address)) {
-                this.westfjords++;
+                case 'Reykjavík':
+                    this.reykjavik++;
+                    break;
+                case 'Reykjanes':
+                    this.rejkjanes++;
+                    break;
+                case 'Westfjords':
+                    this.westfjords++;
+                    break;
             }
         }
     }
@@ -245,7 +242,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.filterBookings(data.results);
             })
             .catch(err => {
-                this.errorService.handleError(err);
+                this.errorService.handleMessage(err);
             })
     }
 
@@ -255,14 +252,14 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.filterCustomers(data);
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
         this.customerService.getDeletedCustomer()
             .then(data => {
                 this.deletedCustomers = data.length;
             })
             .catch(error => {
-                this.errorService.handleError(error);
+                this.errorService.handleMessage(error);
             });
     };
 

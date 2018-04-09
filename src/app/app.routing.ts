@@ -16,7 +16,7 @@ import { ResortDetailsComponent } from './resort-customers/resort-details/resort
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-    { path: 'error', component: ErrorComponent },
+    { path: 'message', component: ErrorComponent },
     { path: 'lock', component: LockScreenComponent, canActivate: [LockGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },

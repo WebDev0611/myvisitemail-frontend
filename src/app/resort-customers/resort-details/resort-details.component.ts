@@ -8,7 +8,7 @@ import { ResortDetailsService } from './resort-details.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ResortCustomer } from '../resort-customers.models';
 import { ErrorService } from '../../error/error.service';
-import { AppError } from '../../shared/models/common.models';
+import { AppMessage } from '../../shared/models/common.models';
 
 @Component({
     selector: 'app-resort-details',
@@ -38,7 +38,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
             this.componentService.getResort(this.resortId)
                 .then(this.handleSuccess.bind(this))
-                .catch(error => this.errorService.handleError(error));
+                .catch(error => this.errorService.handleMessage(error));
 
         });
 
@@ -62,7 +62,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
             }
 
         } else {
-            this.errorService.handleError(new AppError(404, 'Customer Not Found',
+            this.errorService.handleMessage(new AppMessage(404, 'Customer Not Found',
             'Data for selected customer is corrupted or missing!'));
         }
     }
@@ -77,7 +77,7 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
                 this.prepareLitleLineChart();
                 this.prepareLineChart();
             })
-            .catch(error => this.errorService.handleError(error));
+            .catch(error => this.errorService.handleMessage(error));
     }
 
     private prepareLitleLineChart() {

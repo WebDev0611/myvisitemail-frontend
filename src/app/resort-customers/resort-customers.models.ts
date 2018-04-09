@@ -40,6 +40,23 @@ export interface IResortCustomer {
     backgroundId: string;
 }
 
+export interface ITemplateData {
+    templateId: string;
+    subject: string;
+    html: string;
+}
+
+export interface IDbTemplate {
+    name: string;
+    html: string;
+    folder_id: string; // folder_id
+}
+
+export interface IMessageTemplate {
+    template: IDbTemplate,
+    subject: string
+}
+
 export class ResortCustomer implements IResortCustomer {
     _id: string;
     contact: ICustomerContact;
@@ -51,6 +68,11 @@ export class ResortCustomer implements IResortCustomer {
     reports: IMailchimpReportData[];
     backgroundId: string;
     metadata: Metadata;
+    templateFolderId: string;
+    booked: ITemplateData;
+    'check-in': ITemplateData;
+    'check-out': ITemplateData;
+    cancellation: ITemplateData;
 
 
     constructor() {

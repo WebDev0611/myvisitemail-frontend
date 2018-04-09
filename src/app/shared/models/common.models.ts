@@ -1,4 +1,4 @@
-export class AppError {
+export class AppMessage {
     status: number;
     title: string;
     description: string;

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IEmailMessage } from './email-form/email-form.models';
-import { ResortCustomer } from '../resort-customers.models';
+import {ResortCustomer} from '../resort-customers.models';
 import { IMailchimpReportData } from '../../shared/models/mailchimp.models';
 
 @Injectable()
@@ -24,17 +24,13 @@ export class ResortDetailsService {
         });
     }
 
-    saveTemplate(action: string, mail: IEmailMessage): Promise<any> {
-        switch (action) {
-            case 'booked':
-                return this.saveBookedTemplate(mail);
-            case 'check-in':
-                return this.saveCheckInTemplate(mail);
-            case 'check-out':
-                return this.saveCheckOutTemplate(mail);
-            case 'cancellation':
-                return this.saveCancellationTemplate(mail);
-        }
+    updateResort(resort: ResortCustomer): Promise<any> {
+        delete resort.backgroundId;
+        return new Promise<any>((resolve, reject) => {
+            return this.http.put('resort-customer/' + resort._id, resort).toPromise() // todo: change to proper endpoint
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
     }
 
     saveBookedTemplate(mail: IEmailMessage): Promise<any> {
@@ -61,9 +57,33 @@ export class ResortDetailsService {
         });
     }
 
-    sendTestEmail(mail: IEmailMessage): Promise<any> {
+    sendTestEmail(mail: string[], templateData): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            resolve();
+            this.http.post('mailchimp/test', {
+                emails: mail,
+                templateData: templateData
+            }).toPromise() // todo: change to proper endpoint
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    console.error(error);
+                    reject(error)
+                });
+        });
+    }
+
+    clearCampaigns (templateId) {
+        return new Promise<any>((resolve, reject) => {
+            this.http.delete('mailchimp/test/' + templateId)
+                .toPromise() // todo: change to proper endpoint
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    console.error(error);
+                    reject(error)
+                });
         });
     }
 }
