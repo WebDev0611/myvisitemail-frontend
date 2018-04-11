@@ -98,6 +98,24 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="">Bokun access key</label>
+                                                <input type="text" class="form-control password-toggle" data-error="Please input your access key" placeholder="Access key" required="required"
+                                                       [(ngModel)]="customer.APIAccess.bokun.accessKey" name="access-key">
+                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for=""> Bokun secret key</label>
+                                                <input type="text" class="form-control password-toggle" data-error="Please input your secret key" placeholder="Secret key" required="required"
+                                                       [(ngModel)]="customer.APIAccess.bokun.secretKey" name="secret-key">
+                                                <div class="help-block form-text with-errors form-control-feedback"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </fieldset>
 
                                 <div class="form-buttons-w">
