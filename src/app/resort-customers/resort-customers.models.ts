@@ -31,6 +31,24 @@ export class Metadata {
     }
 }
 
+export class BokunAPIAccess {
+    public accessKey: string
+    public secretKey: string;
+
+    constructor() {
+        this.accessKey = '';
+        this.secretKey = '';
+    }
+}
+
+export class APIAccess {
+    public bokun: BokunAPIAccess;
+
+    constructor() {
+        this.bokun = new BokunAPIAccess();
+    }
+}
+
 export interface IResortCustomer {
     contact: ICustomerContact;
     type: string;
@@ -38,6 +56,7 @@ export interface IResortCustomer {
     rooms: number;
     invoice: number;
     backgroundId: string;
+    APIAccess: APIAccess;
 }
 
 export interface ITemplateData {
@@ -68,6 +87,7 @@ export class ResortCustomer implements IResortCustomer {
     reports: IMailchimpReportData[];
     backgroundId: string;
     metadata: Metadata;
+    APIAccess: APIAccess;
     templateFolderId: string;
     booked: ITemplateData;
     'check-in': ITemplateData;
@@ -85,6 +105,7 @@ export class ResortCustomer implements IResortCustomer {
         this.invoice = 0;
         this.reports = [];
         this.metadata = new Metadata();
+        this.APIAccess = new APIAccess();
     }
 
     public getPostObject(): IResortCustomer {
@@ -94,7 +115,8 @@ export class ResortCustomer implements IResortCustomer {
             area: this.area,
             rooms: this.rooms,
             invoice: this.invoice,
-            backgroundId: this.backgroundId
+            backgroundId: this.backgroundId,
+            APIAccess: this.APIAccess
         };
     }
 }
