@@ -64,7 +64,11 @@ export class EmailFormComponent implements OnInit, OnDestroy {
         this.resort[this.actionName].subject = this.subject;
         this.componentService.updateResort(this.resort)
             .then(result => {
-                this.router.navigateByUrl(`/resort-settings/${ this.resortId }`);
+                this.errorService.handleMessage({
+                    status: 200,
+                    title: 'Success',
+                    description: 'Resort has been updated'
+                });
             })
             .catch(error => {
                 this.errorService.handleMessage(error);
