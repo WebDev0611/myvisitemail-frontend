@@ -44,6 +44,25 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
 
     }
 
+    updateCustomer() {
+        console.log(this.resort);
+        this.componentService.updateResort(this.resort)
+            .then(r => {
+                this.errorService.handleMessage({
+                    status: 200,
+                    title: 'Success',
+                    description: 'The resort has been updated'
+                });
+            })
+            .catch(error => {
+                this.errorService.handleMessage(error);
+            });
+    }
+
+    checkTemplate (val, template) {
+        this.resort[template].toUse = val;
+    }
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
@@ -57,10 +76,11 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
     private handleSuccess(result: ResortCustomer) {
         if (result && result.contact && result.contact.name) {
             this.resort = result;
+            // this.resort.
             if (result.backgroundId) {
                this.resortStyle =  { 'background-image': 'url(' + result.backgroundId + ')' };
             }
-
+            this.setUsage();
         } else {
             this.errorService.handleMessage(new AppMessage(404, 'Customer Not Found',
             'Data for selected customer is corrupted or missing!'));
@@ -78,6 +98,17 @@ export class ResortDetailsComponent implements OnInit, OnDestroy {
                 this.prepareLineChart();
             })
             .catch(error => this.errorService.handleMessage(error));
+    }
+
+    private setUsage () {
+        if (!this.resort.booked.toUse)
+            this.resort.booked.toUse = false;
+        if (!this.resort['check-in'])
+            this.resort['check-in'].toUse = false;
+        if (!this.resort['check-out'].toUse)
+            this.resort['check-out'].toUse = false;
+        if (!this.resort.cancellation.toUse)
+            this.resort.cancellation.toUse = false;
     }
 
     private prepareLitleLineChart() {

@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   origin: 'http://localhost:4200/',
-  baseUrl: 'http://localhost:8000/',
+  baseUrl: 'http://localhost:8000/', //    http://194.181.46.30/mongo/
   bokunUrl: 'https://bokun.github.io/', // todo: set proper url
   mailChimpUrl: 'https://us6.api.mailchimp.com/3.0/' // todo: set proper url
 };

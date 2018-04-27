@@ -16,170 +16,179 @@
                             </g>
                         </svg>
                     </div>
-                    <div class="up-contents">
-                        <h5 class="element-header">
-                            User Information
-                        </h5>
-                        <div>
-                            <h6>Name : {{ resort.contact.name }}</h6>
-                            <h6>Email : {{ resort.contact.email }}</h6>
-                            <h6>Phone : {{ resort.contact.phone }}</h6>
-                        </div>
-                        <!--<div style="padding:20px 20px">This is just a dummy line. There has to be something related to below checkboxes. Please tick below.This-->
-                            <!--is just a dummy line.This is just a dummy line.This is just a dummy line.</div>-->
-                        <div>
+                    <form #detailsForm="ngForm" (ngSubmit)="updateCustomer()">
+                        <div class="up-contents">
+                            <h5 class="element-header">
+                                User Information
+                            </h5>
+                            <div>
+                                <h6>Name : {{ resort.contact.name }}</h6>
+                                <h6>Email : {{ resort.contact.email }}</h6>
+                                <h6>Phone : {{ resort.contact.phone }}</h6>
+                            </div>
+                            <!--<div style="padding:20px 20px">This is just a dummy line. There has to be something related to below checkboxes. Please tick below.This-->
+                                <!--is just a dummy line.This is just a dummy line.This is just a dummy line.</div>-->
+                            <div>
 
-                            <div>
-                                <label class="form-check-label">
-                                    <input type="checkbox" id="asap" class="form-check-input">
-                                    <a routerLink="/resort-details/booked/{{resortId}}">
-                                        <h6>When Booked</h6>
-                                    </a>
-                                </label>
+                                <div>
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="booked" [(ngModel)]="resort.booked.toUse"
+                                           (change)="checkTemplate(resort.booked.toUse, 'booked')" class="form-check-input">
+                                        <a routerLink="/resort-details/booked/{{resortId}}">
+                                            <h6>When Booked</h6>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="check-in" [(ngModel)]="resort['check-in'].toUse"
+                                           (change)="checkTemplate(resort['check-in'].toUse, 'check-in')" class="form-check-input">
+                                        <a routerLink="/resort-details/check-in/{{resortId}}">
+                                            <h6>3 days before Check In</h6>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="check-out" [(ngModel)]="resort['check-out'].toUse"
+                                           (change)="checkTemplate(resort['check-out'].toUse, 'check-out')" class="form-check-input">
+                                        <a routerLink="/resort-details/check-out/{{resortId}}">
+                                            <h6>3 days after Check Out</h6>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="cancellation" [(ngModel)]="resort.cancellation.toUse"
+                                           (change)="checkTemplate(resort.cancellation.toUse, 'cancellation')" class="form-check-input">
+                                        <a routerLink="/resort-details/cancellation/{{resortId}}">
+                                            <h6>Cancellation</h6>
+                                        </a>
+                                    </label>
+                                </div>
                             </div>
-                            <div>
-                                <label class="form-check-label">
-                                    <input type="checkbox" id="asap" class="form-check-input">
-                                    <a routerLink="/resort-details/check-in/{{resortId}}">
-                                        <h6>3 days before Check In</h6>
-                                    </a>
-                                </label>
-                            </div>
-                            <div>
-                                <label class="form-check-label">
-                                    <input type="checkbox" id="asap" class="form-check-input">
-                                    <a routerLink="/resort-details/check-out/{{resortId}}">
-                                        <h6>3 days after Check Out</h6>
-                                    </a>
-                                </label>
-                            </div>
-                            <div>
-                                <label class="form-check-label">
-                                    <input type="checkbox" id="asap" class="form-check-input">
-                                    <a routerLink="/resort-details/cancellation/{{resortId}}">
-                                        <h6>Cancellation</h6>
-                                    </a>
-                                </label>
+                            <div class="form-buttons-w">
+                                <button class="btn btn-primary" type="submit">Save</button>
                             </div>
                         </div>
-                    </div>
-                    <!-- <div class="up-contents">
-                        <h5 class="element-header">
-                            Profile Statistics
-                        </h5>
-                        <div class="row m-b">
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <div class="col-sm-6 b-r b-b">
-                                        <div class="el-tablo centered padded">
-                                            <div class="value">
-                                                {{ resort.emailsSent }}
+                        <!-- <div class="up-contents">
+                            <h5 class="element-header">
+                                Profile Statistics
+                            </h5>
+                            <div class="row m-b">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-sm-6 b-r b-b">
+                                            <div class="el-tablo centered padded">
+                                                <div class="value">
+                                                    {{ resort.emailsSent }}
+                                                </div>
+                                                <div class="label">
+                                                    E-mails Sent
+                                                </div>
                                             </div>
-                                            <div class="label">
-                                                E-mails Sent
+                                        </div>
+                                        <div class="col-sm-6 b-b b-r">
+                                            <div class="el-tablo centered padded">
+                                                <div class="value">
+                                                    {{ resort.emailsOpened }}
+                                                </div>
+                                                <div class="label">
+                                                    Opened E-mails
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 b-b b-r">
-                                        <div class="el-tablo centered padded">
-                                            <div class="value">
-                                                {{ resort.emailsOpened }}
+                                    <div class="row">
+                                        <div class="col-sm-6 b-r">
+                                            <div class="el-tablo centered padded">
+                                                <div class="value">
+                                                    {{ resort.bounceRate | percent }}
+                                                </div>
+                                                <div class="label">
+                                                    Bounce Rate
+                                                </div>
                                             </div>
-                                            <div class="label">
-                                                Opened E-mails
+                                        </div>
+                                        <div class="col-sm-6 b-r">
+                                            <div class="el-tablo centered padded">
+                                                <div class="value">
+                                                    {{ resort.cancellations }}
+                                                </div>
+                                                <div class="label">
+                                                    Cancellations
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6 b-r">
-                                        <div class="el-tablo centered padded">
-                                            <div class="value">
-                                                {{ resort.bounceRate | percent }}
+                                <div class="col-lg-6">
+                                    <div class="padded">
+                                        <div class="element-info-with-icon smaller">
+                                            <div class="element-info-icon">
+                                                <div class="os-icon os-icon-bar-chart-stats-up"></div>
                                             </div>
+                                            <div class="element-info-text">
+                                                <h5 class="element-inner-header">
+                                                    Monthly E-mails
+                                                </h5>
+                                                <div class="element-inner-desc">
+                                                    Calculated every month
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="el-chart-w">
+                                            <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                                            <canvas height="200" id="liteLineChart" width="463" style="display: block; width: 463px; height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="os-tabs-w">
+                                <div class="os-tabs-controls">
+                                    <ul class="nav nav-tabs bigger">
+                                        <li class="nav-item">
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-pills smaller hidden-sm-down">
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(1)"
+                                            [class.active]="chartTimespan === 1">Today</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(7)"
+                                            [class.active]="chartTimespan === 7">7 Days</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(14)"
+                                            [class.active]="chartTimespan === 14">14 Days</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(0)"
+                                            [class.active]="chartTimespan === 0">Last Month</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_sales">
+                                        <div class="el-tablo">
                                             <div class="label">
-                                                Bounce Rate
+                                                Last Week
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 b-r">
-                                        <div class="el-tablo centered padded">
                                             <div class="value">
-                                                {{ resort.cancellations }}
-                                            </div>
-                                            <div class="label">
-                                                Cancellations
+                                                {{ resort.lastWeek }}
                                             </div>
                                         </div>
+                                        <div class="el-chart-w">
+                                            <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                                            <canvas height="271" id="lineChart" width="1084" style="display: block; width: 1084px; height: 271px;"></canvas>
+                                        </div>
                                     </div>
+                                    <div class="tab-pane" id="tab_conversion"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="padded">
-                                    <div class="element-info-with-icon smaller">
-                                        <div class="element-info-icon">
-                                            <div class="os-icon os-icon-bar-chart-stats-up"></div>
-                                        </div>
-                                        <div class="element-info-text">
-                                            <h5 class="element-inner-header">
-                                                Monthly E-mails
-                                            </h5>
-                                            <div class="element-inner-desc">
-                                                Calculated every month
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="el-chart-w">
-                                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                                        <canvas height="200" id="liteLineChart" width="463" style="display: block; width: 463px; height: 200px;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="os-tabs-w">
-                            <div class="os-tabs-controls">
-                                <ul class="nav nav-tabs bigger">
-                                    <li class="nav-item">
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-pills smaller hidden-sm-down">
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(1)"
-                                        [class.active]="chartTimespan === 1">Today</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(7)"
-                                        [class.active]="chartTimespan === 7">7 Days</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(14)"
-                                        [class.active]="chartTimespan === 14">14 Days</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" (click)="changeChartTimespan(0)"
-                                        [class.active]="chartTimespan === 0">Last Month</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab_sales">
-                                    <div class="el-tablo">
-                                        <div class="label">
-                                            Last Week
-                                        </div>
-                                        <div class="value">
-                                            {{ resort.lastWeek }}
-                                        </div>
-                                    </div>
-                                    <div class="el-chart-w">
-                                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                                        <canvas height="271" id="lineChart" width="1084" style="display: block; width: 1084px; height: 271px;"></canvas>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="tab_conversion"></div>
-                            </div>
-                        </div>
-                    </div> -->
+                        </div> -->
+                    </form>
                 </div>
             </div>
         </div>

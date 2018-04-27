@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ResortDetailsComponent } from './resort-details.component';
@@ -15,7 +16,8 @@ import { CommonModule } from '@angular/common';
         CommonModule,
         RouterModule,
         SharedModule,
-        EmailFormModule
+        EmailFormModule,
+        FormsModule
     ],
     providers: [
         ResortDetailsService
