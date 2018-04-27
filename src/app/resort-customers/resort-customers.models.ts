@@ -63,6 +63,7 @@ export interface ITemplateData {
     templateId: string;
     subject: string;
     html: string;
+    toUse: boolean;
 }
 
 export interface IDbTemplate {
@@ -106,6 +107,10 @@ export class ResortCustomer implements IResortCustomer {
         this.reports = [];
         this.metadata = new Metadata();
         this.APIAccess = new APIAccess();
+        this.booked = <ITemplateData> {toUse: false};
+        this['check-in'] = <ITemplateData> {toUse: false};
+        this['check-out'] = <ITemplateData> {toUse: false};
+        this.cancellation = <ITemplateData> {toUse: false};
     }
 
     public getPostObject(): IResortCustomer {
